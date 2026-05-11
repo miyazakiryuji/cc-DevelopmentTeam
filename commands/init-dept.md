@@ -15,9 +15,19 @@ description: cc-DevelopmentTeam プラグインを使い始めるためにプロ
 ユーザーの回答を待ち、その回答を `$PROJECT_TYPE` として保持してください（"Web" または "Mobile"）。
 回答が CLI / ライブラリ / その他で迷う場合は「**どちらに近いですか?**」と確認し、近い方を選んでもらってください。
 
-## 2. 仕様書ディレクトリ
+## 2. 仕様書ディレクトリとアプリ構想ディレクトリ
 
-`docs/specs/` ディレクトリを作成する（既に存在する場合はスキップ）。
+以下のディレクトリを作成する（既に存在する場合はスキップ）:
+
+- `docs/specs/`（個別機能の仕様書置き場）
+- `docs/vision/`（アプリ構想の vision.md / roadmap.md 置き場）
+
+そのうえで、プラグイン同梱のテンプレートを以下にコピーする。**既存ファイルがある場合は上書きしない**:
+
+- プラグインの `templates/spec-template.md` → プロジェクトの `docs/specs/_template.md` にコピー
+- プラグインの `templates/vision-template.md` → プロジェクトの `docs/vision/_vision-template.md` にコピー
+
+プラグインのテンプレートは、`${CLAUDE_PLUGIN_ROOT}/templates/` 配下を参照するか、もし `CLAUDE_PLUGIN_ROOT` が解決できない場合はプラグインがインストールされているディレクトリの `templates/` を直接読んで内容を `Write` ツールでプロジェクト側に書き出してください（プラグイン側のファイルを移動・改変しないこと）。
 
 ## 3. プロジェクトルート CLAUDE.md
 
@@ -32,6 +42,7 @@ description: cc-DevelopmentTeam プラグインを使い始めるためにプロ
 このプロジェクトは設計/開発/レビュー/テストの4部署体制で運用します。
 
 - 設計先行: `/cc-development-team:feature <name>`
+- アプリ構想から始める: `/cc-development-team:feature`（引数なしで起動）
 - 開発先行（back-fill 付き）: `/cc-development-team:develop <name>`
 - 整合性チェック: `/cc-development-team:sync-spec`
 
