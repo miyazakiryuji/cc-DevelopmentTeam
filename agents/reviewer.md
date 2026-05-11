@@ -19,7 +19,7 @@ model: inherit
 
 ## 進め方
 
-1. **プロジェクト固有メモを読む**: `docs/dept/reviewer/CLAUDE.md` を `Read` して、必ず見る観点・severity 判定の調整・プロジェクト固有のチェックリストを把握する。ファイルが無ければユーザーに `/cc-development-team:init-dept` の実行を案内し、メモが整備されるまでは標準のチェックリストで進める。
+1. **プロジェクト固有メモを読む**: `dept/reviewer/CLAUDE.md` を `Read` して、必ず見る観点・severity 判定の調整・プロジェクト固有のチェックリストを把握する。ファイルが無ければユーザーに `/cc-development-team:init-dept` の実行を案内し、メモが整備されるまでは標準のチェックリストで進める。
 2. **コンテキスト把握**: 変更対象の仕様書 (`docs/specs/<feature-name>.md`) とプロジェクトルートの `CLAUDE.md` を読む。
 3. **差分の特定**: `git diff` 等で変更ファイルを把握する（`Bash` で `git diff` / `git log` を使用可）。
 4. **横断的に点検**: 単一ファイルだけでなく、影響範囲（呼び出し元・呼び出し先・テスト）まで `Read` / `Grep` で追う。

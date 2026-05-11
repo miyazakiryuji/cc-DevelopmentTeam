@@ -25,13 +25,21 @@ description: cc-DevelopmentTeam プラグインを使い始めるためにプロ
 仕様書は `docs/specs/<feature-name>.md` に集約します。
 設計部署を通さずに実装した場合は、`/cc-development-team:develop` フローの末尾で必ず仕様書が逆同期されます。
 
-部署ごとのプロジェクト固有メモは `docs/dept/<部署名>/CLAUDE.md` に置きます。
-各サブエージェントは起動時に自分の CLAUDE.md を読みます。
+部署ごとのプロジェクト固有メモは以下に置きます。各サブエージェントは起動時に自分の CLAUDE.md を読みます。
+
+- 設計部署: `docs/dept/architect/CLAUDE.md`（ドキュメント側）
+- 開発部署: `dept/developer/CLAUDE.md`（実作業側）
+- レビュー部署: `dept/reviewer/CLAUDE.md`（実作業側）
+- テスト部署: `dept/tester/CLAUDE.md`（実作業側）
 ```
 
 ## 3. 部署別 CLAUDE.md（4 ファイル）
 
 以下のディレクトリとファイルを作成する。**既に存在するファイルは上書きしない**（ユーザーが書き込んだ内容を尊重する）。
+
+設計部署 (`architect`) のメモは **ドキュメント系**として `docs/dept/` 配下に置き、
+実作業を行う開発/レビュー/テストの 3 部署は **コードや実作業に近い場所**として
+プロジェクトルート直下の `dept/` 配下に置く方針です。
 
 ### 3-1. `docs/dept/architect/CLAUDE.md`
 
@@ -58,7 +66,7 @@ description: cc-DevelopmentTeam プラグインを使い始めるためにプロ
 - 過去に下した重要な設計判断と、その理由（後追いで意思決定を見直すための記録）
 ```
 
-### 3-2. `docs/dept/developer/CLAUDE.md`
+### 3-2. `dept/developer/CLAUDE.md`
 
 ```markdown
 # developer 部署 — プロジェクト固有メモ
@@ -87,7 +95,7 @@ description: cc-DevelopmentTeam プラグインを使い始めるためにプロ
 - 利用禁止のライブラリがあれば明記
 ```
 
-### 3-3. `docs/dept/reviewer/CLAUDE.md`
+### 3-3. `dept/reviewer/CLAUDE.md`
 
 ```markdown
 # reviewer 部署 — プロジェクト固有メモ
@@ -112,7 +120,7 @@ description: cc-DevelopmentTeam プラグインを使い始めるためにプロ
 - 標準チェックリスト（agents/reviewer.md 側）に加えて、このプロジェクトで必ず確認したい項目
 ```
 
-### 3-4. `docs/dept/tester/CLAUDE.md`
+### 3-4. `dept/tester/CLAUDE.md`
 
 ```markdown
 # tester 部署 — プロジェクト固有メモ
