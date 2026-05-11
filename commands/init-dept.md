@@ -128,12 +128,20 @@ description: cc-DevelopmentTeam プラグインを使い始めるためにプロ
 
 **プロジェクト種別:** <種別>
 
-このプロジェクトは設計/開発/レビュー/テストの4部署体制で運用します。
+このプロジェクトは設計/開発/レビュー/テストの4部署 + セキュリティ専門アドバイザー の体制で運用します。
 
-- 設計（仕様書作成）: `/cc-development-team:design <name>`
-- アプリ構想から始める: `/cc-development-team:design`（引数なしで起動）
-- 開発先行（back-fill 付き）: `/cc-development-team:develop <name>`
-- 整合性チェック: `/cc-development-team:sync-spec`
+### 主要コマンド
+
+- 何から始めればいいか分からない: `/cc-development-team:guide`（迷ったらこれ）
+- アプリ案を相談: `/cc-development-team:brainstorm`
+- 仕様書を作成 / 更新: `/cc-development-team:design [name]`
+- 開発（develop モード）: `/cc-development-team:develop [name]`
+- リファクタ専用: `/cc-development-team:refactor [対象]`
+- 現状確認ダッシュボード: `/cc-development-team:status`
+- リリース前総合チェック: `/cc-development-team:release-check`
+- セキュリティ点検: `/cc-development-team:security-review [name]`
+- 仕様書とコードの整合性: `/cc-development-team:sync-spec [name]`
+- プラグイン更新手順: `/cc-development-team:update`
 
 仕様書は `docs/specs/<feature-name>.md` に集約します。
 設計部署を通さずに実装した場合は、`/cc-development-team:develop` フローの末尾で必ず仕様書が逆同期されます。

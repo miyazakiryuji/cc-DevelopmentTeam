@@ -1,7 +1,7 @@
 {
   "name": "cc-development-team",
   "version": "0.1.0",
-  "description": "設計/開発/レビュー/テストの4部署フローを Claude Code に導入するプラグイン",
+  "description": "個人開発を「設計/開発/レビュー/テスト + セキュリティ」の 5 部署体制で運用するプラグイン。brainstorm/design/develop/refactor/release-check 等の対話型コマンドで仕様書・実装・テスト・手動タスクを一元管理する",
   "author": {
     "name": "miyazakiryuji",
     "url": "https://github.com/miyazakiryuji"

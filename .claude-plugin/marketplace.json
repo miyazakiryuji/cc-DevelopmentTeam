@@ -5,14 +5,14 @@
     "url": "https://github.com/miyazakiryuji"
   },
   "metadata": {
-    "description": "設計/開発/レビュー/テストの4部署フロー (cc-development-team) を配布する単一プラグイン用マーケットプレース",
+    "description": "個人開発向け 5 部署体制プラグイン (cc-development-team) を配布する単一プラグイン用マーケットプレース",
     "version": "0.1.0"
   },
   "plugins": [
     {
       "name": "cc-development-team",
       "source": "./",
-      "description": "設計/開発/レビュー/テストの4部署フローを Claude Code に導入するプラグイン",
+      "description": "個人開発を「設計/開発/レビュー/テスト + セキュリティ」の 5 部署体制で運用するプラグイン。対話型コマンドで仕様書・実装・テスト・手動タスクを一元管理する",
       "version": "0.1.0",
       "author": {
         "name": "miyazakiryuji",
