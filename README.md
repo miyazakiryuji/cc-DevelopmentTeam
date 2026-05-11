@@ -118,20 +118,29 @@ GitHub に公開済みの場合:
 ## ディレクトリ規約
 
 仕様書は **必ず** `docs/specs/<feature-name>.md` に集約します。
+各部署のプロジェクト固有メモは `docs/dept/<部署名>/CLAUDE.md` に置き、サブエージェントが起動時に自動で読み込みます。
 
 ```
 your-project/
-├── CLAUDE.md
+├── CLAUDE.md                       # プロジェクト共通ルール（全部署が読む）
 ├── docs/
-│   └── specs/
-│       ├── login-flow.md
-│       ├── invoice-export.md
-│       └── ...
+│   ├── specs/                      # 仕様書（feature 単位）
+│   │   ├── login-flow.md
+│   │   ├── invoice-export.md
+│   │   └── ...
+│   └── dept/                       # 部署別のプロジェクト固有メモ
+│       ├── architect/CLAUDE.md     # 設計方針・ドメイン用語集
+│       ├── developer/CLAUDE.md     # コーディング規約・ビルドコマンド
+│       ├── reviewer/CLAUDE.md      # レビュー観点・severity 判定基準
+│       └── tester/CLAUDE.md        # テスト戦略・実行コマンド・モック方針
 └── src/
     └── ...
 ```
 
 `<feature-name>` は kebab-case を推奨します（例: `login-flow`, `invoice-export`）。
+
+`/cc-development-team:init-dept` を一度実行すると、上記の `docs/specs/` と `docs/dept/<部署>/CLAUDE.md` 4 枚のテンプレが生成されます。
+各テンプレを埋めるほど、サブエージェントの判断精度が上がります（埋めなくても標準動作はします）。
 
 ## ライセンス
 
