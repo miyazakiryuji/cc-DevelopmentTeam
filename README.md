@@ -117,6 +117,37 @@ my-first-app/
 
 ---
 
+## プラグインの更新方法
+
+GitHub 側のプラグイン本体に更新が入った場合、**インストール済みのプラグインは自動更新されません**。手元で最新版を反映するには以下を実行してください。
+
+```
+# 1. マーケットプレース情報を最新化
+/plugin marketplace update cc-development-team
+```
+
+```
+# 2. プラグイン本体を更新
+/plugin update cc-development-team@cc-development-team
+```
+
+更新後、コマンド定義の再読み込みのために **Claude Code を再起動** すると確実です（`Ctrl+D` で抜けて `claude` で起動し直す）。
+
+### 更新が反映されたか確認
+
+`/plugin list` で表示されるバージョンが GitHub 側 (`plugin.json` の `version`) と一致していれば更新成功です。
+
+### それでも反映されない場合
+
+一度アンインストールして再インストールしてください:
+
+```
+/plugin uninstall cc-development-team
+/plugin install cc-development-team@cc-development-team
+```
+
+---
+
 ## コマンドの使い分け早見表
 
 | やりたいこと | 使うコマンド | どんなとき? |
@@ -274,10 +305,11 @@ your-project/
 - GitHub にアクセスできる環境か確認してください（社内ネットワーク等で制限されている場合あり）
 - リポジトリ名のスペルミスを確認 (`miyazakiryuji/cc-DevelopmentTeam`)
 
-### `/cc-development-team:init-dept` を実行しても何も起きない
+### `/cc-development-team:init-dept` を実行しても何も起きない / 古い挙動のまま
 
 - プラグインが正しくインストールされているか `/plugin list` で確認してください
-- Claude Code を再起動してみてください
+- 「プラグインの更新方法」のセクションを参照し、`/plugin marketplace update` と `/plugin update` を実行してください
+- Claude Code を再起動してみてください（更新後は再起動推奨）
 
 ### サブエージェントが期待通りに動かない
 
