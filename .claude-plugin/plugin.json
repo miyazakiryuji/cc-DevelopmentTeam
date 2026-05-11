@@ -1,0 +1,12 @@
+{
+  "name": "cc-development-team",
+  "version": "0.1.0",
+  "description": "設計/開発/レビュー/テストの4部署フローを Claude Code に導入するプラグイン",
+  "author": {
+    "name": "miyazakiryuji",
+    "url": "https://github.com/miyazakiryuji"
+  },
+  "repository": "https://github.com/miyazakiryuji/cc-DevelopmentTeam",
+  "license": "MIT",
+  "keywords": ["workflow", "subagents", "team", "spec-driven", "review", "japanese"]
+}
