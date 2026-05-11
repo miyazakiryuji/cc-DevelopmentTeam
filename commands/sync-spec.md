@@ -12,7 +12,7 @@ argument-hint: [feature-name(省略時は全件)]
 
 ## 手順
 
-1. **対象仕様書を列挙**: 上記ルールに従って対象ファイルを Glob で取得する。1件も無ければ「仕様書が見つかりません。`/cc-development-team:feature` または `/cc-development-team:develop` を先に実行してください」と案内して終了する。
+1. **対象仕様書を列挙**: 上記ルールに従って対象ファイルを Glob で取得する。1件も無ければ「仕様書が見つかりません。`/cc-development-team:design` または `/cc-development-team:develop` を先に実行してください」と案内して終了する。
 
 2. **各仕様書について以下を実施**:
 

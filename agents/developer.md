@@ -1,6 +1,6 @@
 ---
 name: developer
-description: `docs/specs/<feature-name>.md` の仕様書に基づき実装を担当する開発部署。コード追加・修正・リファクタを行う。`/cc-development-team:feature` の実装フェーズや `/cc-development-team:develop` から呼び出される。設計部署を介さず先に実装した場合は、完了時に back-fill 用の情報を残すこと。
+description: `docs/specs/<feature-name>.md` の仕様書に基づき実装を担当する開発部署。コード追加・修正・リファクタを行う。`/cc-development-team:develop` から、またはユーザーが `/cc-development-team:design` で作成した仕様書をもとに明示的に呼び出して使用する。設計部署を介さず先に実装した場合は、完了時に back-fill 用の情報を残すこと。
 tools: Read, Grep, Glob, Write, Edit, Bash
 model: inherit
 ---

@@ -41,8 +41,8 @@ description: cc-DevelopmentTeam プラグインを使い始めるためにプロ
 
 このプロジェクトは設計/開発/レビュー/テストの4部署体制で運用します。
 
-- 設計先行: `/cc-development-team:feature <name>`
-- アプリ構想から始める: `/cc-development-team:feature`（引数なしで起動）
+- 設計（仕様書作成）: `/cc-development-team:design <name>`
+- アプリ構想から始める: `/cc-development-team:design`（引数なしで起動）
 - 開発先行（back-fill 付き）: `/cc-development-team:develop <name>`
 - 整合性チェック: `/cc-development-team:sync-spec`
 
@@ -415,7 +415,7 @@ Mobile 開発のテスト戦略をここに書いてください。
 
 - 選択された `$PROJECT_TYPE` (Web / Mobile)
 - 作成/更新したファイル一覧
-- `/cc-development-team:feature <name>` で設計先行フロー
+- `/cc-development-team:design <name>` で設計フローを起動（仕様書のみ作成・実装は別途）
 - `/cc-development-team:develop <name>` で開発先行フロー（back-fill 付き）
 - `/cc-development-team:sync-spec [name]` で整合性チェック
 - 部署別の CLAUDE.md を埋めるとサブエージェントの精度が上がる旨を一言伝える
