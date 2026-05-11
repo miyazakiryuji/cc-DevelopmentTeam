@@ -26,11 +26,17 @@ claude --plugin-dir /path/to/cc-DevelopmentTeam
 
 ### GitHub 経由
 
-GitHub に公開済みの場合:
+GitHub に公開済みの場合、2 ステップでインストールします:
 
 ```
+# 1. このリポジトリをマーケットプレースとして登録
 /plugin marketplace add miyazakiryuji/cc-DevelopmentTeam
+
+# 2. プラグイン本体をインストール
+/plugin install cc-development-team@cc-development-team
 ```
+
+（マーケットプレース名・プラグイン名ともに `cc-development-team` です）
 
 ## 使い方
 

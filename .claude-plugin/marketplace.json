@@ -1,0 +1,25 @@
+{
+  "name": "cc-development-team",
+  "owner": {
+    "name": "miyazakiryuji",
+    "url": "https://github.com/miyazakiryuji"
+  },
+  "metadata": {
+    "description": "設計/開発/レビュー/テストの4部署フロー (cc-development-team) を配布する単一プラグイン用マーケットプレース",
+    "version": "0.1.0"
+  },
+  "plugins": [
+    {
+      "name": "cc-development-team",
+      "source": "./",
+      "description": "設計/開発/レビュー/テストの4部署フローを Claude Code に導入するプラグイン",
+      "version": "0.1.0",
+      "author": {
+        "name": "miyazakiryuji",
+        "url": "https://github.com/miyazakiryuji"
+      },
+      "category": "workflow",
+      "tags": ["workflow", "subagents", "team", "spec-driven", "review", "japanese"]
+    }
+  ]
+}
