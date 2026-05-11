@@ -374,6 +374,17 @@ A. メインの方を選んでください（例: モバイルアプリがメイ
 
 A. プロジェクトの `docs/specs/<機能名>.md` に「1 機能 = 1 ファイル」で保存されます。Git で管理すればチーム共有もできます。
 
+### Q. Firebase や Supabase の設定など、人間が UI で操作しないと進まない作業はどうなる?
+
+A. **自動でタスク化されます**。
+
+- `architect`（設計時）か `developer`（実装時）が外部サービス設定の必要に気付くと、`docs/manual-tasks/<feature-name>.md` に「手順」「完了の確認方法」「ブロッカー」付きで書き出します
+- 仕様書 `docs/specs/<feature-name>.md` からその手動タスクファイルへのリンクが貼られます
+- 関連するソースコードには `// TODO(manual): docs/manual-tasks/<feature-name>.md#xxx — 未完了内容` というコメントが残ります
+- develop モードの完了報告では、未完了の手動タスク件数が必ず明示されます
+
+つまり「Firebase 設定し忘れて動かない」事故を防げる仕組みです。タスク完了後は、ファイル内ステータスを `☑ 完了` に書き換えて、コード側の `TODO(manual)` を消すだけです。
+
 ### Q. 間違って消しちゃったら?
 
 A. プラグイン自体は GitHub から再インストールできます。プロジェクト内のファイルは Git でコミットしておけば戻せます。
@@ -393,6 +404,12 @@ your-project/
 │   ├── specs/                      # 仕様書（機能ごとに1ファイル）
 │   │   ├── login-flow.md
 │   │   ├── invoice-export.md
+│   │   └── ...
+│   ├── vision/                     # アプリ構想（design モード A の成果物）
+│   │   ├── vision.md
+│   │   └── roadmap.md
+│   ├── manual-tasks/               # 人間が UI 操作するタスクの管理
+│   │   ├── login-flow.md           # 例: Firebase / OAuth 設定など
 │   │   └── ...
 │   └── dept/
 │       └── architect/CLAUDE.md     # 設計部署メモ（設計方針・ドメイン用語集）

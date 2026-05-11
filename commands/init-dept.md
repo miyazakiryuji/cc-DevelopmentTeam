@@ -65,6 +65,9 @@ description: cc-DevelopmentTeam プラグインを使い始めるためにプロ
   未来の自分が泣いて喜びます。
 - 各部署のプロジェクト固有メモは docs/dept/architect/CLAUDE.md と dept/{developer,reviewer,tester}/CLAUDE.md
   に置かれます。初期テンプレが入るだけなので、慣れてきたら埋めるとサブエージェントの精度が上がります(空でも動きます)。
+- 開発中に「Firebase の設定」「OAuth クライアント登録」など **人間が UI で操作しないと進まないタスク** が出てきたら、
+  docs/manual-tasks/<feature-name>.md に自動でまとめられます。仕様書からもリンクされ、関連コードには
+  // TODO(manual): ... のコメントが残るので、何を手で設定すべきか後から追えます。
 - develop モードから抜けたい時は「終了」「exit」「終わり」のどれかを伝えてください。脱出口は常にあります。
 - 詳しい使い方や FAQ は README をご覧ください。
 
@@ -87,17 +90,19 @@ description: cc-DevelopmentTeam プラグインを使い始めるためにプロ
 ユーザーの回答を待ち、その回答を `$PROJECT_TYPE` として保持してください（"Web" または "Mobile"）。
 回答が CLI / ライブラリ / その他で迷う場合は「**どちらに近いですか?**」と確認し、近い方を選んでもらってください。
 
-## 2. 仕様書ディレクトリとアプリ構想ディレクトリ
+## 2. 仕様書ディレクトリ・アプリ構想ディレクトリ・手動タスクディレクトリ
 
 以下のディレクトリを作成する（既に存在する場合はスキップ）:
 
 - `docs/specs/`（個別機能の仕様書置き場）
 - `docs/vision/`（アプリ構想の vision.md / roadmap.md 置き場）
+- `docs/manual-tasks/`（人間が UI 等で操作する必要のあるタスクの管理置き場）
 
 そのうえで、プラグイン同梱のテンプレートを以下にコピーする。**既存ファイルがある場合は上書きしない**:
 
 - プラグインの `templates/spec-template.md` → プロジェクトの `docs/specs/_template.md` にコピー
 - プラグインの `templates/vision-template.md` → プロジェクトの `docs/vision/_vision-template.md` にコピー
+- プラグインの `templates/manual-tasks-template.md` → プロジェクトの `docs/manual-tasks/_template.md` にコピー
 
 プラグインのテンプレートは、`${CLAUDE_PLUGIN_ROOT}/templates/` 配下を参照するか、もし `CLAUDE_PLUGIN_ROOT` が解決できない場合はプラグインがインストールされているディレクトリの `templates/` を直接読んで内容を `Write` ツールでプロジェクト側に書き出してください（プラグイン側のファイルを移動・改変しないこと）。
 

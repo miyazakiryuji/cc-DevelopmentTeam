@@ -268,6 +268,24 @@ Large のときの出力例:
 
 曖昧表現（「ちゃんと動く」「適切に処理する」）禁止。
 
+#### B-3-extra: 手動操作タスクの抽出（必要時のみ）
+
+ヒアリング・仕様策定の過程で **「人間が UI などで外部サービスを設定しないと完成しない」項目** が見つかったら、以下を実施する:
+
+該当例:
+- Firebase / Supabase などの BaaS プロジェクト作成
+- OAuth プロバイダ (Google / GitHub / LINE 等) のクライアント ID 発行
+- ドメイン取得・DNS 設定
+- App Store Connect / Google Play Console の準備
+- API キー登録、課金設定、証明書発行 等
+
+手順:
+1. `docs/manual-tasks/<feature-name>.md` を `docs/manual-tasks/_template.md` の章立てに従って作成（既存があれば追記）
+2. 各タスクに「カテゴリ」「ステータス (作成時点では未着手)」「手順」「完了の確認方法」「ブロッカー」を埋める
+3. 作成した仕様書 `docs/specs/<feature-name>.md` の「手動操作タスク」セクションから、この手動タスクファイルへリンクを張る
+
+手動タスクが **無い場合** は、仕様書側の「手動操作タスク」セクションに「無し」と書いて、`docs/manual-tasks/<feature-name>.md` は作らなくてよい。
+
 ### B-4: 確認 → 確定
 
 ```

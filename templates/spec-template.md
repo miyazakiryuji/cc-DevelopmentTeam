@@ -72,6 +72,18 @@ docs/specs/<feature-name>.md として書き出されます。
 ### 触らないファイル / 機能
 - <注意点>
 
+## 手動操作タスク（外部サービス設定など）
+
+<!--
+人間が UI で操作する必要のあるタスク（Firebase / Supabase / OAuth プロバイダ / DNS 等）が
+あれば docs/manual-tasks/<feature-name>.md にまとめて、ここからリンクする。
+無ければ「無し」と書いておく。
+-->
+
+**関連手動タスク:** [docs/manual-tasks/&lt;feature-name&gt;.md](../manual-tasks/<feature-name>.md)
+
+無ければ「無し」と記載。
+
 ## 範囲外
 
 <!-- 今回は意図的にやらないこと。これを書くことで「ついで実装」を防ぐ。 -->
