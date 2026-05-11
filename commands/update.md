@@ -7,9 +7,9 @@ description: cc-DevelopmentTeam プラグインを最新版に更新する手順
 ユーザーに以下を出力してください（このまま整形して表示すること）:
 
 ```
-【cc-DevelopmentTeam プラグインの更新手順】
+【cc-DevelopmentTeam プラグインの更新手順です!】
 
-以下 3 つのコマンドを順番にコピペして実行してください:
+以下 3 つのコマンドを順番にコピペして実行してくださいね!
 
   /plugin uninstall cc-development-team
 
@@ -17,10 +17,10 @@ description: cc-DevelopmentTeam プラグインを最新版に更新する手順
 
   /plugin install cc-development-team@cc-development-team
 
-実行後、念のため Claude Code を再起動すると確実です（Ctrl+D で抜けて `claude` で再起動）。
+実行後、念のため Claude Code を再起動すると確実です!（Ctrl+D で抜けて `claude` で再起動）
 
 [反映確認]
-/cc-development-team:design を引数なしで実行し、「A: アプリ構想モード / B: 機能設計モード」のモード選択が出れば最新版です。
+/cc-development-team:design を引数なしで実行し、「A: アプリ構想モード / B: 機能設計モード」のモード選択が出れば最新版です!
 ```
 
 補足案内（必要に応じて追加で表示）:

@@ -15,7 +15,7 @@ argument-hint: [feature-name]
 1. `docs/specs/$ARGUMENTS.md` が **既に存在するか** を `Read` で確認
 2. 存在する場合 → ユーザーに尋ねる:
    ```
-   既存の仕様書 docs/specs/$ARGUMENTS.md が見つかりました。
+   既存の仕様書 docs/specs/$ARGUMENTS.md が見つかりました!
    どうしますか?
 
    a) 既存の仕様書を更新する（追記・改訂）
@@ -33,7 +33,7 @@ argument-hint: [feature-name]
 
 ```
 【設計コマンド — 何をしますか?】
-番号で答えてください:
+番号で答えてくださいね!
 
 a) アプリの全体構想から始める（まだ何を作るか整理段階）
 b) 新規の機能を仕様化する（作るものは決まっている）
