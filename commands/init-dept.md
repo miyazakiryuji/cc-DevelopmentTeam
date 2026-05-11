@@ -28,15 +28,16 @@ description: cc-DevelopmentTeam プラグインを使い始めるためにプロ
 
 各部署は基本ボランティアで働きます。給料は要りません。但し、たまに人間と同じく勘違いします。
 
-## 主な使い方(覚えるのは 2 つだけでOK)
+## 主な使い方(段階的に進めていけます)
 
-| やりたい時 | コマンド | 何が起きる? |
+| 自分の状況 | コマンド | 何が起きる? |
 | --- | --- | --- |
-| 仕様書を作りたい | /cc-development-team:design | architect が呼ばれて仕様書を作って終了(設計だけ) |
-| コードを書きたい | /cc-development-team:develop | developモードに入る。終了するまで連続で開発を回せる |
+| そもそも何を作るか決まってない | /cc-development-team:brainstorm | 雑談ベースでアイデアを 3〜5 個出してくれる |
+| アプリ案は決まった、仕様書を作りたい | /cc-development-team:design | architect が呼ばれて仕様書を作って終了(設計だけ) |
+| 設計まで終わった、コードを書きたい | /cc-development-team:develop | develop モードに入る。終了するまで連続で開発を回せる |
 
-「設計だけ」「実装だけ」「全部まとめて」と分かれているので、シーンに合わせて選んでください。
-分からなければ /cc-development-team:design からどうぞ(まずは何を作るか整理するのが安全)。
+「何を作ろうかな」状態なら brainstorm → design → develop の順に進むと安心です。
+途中から入っても OK (例: 既に作るものが決まってるなら brainstorm はスキップして design から)。
 
 ## その他のコマンド
 
@@ -45,6 +46,18 @@ description: cc-DevelopmentTeam プラグインを使い始めるためにプロ
 | /cc-development-team:sync-spec | 仕様書とコードのズレを健康診断 |
 | /cc-development-team:update | プラグイン本体を最新版に更新する手順を表示 |
 | /cc-development-team:init-dept | この初期化コマンド(今あなたが見ている画面です) |
+
+## アプリ作りの典型的な進め方
+
+```
+[1] 「何作ろうかな…」  →  /cc-development-team:brainstorm    (アイデアを出す)
+       ↓ 案が決まった
+[2] 「何を作るか整理」  →  /cc-development-team:design        (仕様書を作る)
+       ↓ 仕様書ができた
+[3] 「コード書きたい」  →  /cc-development-team:develop       (実装する)
+```
+
+各ステップは独立して使えるので、既に案がある人は [2] から、設計が手元にある人は [3] からどうぞ。
 
 ## ちょっとした補足
 
