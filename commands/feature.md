@@ -5,9 +5,9 @@ argument-hint: [feature-name]
 
 「$ARGUMENTS」を以下のフローで実装してください。
 
-**$ARGUMENTS が空 / 未指定の場合**: ユーザーは「まだ作るものが決まっていない」状態である可能性が高いです。Step 1 で `architect` を呼ぶ際、アプリ構想モード（モード A）から始めるよう明示的に指示してください。`architect` がアプリ構想を整理し、MVP の最初の機能まで自動で導いてくれます。
+**$ARGUMENTS が空 / 未指定の場合**: モードを **勝手に決めずに** `architect` を呼び出してください。`architect` 側の Step 0 でユーザーに「A: アプリ構想モード / B: 機能設計モード」のどちらで進めるかを必ず確認させること。ここで A を選んだ場合のみ、vision/roadmap → MVP 最初の機能の仕様化まで自動進行します。B を選んだ場合は、feature-name を `architect` がユーザーに尋ねてからモード B のヒアリングに入ります。
 
-**$ARGUMENTS が指定されている場合**: 機能設計モード（モード B）から始めるよう `architect` に明示してください。
+**$ARGUMENTS が指定されている場合**: feature-name が明示されているので、Step 0 を経由せず **モード B（機能設計モード）から直接開始** するよう `architect` に明示してください。
 
 ---
 
@@ -17,12 +17,12 @@ argument-hint: [feature-name]
 
 `architect` subagent を呼び出します。引数の有無で以下を伝えてください:
 
-- 引数あり: 「機能設計モード（モード B）で `$ARGUMENTS` の仕様書を作成してください」
-- 引数なし: 「アプリ構想モード（モード A）から始めてください。vision と roadmap を作ったあと、MVP の最初の機能を機能設計モードで仕様書化するところまでお願いします」
+- 引数あり: 「Step 0 をスキップしてモード B（機能設計モード）から開始し、`$ARGUMENTS` の仕様書を作成してください」
+- 引数なし: 「Step 0 のモード選択（A / B）からユーザーに必ず確認してから進めてください。モードを勝手に決めないこと。A を選ばれた場合は MVP 最初の機能の仕様化までを 1 セッションで完了させること」
 
-完了条件:
-- 引数なしのケース: `docs/vision/vision.md` と `docs/vision/roadmap.md` が作成され、MVP の 1 機能目について `docs/specs/<feature-name>.md` が確定している
-- 引数ありのケース: `docs/specs/<feature-name>.md` が確定している（末尾に `## ステータス: 確定 (YYYY-MM-DD)`）
+完了条件（ユーザーが選んだモードで分岐）:
+- ユーザーが A（アプリ構想モード）を選んだ場合: `docs/vision/vision.md` と `docs/vision/roadmap.md` が作成され、MVP の 1 機能目について `docs/specs/<feature-name>.md` が確定している
+- ユーザーが B（機能設計モード）を選んだ、または引数ありで呼ばれた場合: `docs/specs/<feature-name>.md` が確定している（末尾に `## ステータス: 確定 (YYYY-MM-DD)`）
 
 **ユーザー承認なしに Step 2 に進まないこと。**
 
