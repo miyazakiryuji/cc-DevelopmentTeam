@@ -38,12 +38,14 @@ description: cc-DevelopmentTeam プラグインを使い始めるためにプロ
 
 | 自分の状況 | コマンド | 何が起きる? |
 | --- | --- | --- |
+| **何から始めればいいか分からない** | **/cc-development-team:guide** | **迷ったらまずこれ**。状況を聞いて次のコマンドを案内 |
 | そもそも何を作るか決まってない | /cc-development-team:brainstorm | 雑談ベースでアイデアを 3〜5 個出してくれる |
 | アプリ案は決まった、仕様書を作りたい | /cc-development-team:design | architect が呼ばれて仕様書を作って終了(設計だけ) |
 | 設計まで終わった、コードを書きたい | /cc-development-team:develop | develop モードに入る。終了するまで連続で開発を回せる |
 
 「何を作ろうかな」状態なら brainstorm → design → develop の順に進むと安心です。
 途中から入っても OK (例: 既に作るものが決まってるなら brainstorm はスキップして design から)。
+**迷ったら /cc-development-team:guide を実行してください。今の状況に応じて次の一手を教えてくれます。**
 
 ## その他のコマンド
 
