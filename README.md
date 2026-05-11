@@ -539,4 +539,30 @@ cc-DevelopmentTeam/
 
 ## ライセンス
 
-[MIT](./LICENSE) — 自由に使ってください。改変・再配布もOKです。
+[MIT License with Attribution Requirement](./LICENSE)
+
+- **自由に使えます** （個人 / 商用 / 業務問わず）
+- **改変・再配布も OK** です
+- **ただし**、フォーク・改変版・派生プラグインを公開する場合は、**元ネタがこのリポジトリであることを必ず明記** してください。
+
+### 明記の仕方（以下のいずれか 1 箇所以上で）
+
+- 派生プロジェクトの README または主要なドキュメント
+- 利用者から見える「About」「Credits」セクション
+- パッケージ/プラグインのメタデータ（`plugin.json` / `package.json` の `description` など）
+
+### 文言の例
+
+```
+このプロジェクトは miyazakiryuji の cc-DevelopmentTeam
+(https://github.com/miyazakiryuji/cc-DevelopmentTeam) をベースにしています。
+```
+
+または英語:
+
+```
+Based on cc-DevelopmentTeam by miyazakiryuji
+(https://github.com/miyazakiryuji/cc-DevelopmentTeam).
+```
+
+> プライベートに自分だけで使う範囲では明記しなくて構いません。あくまで **再配布・公開** する場合の要件です。
