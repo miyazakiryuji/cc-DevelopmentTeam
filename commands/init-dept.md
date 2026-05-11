@@ -49,6 +49,9 @@ description: cc-DevelopmentTeam プラグインを使い始めるためにプロ
 
 | コマンド | 用途 |
 | --- | --- |
+| /cc-development-team:status | プロジェクトの現状ダッシュボード(進捗・残タスク・次のオススメを表示) |
+| /cc-development-team:refactor | リファクタリング専用(既存テスト Before/After を厳守) |
+| /cc-development-team:release-check | リリース前の総合チェック + リリースノート自動生成 |
 | /cc-development-team:security-review | セキュリティ専門点検(認証/決済/個人情報を扱った後や、リリース前に) |
 | /cc-development-team:sync-spec | 仕様書とコードのズレを健康診断 |
 | /cc-development-team:update | プラグイン本体を最新版に更新する手順を表示 |
