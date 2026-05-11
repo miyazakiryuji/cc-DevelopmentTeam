@@ -79,10 +79,27 @@ vision.md を踏まえて、機能候補を洗い出して `docs/vision/roadmap.
 - **Phase 2** = MVP が動いた後に追加したい機能。便利だけど無くても成立する。
 - **Future**（夢リスト）= いつかやりたい / 一旦考えるだけ
 
-各機能には以下を 1 行ずつ書く:
+**MVP 機能はチェックボックス付きリスト**で記載し、後段のループ処理が進捗を追跡できるようにする:
+
 ```
-- [機能名] (推定粒度: Small/Medium/Large) — 1 行説明
+## MVP
+
+- [ ] feature-name-1 (推定粒度: Small/Medium/Large) — 1 行説明
+- [ ] feature-name-2 (推定粒度: Small/Medium/Large) — 1 行説明
+- [ ] feature-name-3 (推定粒度: Small/Medium/Large) — 1 行説明
 ```
+
+Phase 2 / Future は通常の箇条書きでよい（チェックボックス不要）:
+
+```
+## Phase 2
+- feature-x (推定粒度: ...) — ...
+
+## Future
+- feature-y — ...
+```
+
+`feature-name` は **kebab-case** (英小文字 + ハイフン) で命名すること。後で `docs/specs/<feature-name>.md` のファイル名になります。
 
 ロードマップ提案後、ユーザーに以下を確認:
 ```
@@ -90,19 +107,23 @@ vision.md を踏まえて、機能候補を洗い出して `docs/vision/roadmap.
 ファイル: docs/vision/roadmap.md
 
 MVP として以下を提案しました:
-- <機能1>
-- <機能2>
-- <機能3>
+- [ ] feature-name-1 — ...
+- [ ] feature-name-2 — ...
+- [ ] feature-name-3 — ...
 
 質問:
-1. この MVP で OK ですか? 追加・削除したい機能は?
-2. MVP の中で、最初に設計する機能はどれにしますか?(1 つ選んでください)
+1. この MVP で OK ですか? 追加・削除・順序変更したい機能は?
+2. このまま MVP 全機能を上から順に設計・実装していきます。OK ですか?
 ```
 
-### A-4: 機能設計モードに自動遷移
+ユーザーの修正要望があれば roadmap.md を更新する。
 
-ユーザーが「最初に設計する機能」を 1 つ選んだら、その feature-name を引き継いで**モード B の Step B-1 から開始**します。
+### A-4: 機能設計モードに自動遷移（MVP の先頭から）
+
+ユーザーが OK を出したら、roadmap.md の **MVP リストの先頭** の `feature-name` を引き継いで **モード B の Step B-1 から開始**します。
 モード A はここで終わり、以降はモード B のフローを実行してください。
+
+> このあと、feature.md コマンド側が MVP リストを順番にループします。各機能の `developer → reviewer → tester` が終わるたびに、roadmap.md の対応する `- [ ]` を `- [x]` に変更し、次の MVP 機能に進みます。architect 自身はこの進行管理を行いません（feature.md の責務）。
 
 ---
 
