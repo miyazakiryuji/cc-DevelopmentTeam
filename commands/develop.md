@@ -137,7 +137,92 @@ argument-hint: [feature-name]
 
 仕様書と実装が一致しているので、architect は呼ばない。
 
-### Step 5: このサイクルの完了報告
+### Step 5: モック起動の確認（Web / Mobile プロジェクトのみ）
+
+実装したものを **動かして確認するか** をユーザーに尋ねる。
+
+#### 5-1. プロジェクト種別と起動コマンドの判定
+
+`docs/CLAUDE.md` の「プロジェクト種別」と `dept/developer/CLAUDE.md` の「ビルド・実行コマンド」を `Read` で取得する。
+それでも不明なら、以下のヒントから推定:
+
+- **Web**: `package.json` (`scripts.dev` or `start`) / `manage.py` (Django) / `Gemfile` (Rails) / `go.mod` (Go) など
+- **iOS**: `*.xcodeproj` または `Package.swift`
+- **Android**: `build.gradle.kts` または `settings.gradle.kts`
+- **Flutter**: `pubspec.yaml`
+- **React Native**: `react-native.config.js` または `app.json`
+- **その他（CLI、ライブラリ等）**: そもそも起動する対象が無いので Step 5 全体をスキップ
+
+#### 5-2. ユーザーに確認
+
+以下のフォーマットで尋ねる:
+
+```
+【動作確認】
+実装とテストが完了しました。実際に起動して動作確認しますか?
+
+- プロジェクト種別: <Web / iOS / Android / Flutter / 等>
+- 推定起動コマンド: <コマンド>
+- 起動先: <localhost:3000 / iOS シミュレータ (iPhone 15) / Android Emulator / 等>
+
+起動しますか? (yes / no / 別のコマンドで)
+```
+
+#### 5-3. ユーザー回答による分岐
+
+##### `yes` の場合
+
+**起動前に必ず最終確認**:
+
+```
+以下のコマンドを実行します。OK ですか?
+  <コマンド>
+
+(注意: dev server / シミュレータはバックグラウンドで動き続けます。停止方法は後ほどお伝えします)
+```
+
+確認が取れたら、以下のルールで実行:
+
+- **Web の場合**:
+  - `Bash` を `run_in_background: true` で実行
+  - 数秒待ってから、ログを確認してアクセス URL を抽出（"localhost:3000" 等）
+  - ユーザーに `「http://localhost:XXXX で起動しました。停止するときは別ターミナルで `kill <PID>` または該当プロセスを Ctrl+C」` と伝える
+
+- **iOS の場合**:
+  - `xcrun simctl boot <デバイス名>` (例: `xcrun simctl boot 'iPhone 15'`) をフォアグラウンドで実行
+  - `xcrun simctl list devices` で利用可能デバイスを確認するのが安全
+  - `xcodebuild` でビルド + シミュレータインストール、または Xcode を `open` で起動する案内
+  - シミュレータの起動完了を待ってから、`xcrun simctl launch booted <bundle-id>` でアプリを起動
+
+- **Android の場合**:
+  - `emulator -list-avds` で利用可能なエミュレータ確認
+  - `emulator -avd <名前>` をバックグラウンドで起動
+  - 起動完了を `adb wait-for-device` で待ってから、`./gradlew installDebug` でビルド+インストール
+  - `adb shell am start -n <package>/<activity>` でアプリ起動
+
+- **Flutter の場合**:
+  - `flutter run` を `run_in_background: true` で実行
+  - デバイス選択が必要なら事前に `flutter devices` で確認
+
+- **React Native の場合**:
+  - `npx react-native run-ios` または `run-android` を `run_in_background: true` で実行
+
+##### `no` の場合
+
+「起動はスキップしました。後で確認する場合は手動で `<コマンド>` を実行してください」と伝えて Step 6 へ。
+
+##### `別のコマンドで` の場合
+
+ユーザーに「どのコマンドで起動しますか?」と尋ね、回答に従って同様に実行確認 → 実行。
+
+#### 5-4. 起動後の取り扱い
+
+- 起動したプロセスの PID または識別情報を保持し、ユーザーに伝える
+- develop モードのサイクルを続ける場合、次の依頼の処理は通常通り継続（dev server はそのまま動かしておく）
+- HMR (Hot Module Reload) があれば修正は自動反映される旨を伝える
+- 大きな修正後は再起動が必要かもしれないことを案内
+
+### Step 6: このサイクルの完了報告
 
 以下を簡潔に報告:
 
@@ -149,7 +234,10 @@ argument-hint: [feature-name]
    - developer が `docs/manual-tasks/$CURRENT_FEATURE.md` を作成・更新した場合は、そのパスと **未完了タスク件数** を必ず明示する
    - 未完了タスクがある場合は「これらの設定が完了するまで <機能名> は完全には動作しません」と注意喚起
    - 該当無しなら「手動タスク: 無し」と明記
-6. 残課題があれば箇条書き
+6. **起動状態**:
+   - Step 5 で起動した場合: アクセス先 (URL / シミュレータ名) と停止方法
+   - 起動しなかった場合: 「起動はスキップ」と一言
+7. 残課題があれば箇条書き
 
 ---
 
@@ -202,6 +290,8 @@ develop モード中ですが、終了してよろしいですか?
 - **Step 3 のテスト実行を省略する**（必ずテストランナーを動かしてグリーンを確認）
 - 「仕様書外で追加した内容」があるのに Step 4 をスキップ
 - 「仕様書外で追加した内容」が無いのに architect を呼ぶ（無駄な呼び出し）
+- **Step 5 の起動確認をユーザーに聞かずにスキップする**（CLI/ライブラリ等で起動対象が無い場合のみスキップ可）
+- **ユーザー承認なしに dev server / シミュレータを勝手に起動する**（必ず最終確認）
 - ユーザーが終了の意思を明示していないのに勝手にモードを抜ける
 - develop モード中に勝手に `/cc-development-team:design` 等を呼ぶ
 - 1 件のサイクルが終わってないうちに「次の依頼を教えてください」と聞く
