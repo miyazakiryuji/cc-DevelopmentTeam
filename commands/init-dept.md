@@ -26,19 +26,23 @@ description: cc-DevelopmentTeam プラグインを使い始めるためにプロ
 ユーザーの回答を待ち、その回答を `$PROJECT_TYPE` として保持してください（"Web" または "Mobile"）。
 回答が CLI / ライブラリ / その他で迷う場合は「**どちらに近いですか?**」と確認し、近い方を選んでもらってください。
 
-## 2. 仕様書ディレクトリ・アプリ構想ディレクトリ・手動タスクディレクトリ
+## 2. ドキュメント置き場の作成
 
 以下のディレクトリを作成する（既に存在する場合はスキップ）:
 
-- `docs/specs/`（個別機能の仕様書置き場）
 - `docs/vision/`（アプリ構想の vision.md / roadmap.md 置き場）
+- `docs/requirements/`（要件定義書の置き場）
+- `docs/basic-design/`（基本設計書の置き場）
+- `docs/specs/`（個別機能の仕様書置き場 = 詳細設計レベル）
 - `docs/manual-tasks/`（人間が UI 等で操作する必要のあるタスクの管理置き場）
 
 そのうえで、プラグイン同梱のテンプレートを以下にコピーする。**既存ファイルがある場合は上書きしない**:
 
-- プラグインの `templates/spec-template.md` → プロジェクトの `docs/specs/_template.md` にコピー
-- プラグインの `templates/vision-template.md` → プロジェクトの `docs/vision/_vision-template.md` にコピー
-- プラグインの `templates/manual-tasks-template.md` → プロジェクトの `docs/manual-tasks/_template.md` にコピー
+- プラグインの `templates/vision-template.md` → プロジェクトの `docs/vision/_vision-template.md`
+- プラグインの `templates/requirements-template.md` → プロジェクトの `docs/requirements/_template.md`
+- プラグインの `templates/basic-design-template.md` → プロジェクトの `docs/basic-design/_template.md`
+- プラグインの `templates/spec-template.md` → プロジェクトの `docs/specs/_template.md`
+- プラグインの `templates/manual-tasks-template.md` → プロジェクトの `docs/manual-tasks/_template.md`
 
 プラグインのテンプレートは、`${CLAUDE_PLUGIN_ROOT}/templates/` 配下を参照するか、もし `CLAUDE_PLUGIN_ROOT` が解決できない場合はプラグインがインストールされているディレクトリの `templates/` を直接読んで内容を `Write` ツールでプロジェクト側に書き出してください（プラグイン側のファイルを移動・改変しないこと）。
 

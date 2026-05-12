@@ -3,8 +3,16 @@
 <!--
 このファイルは設計部署 (architect) が機能設計モード B で読み込むテンプレートです。
 docs/specs/<feature-name>.md として書き出されます。
-プロジェクト固有の追加章があれば、各プロジェクトで適宜カスタマイズしてOKです。
+詳細設計レベル (個別機能の仕様書) なので、プロジェクト全体の話は
+要件定義書・基本設計書を参照してください。
 -->
+
+**関連ドキュメント (プロジェクト全体):**
+- 要件定義書: [docs/requirements/requirements.md](../requirements/requirements.md)
+- 基本設計書: [docs/basic-design/basic-design.md](../basic-design/basic-design.md)
+- 構想 / ロードマップ: [docs/vision/](../vision/)
+
+**関連機能 ID** (要件定義書 / 基本設計書での): F-XXX
 
 ## 概要
 

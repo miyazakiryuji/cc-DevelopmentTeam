@@ -155,7 +155,71 @@ MVP として以下を提案しました:
 
 ユーザーの修正要望があれば roadmap.md を更新する。
 
-### A-4: 機能設計モードに自動遷移（MVP の先頭から）
+### A-4: 要件定義書の生成
+
+`docs/requirements/_template.md` を読み込み、その章立てに従って `docs/requirements/requirements.md` を作成します。テンプレートが無ければ「`docs/requirements/_template.md` が見つかりません。先に `/cc-development-team:init-dept` を実行してください」と報告して止まる。
+
+入力情報:
+- A-1 のヒアリング結果
+- A-2 で作成した vision.md
+- A-3 で作成した roadmap.md
+
+書き出し方針:
+- **業務要件 / 機能要件 / 非機能要件 / 制約条件 / スコープ / リスク** を埋める
+- 機能一覧は roadmap.md の MVP / Phase 2 / Future をそのまま引用（F-001, F-002... の ID を付ける）
+- 不明な項目（性能要件の具体値など）は「未確定」として残す（推測で埋めない）
+- ユーザーの言葉を尊重しつつ、構造化して記載
+
+完成後にユーザーに以下を表示:
+
+```
+【要件定義書を作成しました!】
+ファイル: docs/requirements/requirements.md
+
+特に確認してほしい点:
+- 機能一覧 (F-XXX) の優先度
+- 非機能要件 (性能・セキュリティ等) で未確定項目
+- リスクの洗い出し漏れがないか
+
+中身を見て修正点があれば教えてくださいね!OK なら次の基本設計に進みます。
+```
+
+ユーザー承認が出るまで A-5 に進まない。
+
+### A-5: 基本設計書の生成
+
+`docs/basic-design/_template.md` を読み込み、その章立てに従って `docs/basic-design/basic-design.md` を作成します。テンプレートが無ければ「`docs/basic-design/_template.md` が見つかりません。先に `/cc-development-team:init-dept` を実行してください」と報告して止まる。
+
+入力情報:
+- A-4 で作成した requirements.md
+- vision.md / roadmap.md
+- `dept/developer/CLAUDE.md`（採用技術スタック等）
+- `dept/security-reviewer/CLAUDE.md`（セキュリティ要件）
+
+書き出し方針:
+- **システム構成 / 画面設計 / データ設計 / API・外部 IF / 認証認可 / 非機能設計 / デプロイ・運用** を埋める
+- 機能 ID (F-XXX) を画面・API・テーブルに紐付ける
+- 詳細な内部実装ロジックは記載せず、それは個別機能の `docs/specs/<feature-name>.md` に委ねる旨を明記
+- 不明な項目（具体的なテーブル名・カラム名など）は暫定値 + 「要確定」として残す
+
+完成後にユーザーに以下を表示:
+
+```
+【基本設計書を作成しました!】
+ファイル: docs/basic-design/basic-design.md
+
+特に確認してほしい点:
+- 採用技術スタック
+- 主要画面と画面遷移
+- データモデル (エンティティ間の関連)
+- 認証認可の方針
+
+中身を見て修正点があれば教えてくださいね!OK なら個別機能の設計 (モード B) に進みます。
+```
+
+ユーザー承認が出るまで A-6 に進まない。
+
+### A-6: 機能設計モードに自動遷移（MVP の先頭から）
 
 ユーザーが OK を出したら、roadmap.md の **MVP リストの先頭** の `feature-name` を引き継いで **モード B の Step B-1 から開始**します。
 モード A はここで終わり、以降はモード B のフローを実行してください。
@@ -258,6 +322,17 @@ Large のときの出力例:
 ### B-3: 仕様書ドラフト生成
 
 `docs/specs/_template.md` を読み込み、その章立てに従って `docs/specs/<feature-name>.md` を作成。テンプレートが無い場合は「`docs/specs/_template.md` が見つかりません。先に `/cc-development-team:init-dept` を実行してください」と報告して止まる。
+
+**プロジェクト全体のドキュメントとの整合性を保つ**:
+
+仕様書を書く前に以下を `Read` で確認し、矛盾しないように記述する:
+
+- `docs/requirements/requirements.md` (要件定義書): 機能 ID (F-XXX) や非機能要件・スコープと整合させる
+- `docs/basic-design/basic-design.md` (基本設計書): 採用技術スタック・データモデル・認証認可方針と整合させる
+
+仕様書冒頭の **関連機能 ID** 欄に、要件定義書の F-XXX を記入する。
+
+要件定義書・基本設計書が存在しない場合（develop モードから直接呼ばれた等）は、その旨を変更ログに記録して、仕様書単独で完結する形で書き出す。
 
 **受け入れ基準は必ず Given-When-Then 形式**:
 ```
