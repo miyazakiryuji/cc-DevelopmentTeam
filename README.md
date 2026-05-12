@@ -1,36 +1,88 @@
 # cc-DevelopmentTeam
 
-> A Claude Code plugin that brings a 4-department workflow (design / develop / review / test) with automatic spec back-fill.
+> A Claude Code plugin that brings a 4-department workflow (design / develop / review / test) plus a security advisor, with automatic spec back-fill.
 
 ## このプラグインで何ができるの?
 
-ひとことで言うと、**Claude Code で開発する作業を「会社の4部署」に分担させる** プラグインです。
+ひとことで言うと、**Claude Code で開発する作業を「会社の4部署 + 専門アドバイザー」に分担させる** プラグインです。
 
-| 部署 | 何をしてくれる人? |
+| 部署 | 役割 |
 | --- | --- |
-| 設計部署 (architect) | 「何を作るか」を整理して **仕様書** にまとめる |
-| 開発部署 (developer) | 仕様書を読みながら **実際にコード** を書く |
-| レビュー部署 (reviewer) | 出来上がったコードを **チェックして指摘** する |
-| テスト部署 (tester) | ちゃんと動くか **テストを書いて実行** する |
+| architect | 設計（仕様書作成） |
+| developer | 実装（コード書く） |
+| reviewer | レビュー（指摘する） |
+| tester | テスト（書いて実行） |
+| security-reviewer | セキュリティ専門点検（追加で呼ぶ） |
 
-ひとり開発でも、Claude Code がこの4部署を順番に演じてくれるので、「とりあえず動くもの」だけでなく **仕様書とテスト** も同時に残せます。
-
-### このプラグインの一番のウリ
-
-「動くものを先に作って、仕様書は後回し」でやっても、**仕様書が必ず後から自動生成される** ことです（"back-fill" と呼んでいます）。途中で疲れて投げ出しても、リポジトリにはちゃんと記録が残ります。
-
----
+このプラグインの最大の特徴は **「設計を通さずに開発した場合でも、完了時に必ず仕様書が back-fill される」** ことです。「動くものが先、仕様書は後」という現実的な進め方をしても、ナレッジが必ずリポジトリに残ります。
 
 ## こんな人におすすめ
 
-- これから個人開発を始めたいけど、何から手を付ければいいか分からない人
+- 個人開発を始めたいけど、何から手を付ければいいか分からない人
 - Claude Code に任せて作ってもらいたいけど、後で「何を作ったか分からない」状態になりたくない人
 - 仕様書を書くのは面倒だけど、ドキュメントは残しておきたい人
 - チーム開発のフロー（設計→実装→レビュー→テスト）を個人開発でも再現したいエンジニア
 
-エンジニア未経験でも、まずは小さな機能から試せます。
+> **迷ったらまず `/cc-development-team:guide` を実行してください。** 今の状況を聞いて、次に打つコマンドを 1〜2 個に絞って案内してくれます。
 
-> **何から始めればいいか分からない人へ:** インストール後に `/cc-development-team:guide` を実行してください。今の状況を聞いて、次に打つコマンドを 1〜2 個に絞って案内してくれます。情報過多にならないので、初学者にも優しい設計です。
+---
+
+## 30 秒インストール
+
+```bash
+cd ~/my-project
+claude
+```
+
+Claude Code 内で:
+
+```
+/plugin marketplace add miyazakiryuji/cc-DevelopmentTeam
+/plugin install cc-development-team@cc-development-team
+/cc-development-team:init-dept
+```
+
+詳しくは [guides/quickstart.md](./guides/quickstart.md)。
+
+---
+
+## 主要コマンド早見表
+
+| やりたいこと | 使うコマンド |
+| --- | --- |
+| 何から始めればいいか分からない | `/cc-development-team:guide` |
+| アプリ案を相談したい | `/cc-development-team:brainstorm` |
+| 仕様書を作る / 更新する | `/cc-development-team:design [名前]` |
+| 開発する（develop モード） | `/cc-development-team:develop [名前]` |
+| 既存コードをリファクタ | `/cc-development-team:refactor [対象]` |
+| プロジェクトの状況確認 | `/cc-development-team:status` |
+| リリース前総合チェック | `/cc-development-team:release-check` |
+| セキュリティ点検 | `/cc-development-team:security-review [名前]` |
+| 仕様書とコードの整合性 | `/cc-development-team:sync-spec [名前]` |
+| プロジェクト初期セットアップ | `/cc-development-team:init-dept` |
+| プラグイン更新手順 | `/cc-development-team:update` |
+
+詳しい使い分けは [guides/commands.md](./guides/commands.md)。
+
+---
+
+## こんな時はこのガイドへ
+
+| 状況 | 読むガイド |
+| --- | --- |
+| 最初に触ってみる | [guides/quickstart.md](./guides/quickstart.md) |
+| Claude のプランで迷っている | [guides/plans.md](./guides/plans.md) |
+| モバイル開発を始める | [guides/mobile-ide.md](./guides/mobile-ide.md) |
+| プラグインを最新版にしたい | [guides/update.md](./guides/update.md) |
+| コマンドの使い分けを知りたい | [guides/commands.md](./guides/commands.md) |
+| 各部署（agent）の役割を知りたい | [guides/departments.md](./guides/departments.md) |
+| 業務フローを図解で見たい | [guides/workflow.md](./guides/workflow.md) |
+| プロジェクトの構成を確認したい | [guides/directory-structure.md](./guides/directory-structure.md) |
+| よくある質問を見たい | [guides/faq.md](./guides/faq.md) |
+| 動かない / 思った通りに動かない | [guides/troubleshooting.md](./guides/troubleshooting.md) |
+| プラグイン自体を改造したい | [guides/development.md](./guides/development.md) |
+
+全ガイドの目次は [guides/README.md](./guides/README.md)。
 
 ---
 
@@ -40,610 +92,11 @@
    - 公式サイト: <https://claude.com/claude-code>
    - 公式ドキュメント: <https://docs.claude.com/en/docs/claude-code/overview>
 2. ターミナル（Mac の「ターミナル」、Windows の「PowerShell」など）が使えること
-3. 試したいプロジェクト用のフォルダがどこかにあること（無ければ `mkdir my-first-app` で作ればOK）
+3. 試したいプロジェクト用のフォルダ（無ければ `mkdir my-first-app` で作ればOK）
 
-### おすすめの Claude プラン
-
-このプラグインは **4 部署のサブエージェント** を順番に呼び出して動くため、1 回の `/develop` でもそれなりにトークンを消費します。develop モードを連続で回すとさらに使います。以下のプランを目安にしてください。
-
-| プラン | 料金（月額） | 想定使用感 | 向いている人 |
-| --- | --- | --- | --- |
-| **Pro** | $20 | 個人開発の最小ライン。`/design` を中心に使う、`/develop` は週数件 | お試し / 趣味プロジェクト |
-| **Max (5×)** | $100 | 推奨ライン。`/develop` モードを毎日 1〜2 セッション回せる | 本格的な個人開発 / 副業 |
-| **Max (20×)** | $200 | 重い開発でも余裕。複数機能の連続開発、大きな MVP を一気に進める | フルタイムで使う / 業務プロジェクト |
-| **API 課金** | 従量制 | ピンポイントで使いたい・コスト最適化したい人向け（自分で API キー管理） | コスト管理を細かくしたい人 |
-
-> **目安:** とりあえず触ってみるなら **Pro**、ちゃんと使うなら **Max (5×)** が無難です。`/develop` をずっと回しっぱなしにしたいなら **Max (20×)** を検討してください。
+> **Claude のプランで迷ったら** → [guides/plans.md](./guides/plans.md)
 >
-> プランの詳細・最新の料金は [Claude.ai のプラン一覧](https://claude.com/pricing) を参照してください。
-
-### モバイルアプリ開発の場合は専用 IDE 併用がオススメ!
-
-モバイルアプリを開発する場合、**プロジェクト自体は専用 IDE から開く** ことを強く推奨します。Claude Code でもコードは書けますが、**ビルド・シミュレータ起動・実機デバッグ・UI プレビュー・証明書管理** などはネイティブ IDE が圧倒的に便利です。
-
-**プラットフォーム別の推奨 IDE:**
-
-| プラットフォーム | 推奨 IDE | 公式ダウンロード |
-| --- | --- | --- |
-| iOS / macOS (Swift / SwiftUI) | **Xcode** | <https://developer.apple.com/xcode/> |
-| Android (Kotlin / Jetpack Compose) | **Android Studio** | <https://developer.android.com/studio> |
-| Flutter (iOS + Android) | Android Studio または VS Code + Flutter 拡張 | <https://flutter.dev/> |
-| React Native (iOS + Android) | VS Code + React Native 拡張 | <https://reactnative.dev/> |
-| Kotlin Multiplatform (KMP) | Android Studio + KMP プラグイン | <https://kotlinlang.org/docs/multiplatform.html> |
-
-**おすすめの使い分け:**
-
-1. **プロジェクトを開く・実行する** → 専用 IDE で行う（ビルド・シミュレータ・実機デバッグ）
-2. **コードを書く・仕様書を作る・テストを追加する** → Claude Code（このプラグイン）で進める
-3. **develop モードの「動作確認」ステップ** → IDE で既に開いているシミュレータを使う or Claude が `xcrun` / `gradlew` でコマンド起動を案内
-
-> プラグインの `init-dept` でプロジェクト種別「Mobile」を選ぶと、上記のような IDE 併用を前提とした設定（ビルドコマンド・テストコマンド等）が `dept/developer/CLAUDE.md` のテンプレートに反映されます。
-
----
-
-## クイックスタート（5 分で動かす）
-
-### ステップ 1: プラグインをインストール
-
-ターミナルで、試したいプロジェクトのフォルダに移動して Claude Code を起動します。
-
-```bash
-cd ~/my-first-app   # ← 自分のプロジェクトフォルダのパスに置き換えてください
-claude
-```
-
-Claude Code が起動したら、以下を **1 行ずつ** 順番に入力します。
-
-```
-/plugin marketplace add miyazakiryuji/cc-DevelopmentTeam
-```
-
-```
-/plugin install cc-development-team@cc-development-team
-```
-
-「インストールが完了しました」のような返事が来たら成功です。
-
-> **補足:** マーケットプレース名・プラグイン名はともに `cc-development-team` です。`@` の前後で同じ名前が2回出てきますが間違いではありません（マーケットプレースとプラグインを別物として識別するため）。
-
-### ステップ 2: プロジェクトを初期化
-
-```
-/cc-development-team:init-dept
-```
-
-実行すると、まずは **ウェルカム説明** が表示されます（このプラグインで何ができるか・コマンド一覧・ちょっとした補足を表で説明）。読み終わったらそのまま続けて、Claude Code が **「このプロジェクトは Web 開発・Mobile 開発のどちらですか?」** とヒアリングしてきます。回答に応じて、各部署の `CLAUDE.md` テンプレートが **その分野に最適化された内容** で生成されます（Web ならブラウザ対応・WCAG・OWASP、Mobile なら端末対応・Keychain/Keystore・ストア審査 など）。
-
-ヒアリングに答えると、プロジェクトに以下のフォルダ・ファイルが自動で作られます。
-
-```
-my-first-app/
-├── CLAUDE.md                    ← プロジェクト全体のルールを書くファイル
-├── docs/
-│   ├── specs/                   ← ここに仕様書が貯まっていく
-│   └── dept/
-│       └── architect/CLAUDE.md  ← 設計部署メモ（ドキュメント側）
-└── dept/                        ← 実作業を行う3部署のメモ（コード側）
-    ├── developer/CLAUDE.md
-    ├── reviewer/CLAUDE.md
-    └── tester/CLAUDE.md
-```
-
-設計部署 (architect) はドキュメント系なので `docs/` 配下、実装/レビュー/テストの3部署は実作業に近いので `dept/` 配下 と、役割で配置場所を分けています。
-
-各 `CLAUDE.md` は **Web か Mobile かに応じた雛形** が入った状態で生成されます。具体的な技術スタック名（フレームワーク・ビルドコマンド・カバレッジ目標など）は `<埋める>` プレースホルダになっているので、自分のプロジェクトに合わせて埋めてください。**埋めなくても動きます** が、埋めるほど各部署の精度が上がります。
-
-> **種別を後から変えたい場合:** 該当する `CLAUDE.md` を手で書き換えるか、4 つのファイルを削除して `/cc-development-team:init-dept` を再実行すると、別の種別で再生成できます。
-
-### ステップ 3: 何から始めるか迷ったら...
-
-**まず迷ったらこれ:**
-
-```
-/cc-development-team:guide
-```
-
-これを実行すると、「今どんな状況ですか?」と聞いてきます（a〜f の選択肢）。
-回答に応じて、次に打つコマンドを **1〜2 個に絞って** 教えてくれます。情報過多にならないので、初学者にも安心です。
-
-### ステップ 4: 自分の状況が分かっているなら直接コマンドを打つ
-
-例:
-- **何を作るかまだ思いついていない** → `/cc-development-team:brainstorm`（雑談ベースでアプリ案を 3〜5 個出してくれる）
-- **アプリ案はある、仕様書を作りたい** → `/cc-development-team:design`（引数なしで OK、ヒアリングで進めてくれる）
-- **仕様書はある、コードを書きたい** → `/cc-development-team:develop`（develop モードに入る）
-
-`/cc-development-team:design` を引数なしで実行すると、こんな感じで聞いてきます:
-
-```
-【設計コマンド — 何をしますか?】
-番号で答えてください:
-
-a) アプリの全体構想から始める
-b) 新規の機能を仕様化する
-c) 既存の仕様書を更新する
-```
-
-ファイル名を覚えていなくても、c) を選べば既存仕様書をリストから選べます。**ユーザーがタイプする負担を減らす設計**になっています。
-
----
-
-## プラグインの更新方法
-
-GitHub 側のプラグイン本体に更新が入った場合、**インストール済みのプラグインは自動更新されません**。手元で最新版を反映するには以下を順に実行してください（`/plugin update` という単独コマンドは存在しないため、アンインストール→マーケットプレース更新→再インストールの 3 ステップで行います）。
-
-> **ショートカット:** `/cc-development-team:update` を実行すると、下の 3 コマンドが画面に表示されてコピペしやすくなります（手順表示専用で、自動実行はされません）。
-
-```
-# 1. 一度アンインストール
-/plugin uninstall cc-development-team
-```
-
-```
-# 2. マーケットプレース情報を最新化
-/plugin marketplace update cc-development-team
-```
-
-```
-# 3. 再インストール
-/plugin install cc-development-team@cc-development-team
-```
-
-更新後、コマンド定義の再読み込みのために **Claude Code を再起動** すると確実です（`Ctrl+D` で抜けて `claude` で起動し直す）。
-
-### UI から操作する方法
-
-`/plugin` を実行するとプラグインブラウザ UI が開きます。
-
-1. Tab キーで **「Installed」タブ** に移動
-2. `cc-development-team` を選択
-3. 表示される操作メニューから再インストールを選ぶ
-
-### 更新が反映されたか確認
-
-`/cc-development-team:init-dept` を実行したときに **「このプロジェクトは Web 開発か Mobile 開発か」のヒアリング** が出れば最新版です。出ない場合は古い版のままなので、上記の手順をやり直してください。
-
----
-
-## コマンドの使い分け早見表
-
-| やりたいこと | 使うコマンド | どんなとき? |
-| --- | --- | --- |
-| やりたいこと | 使うコマンド | どんなとき? |
-| --- | --- | --- |
-| 何から始めればいいか分からない       | `/cc-development-team:guide`          | **迷ったらこれ**。今の状況をヒアリングして次のコマンドを案内 |
-| そもそも何を作るか決まってない       | `/cc-development-team:brainstorm`     | 雑談ベースでアプリ案を 3〜5 個出してくれる相談モード |
-| 仕様書を作りたい / 更新したい        | `/cc-development-team:design [名前]` | 引数なしで起動可能。**「アプリ構想 / 新規機能 / 既存更新」をヒアリング** してくれる |
-| とりあえず動くものを先に作りたい     | `/cc-development-team:develop [名前]` | **develop モード**に入り、終了するまで連続して依頼を受け付ける。仕様書は各サイクルで自動生成 |
-| 既存コードをリファクタしたい         | `/cc-development-team:refactor [対象]` | 引数なしで起動可能。**対象選択をヒアリング** してくれる。振る舞い不変・テスト Before/After 厳守 |
-| 今どこまで進んだか確認したい         | `/cc-development-team:status`        | プロジェクトの現状ダッシュボード（進捗・残タスク・次のオススメ） |
-| リリース前のチェックをしたい         | `/cc-development-team:release-check` | MVP完了・テスト・手動タスク・セキュリティ点検を総合チェック + リリースノート自動生成 |
-| セキュリティ点検をしたい             | `/cc-development-team:security-review [名前]` | 引数なしで起動可能。**全体 or 特定機能をヒアリング**。OWASP / 秘密情報 / 認可漏れを集中点検 |
-| 仕様書とコードがズレてないか確認したい | `/cc-development-team:sync-spec [名前]` | 引数なしで起動可能。**全体 or 特定機能をヒアリング** してくれる |
-| プロジェクトに初期セットアップ       | `/cc-development-team:init-dept` | 一番最初に1回だけ実行 |
-| プラグインを最新版に更新したい       | `/cc-development-team:update` | 更新手順 (3 コマンド) を画面に表示 |
-
-> **ファイル名を覚えなくて OK:** `[]` で表示されているコマンドは **引数なしでも実行可能** です。引数を省略すると Claude が「既存の仕様書から選びますか?」「新規ですか?」とヒアリングしてくれます。仕様書ファイル名を毎回タイプする必要はありません。
-
-### おすすめの進め方
-
-```
-[1] 「何作ろうかな…」  →  /cc-development-team:brainstorm   (アイデアを出す)
-       ↓ 案が決まったら
-[2] 「整理したい」      →  /cc-development-team:design      (仕様書を作る)
-       ↓ 仕様書ができたら
-[3] 「実装したい」      →  /cc-development-team:develop     (コードを書く)
-```
-
-各ステップは独立しているので、途中から入ってもOK（既にアイデアがあるなら brainstorm はスキップ）。
-
-> **`/cc-development-team:design` の現在の挙動について:** 以前は `architect → developer → reviewer → tester` の完全パイプラインを 1 コマンドで実行していましたが、現在は **設計フェーズのみ** で停止する運用方針に変更されています（一旦の暫定）。実装に進めたい場合は、仕様書を確認した後でユーザーが明示的に `developer` サブエージェントの起動を依頼してください。
-
-**`<名前>` のルール:** 英小文字とハイフン (`-`) で短く付けます（例: `login-flow`, `invoice-export`, `todo-list`）。日本語や空白は避けてください（ファイル名に使うため）。
-
----
-
-## 4 部署の紹介
-
-### architect（設計部署）
-
-「何を作るか」を考える人。あなたの依頼を 3 段階のドキュメントに落とし込みます:
-
-| ドキュメント | 粒度 | 何を書く? |
-| --- | --- | --- |
-| 基本設計書 `docs/basic-design/basic-design.md` | **プロジェクト全体** | 機能一覧 (F-XXX) / 採用技術 / 全体の画面遷移図 / ER 図 / API 一覧 / 認証認可方針 |
-| 要件定義書 `docs/requirements/<機能名>.md` | **機能ごと** | この機能の目的 / 業務フロー / 操作シナリオ / 機能固有の非機能要件 / スコープ |
-| 詳細仕様書 `docs/specs/<機能名>.md` | **機能ごと** | この機能の画面レイアウト / API 詳細 / 内部ロジック / 受け入れ基準 (Given-When-Then) |
-
-- 「なぜこう設計したか」の理由も残してくれるので、後から見返したときに分かりやすい
-- 不明点があればあなたに質問してきます（曖昧なまま勝手に決めません）
-
-**2 つのモードがあります:**
-- **アプリ構想モード**: まだ作るものが決まっていない段階で呼ばれると、雑談ベースのヒアリングから vision.md → roadmap.md → **基本設計書 (全体設計)** → MVP の先頭機能の要件定義書 + 詳細仕様書 まで一気通貫で作成します。
-- **機能設計モード**: 作るものが具体的に決まっている個別機能を、8 項目のヒアリングから **機能ごとの要件定義書 + 詳細仕様書** に落とし込みます。既存の基本設計書を参照して整合性を保ちます。
-
-> **現在の運用方針 (一旦):** `/cc-development-team:design` は **設計フェーズのみ** で停止します。実装 (developer/reviewer/tester) には自動では進みません。
-
-**ヒアリングは「1 問ずつの対話形式」です:** 一気にアンケートのように全項目を聞かれることはなく、1 つの質問に答えると次の質問が来る自然な会話で進みます。あなたが同じ話題を膨らませている間は割り込まれず、話が一段落してから次の質問に進みます。1 つの回答で複数項目が埋まった場合は、その分を飛ばして次に進むので無駄な往復はありません。
-
-### developer（開発部署）
-
-「仕様書の通りに作る」人。
-
-- 仕様書がない場合（`develop` ルート）でも、後で仕様書化できるよう作業ログを残します
-- 既存コードのスタイルに合わせて書くので、見た目がバラバラになりません
-- **UI / フロントエンドを作るときは Frontend Skills を呼び出します**:
-  - Web → `everything-claude-code:frontend-patterns`
-  - iOS (SwiftUI) → `everything-claude-code:swiftui-patterns` + `liquid-glass-design`
-  - Android / KMP (Compose) → `everything-claude-code:compose-multiplatform-patterns`
-  - （`everything-claude-code` プラグインがインストールされている環境で有効）
-
-### reviewer（レビュー部署）
-
-「他人の目」で出来上がったコードをチェックする人。
-
-- セキュリティ・読みやすさ・バグの可能性を指摘
-- **コードは書き換えず、指摘だけ** します（書き換えは developer に差し戻し）
-- 指摘の重要度 (Critical / High / Medium / Low) を付けてくれるので、優先順位が分かる
-
-### tester（テスト部署）
-
-「ちゃんと動くか」を確かめる人。
-
-- 仕様書の受け入れ基準をテストコードに変換
-- 実際にテストを走らせて、緑（全部通る）になるまで面倒を見ます
-
-### security-reviewer（セキュリティ専門アドバイザー）
-
-OWASP / 秘密情報 / 認可漏れ / 依存脆弱性 に **集中して** 点検する専門家。reviewer の代わりではなく **追加で** 呼びます。
-
-- 普段は黙っていて、`/cc-development-team:security-review` で明示的に呼ばれた時だけ動く
-- 認証・決済・個人情報・ファイルアップロードを扱った後、リリース前、依存ライブラリ更新後 などのタイミングで使う
-- 攻撃シナリオ + ファイル行番号 + 修正案 をセットで指摘してくれる
-- コードは書き換えない（修正は developer に戻す）
-
----
-
-## 業務フロー（図解）
-
-### 「何を作るか決まってない」から始める — `/cc-development-team:brainstorm`
-
-```
-[あなた] /cc-development-team:brainstorm を実行
-   ↓
-[Claude] 「最近気になってることありますか?」など雑談ベースでヒアリング (1 問ずつ)
-   ↓ (3〜5 往復)
-[Claude] 「ここまでの話からこんな案が浮かびました」 → アプリ案を 3〜5 個提案
-   ↓ (気に入らなければ「別の方向で」と返す → 再提案ループ)
-[あなた] 「これにしようかな」 → 案 1 つに決定
-   ↓
-[Claude] 「次は設計に進みましょう」 → /cc-development-team:design の起動を促す
-   ↓
-（以降は「アプリ構想から始める」フローへ続く）
-```
-
-「作りたいものがある人」は brainstorm をスキップして直接 `/cc-development-team:design` から始めて OK です。
-
-### アプリ構想から始める場合 — `/cc-development-team:design`（引数なし）
-
-```
-[あなた] /cc-development-team:design を実行
-   ↓
-[architect] モード選択を確認（A: 構想 / B: 機能）
-   ↓ (A を選択)
-[architect] アプリ構想モードでヒアリング（1 問ずつ）→ vision.md 生成
-   ↓
-[architect] 機能候補を MVP / Phase 2 / Future に分類 → roadmap.md 生成
-   ↓ （MVP 全体で OK か確認）
-[architect] 基本設計書（全体設計）を生成 → docs/basic-design/basic-design.md 確定
-   ↓ （内容を確認 → OK 出す）
-[architect] MVP 先頭機能の要件定義書を作成 → docs/requirements/<feature-1>.md 確定
-   ↓ （内容を確認 → OK 出す）
-[architect] MVP 先頭機能の詳細仕様書を作成 → docs/specs/<feature-1>.md 確定
-   ↓
-完了報告。ここで停止します。
-   ↓
-（次の MVP 機能を設計するには `/cc-development-team:design <feature-2>` を実行）
-（実装に進むには、ユーザーから developer サブエージェントに依頼）
-```
-
-**現在の挙動:** 1 回の `/cc-development-team:design` 実行で、`vision.md` → `roadmap.md` → `basic-design.md`（全体設計） → **MVP の最初の 1 機能の `requirements/<feature>.md` + `specs/<feature>.md`** まで作って停止します。実装には進みません。残りの MVP 機能を設計したい場合は、その都度 `/cc-development-team:design <feature-name>` を実行してください。
-
-> **「全体設計」と「個別設計」を分けるドキュメント構成:**
->
-> **全体設計（プロジェクト全体で 1 ファイル）**
-> - `vision.md` — 構想・動機・ターゲット
-> - `roadmap.md` — 機能ロードマップ (MVP / Phase 2 / Future)
-> - `basic-design.md` — 機能一覧 (F-XXX マスター) + 採用技術 + 画面遷移図 + ER 図 + API 一覧 + 認証認可方針
->
-> **個別設計（機能ごとに 1 ファイル）**
-> - `requirements/<機能名>.md` — この機能の目的・業務フロー・操作シナリオ・機能固有の非機能要件
-> - `specs/<機能名>.md` — この機能の画面レイアウト・API 詳細・内部ロジック・受け入れ基準 (Given-When-Then)
->
-> 各機能の要件定義書と詳細仕様書は、基本設計書の機能 ID (F-XXX) と紐づきます。「この機能は何の要件から来てるんだっけ?」「全体として整合してる?」を辿れる構造です。
-
-### 設計先行ルート — `/cc-development-team:design <名前>`
-
-```
-[あなた] 「ログイン機能の仕様書作って」 (例: /cc-development-team:design login-flow)
-   ↓
-[architect] 仕様書を書く → docs/specs/login-flow.md
-   ↓
-完了報告。ここで停止します。
-   ↓
-（実装に進むかはユーザーの判断。発注したい場合は developer サブエージェントに直接依頼）
-```
-
-**現在の挙動:** 設計フェーズのみで停止します。developer/reviewer/tester は呼びません。実装に進めたい場合は、ユーザーから明示的に developer サブエージェントを呼んでください。
-
-### 開発先行モード — `/cc-development-team:develop`
-
-`/cc-development-team:develop` を実行すると **develop モード** に入り、明示的に終了するまで連続して開発依頼を処理し続けます。
-
-```
-[あなた] /cc-development-team:develop を実行（引数あり/なしどちらでも可）
-   ↓
-[develop モード開始]
-   ↓
-[あなた] 「ログイン機能作って」
-   ↓
-[Claude]  feature-name を確認 → docs/specs/login-flow.md の有無を判定
-   ↓
-[developer] 仕様書ありなら沿って実装 / 無ければ依頼から実装
-   ↓
-[reviewer]  品質・セキュリティ・(仕様書ありなら)整合性を点検（Approve まで反復）
-   ↓
-[tester]    新規テストを作成 + 全体テスト実行（全件グリーンまで反復）
-   ↓
-[architect] 必要時のみ仕様書を新規作成/更新（仕様書外の追加機能があった場合）
-   ↓
-[Claude]   「1 件完了。次の依頼は?」
-   ↓
-[あなた]   「次は検索機能作って」 → 同じサイクルを繰り返す
-   ↓ ...
-[あなた]   「終了」
-   ↓
-[develop モード終了] セッション通算の報告（処理件数・変更ファイル数・追加テスト数・仕様書サマリ）
-```
-
-**1 件の処理サイクル:**
-
-| Step | 部署 | 内容 | スキップ条件 |
-| --- | --- | --- | --- |
-| 0 | (Claude) | feature-name 決定 + 仕様書の有無確認 | なし |
-| 1 | developer | 実装。仕様書ありなら沿って実装、無ければ依頼から実装。**UI を含む場合は Frontend Skills を先に呼び出す** | なし |
-| 2 | reviewer | レビュー (Approve まで反復) | なし |
-| 3 | tester | テスト作成 + **全体テスト実行** (グリーンまで反復) | なし |
-| 4 | architect | 仕様書を新規作成 / 更新 | **仕様書あり** かつ **仕様書外の追加なし** の場合はスキップ |
-| 5 | (Claude) | **モック起動の確認**。Web なら dev server、Mobile ならシミュレータ。ユーザー承認のもとで起動 | CLI / ライブラリなど起動対象が無いプロジェクトはスキップ |
-| 6 | (Claude) | 完了報告（仕様書状態 / 変更ファイル / テスト結果 / 手動タスク / 起動状態） | なし |
-
-**特徴:**
-- 終了するには「終了」「exit」「終わり」「もう大丈夫」などと伝える
-- 他のスラッシュコマンド（例: `/cc-development-team:design`）を実行すると自動的にモードが切れる
-- 仕様書がすでにある場合は `developer` がそれに沿って実装します
-- 実装が仕様書を超えた場合（仕様書外の追加機能・要件があった場合）のみ `architect` が仕様書を更新します
-- テストは **作成するだけでなく実行まで** されるので、グリーンを確認してからサイクルが完了します
-- 実装が終わったら **「起動して動作確認しますか?」と聞いてくれます**。yes なら Web は dev server をローカルで、Mobile はシミュレータで起動します（必ずユーザー承認のもと）
-- **UI / フロントエンドを実装するときは Frontend Skills を呼び出します**（Web → `frontend-patterns`、iOS → `swiftui-patterns` + `liquid-glass-design`、Android/KMP → `compose-multiplatform-patterns`）。`everything-claude-code` プラグインが入っていれば自動で動きます
-
-**注意:** モードは Claude の会話文脈で保持されるため、長時間会話で context が圧縮されると失われる場合があります。その時は再度 `/cc-development-team:develop` で再開してください。
-
----
-
-## よくある質問（FAQ）
-
-### Q. Claude Code って何?
-
-A. Anthropic 社が提供している、ターミナルから AI (Claude) と対話してコードを書いてもらうツールです。
-- 公式サイト: <https://claude.com/claude-code>
-- 公式ドキュメント: <https://docs.claude.com/en/docs/claude-code/overview>
-
-### Q. プログラミング未経験でも使える?
-
-A. 小さな機能から試すならOKです。ただし、AI が作ったものが本当に正しいか・安全かの最終判断は人間が必要です。最初は「動いたら嬉しい」程度の機能から始めるのがおすすめです。
-
-### Q. UI / 画面デザインも見てくれる?
-
-A. はい、`develop` モードで **UI / フロントエンドのコード** を実装するときは、プロジェクト種別に応じた **Frontend Skill** を呼び出してから実装します。
-
-| プロジェクト種別 | 呼び出す Skill |
-| --- | --- |
-| Web | `everything-claude-code:frontend-patterns` |
-| iOS (SwiftUI) | `everything-claude-code:swiftui-patterns` + `everything-claude-code:liquid-glass-design`（iOS 26 対応の場合） |
-| Android / KMP (Compose) | `everything-claude-code:compose-multiplatform-patterns` |
-
-これらの Skill は `everything-claude-code` プラグインに含まれています。インストールされていない環境では一般的なベストプラクティスで進めます。
-
-> Skill が呼ばれることで、コンポーネント設計・状態管理・スタイル方針・プラットフォーム固有 UI（Liquid Glass 等）の最新の指針を参照して実装してくれます。
-
-### Q. インストールしたけど何から始めればいいか分からない
-
-A. **`/cc-development-team:guide` を実行してください**。今の状況（「アプリ案がない」「仕様書はある」「コードがある程度書けた」など）を聞いて、次に打つコマンドを 1〜2 個に絞って案内してくれます。
-
-```
-/cc-development-team:guide
-```
-
-無理に全コマンドを覚える必要はありません。迷ったらこのコマンドに戻ってくれば OK です。
-
-### Q. そもそも「何を作るか」が決まってない
-
-A. `/cc-development-team:brainstorm` を実行してください。雑談ベースで興味や困りごとを聞き、アプリ案を 3〜5 個提案してくれます。ピンと来ない時は「別の方向で」と返せば違う角度で再提案してくれます。案が決まったら `/cc-development-team:design` への橋渡しまでしてくれます。
-
-### Q. 途中で「やっぱ違う」と思ったら?
-
-A. 普通に「いや、そうじゃなくて〜」と話しかければ Claude Code が修正してくれます。各部署が動いている最中でも口を挟めます。
-
-### Q. ヒアリングがめんどくさい / 質問が多い
-
-A. architect のヒアリングは **1 問ずつの会話形式** です。1 メッセージで全項目を聞かれることはありません。各質問に短く答えれば次に進みます。分からない・決めていない項目は「不明」「未定」と答えてもらえれば、その項目は飛ばします。また、1 回の回答で複数の項目に答えてしまった場合は、その分を自動でスキップするので無駄な往復はありません。
-
-### Q. develop モードをどう終了する?
-
-A. 「終了」「exit」「終わり」「もう大丈夫」などと伝えてください。Claude が確認の上、モードを抜けて累計の処理件数を報告します。また、他のスラッシュコマンド（例: `/cc-development-team:design`）を実行すると自動的にモードが切れます。
-
-### Q. 各部署の `CLAUDE.md` は埋めなきゃダメ?
-
-A. **空のままで大丈夫です**。ただ、プロジェクト固有のルール（使う言語、テストの書き方、避けたい書き方など）を書き足すと、各部署がそれを守ってくれるようになります。慣れてきたら少しずつ埋めると良いです。
-
-### Q. 既に進行中のプロジェクトにも導入できる?
-
-A. できます。`/cc-development-team:init-dept` は既存の `CLAUDE.md` には **追記するだけ**（上書きしない）ので壊れません。
-
-### Q. Web と Mobile の両方を扱うプロジェクトはどうする?
-
-A. メインの方を選んでください（例: モバイルアプリがメインで管理画面が Web ならば「Mobile」を選択）。サブの方の観点は、生成されたテンプレートに追記する形で対応してください。将来的に細分化したくなったら GitHub Issue で提案してください。
-
-### Q. 仕様書はどこに溜まる?
-
-A. プロジェクトの `docs/specs/<機能名>.md` に「1 機能 = 1 ファイル」で保存されます。Git で管理すればチーム共有もできます。
-
-### Q. セキュリティ的なチェックはしてくれる?
-
-A. はい、2 段構えです。
-
-- **日常のベースライン**: `developer` が書く時から、`reviewer` が点検する時から、秘密情報のハードコード・入力検証・認可漏れなどを意識します。これは毎回自動で意識される最低ライン。
-- **専門点検**: 認証・決済・個人情報を扱った時、リリース前、依存ライブラリのアップデート後などは、`/cc-development-team:security-review` を実行して `security-reviewer` 部署に集中点検してもらってください。OWASP Top 10 / 秘密情報スキャン / 依存脆弱性 / supply chain / 認可漏れまでカバーします。
-
-プロジェクト固有のセキュリティ要件 (取り扱う PII の種類、規制、脅威モデル) は `dept/security-reviewer/CLAUDE.md` に書いておくと、点検の精度が上がります。
-
-### Q. 実装が終わったらすぐ動かして確認できる?
-
-A. はい、develop モードのサイクル末尾で **「起動して動作確認しますか?」と聞いてくれます**。
-
-- **Web プロジェクト** → ローカル dev server (例: `npm run dev`) をバックグラウンドで起動し、`http://localhost:XXXX` のアクセス先を案内します
-- **iOS** → シミュレータを起動してアプリをインストール/起動
-- **Android** → エミュレータを起動してアプリをインストール/起動
-- **Flutter / React Native** → `flutter run` や `npx react-native run-ios` を実行
-- **CLI / ライブラリ等** → 起動対象が無いのでスキップ
-
-ユーザー承認なしには起動しません。「別のコマンドで」と返せばコマンド指定もできます。起動した dev server はバックグラウンドで動き続けるので、停止方法 (`Ctrl+C` / `kill <PID>`) も案内されます。
-
-### Q. Firebase や Supabase の設定など、人間が UI で操作しないと進まない作業はどうなる?
-
-A. **自動でタスク化されます**。
-
-- `architect`（設計時）か `developer`（実装時）が外部サービス設定の必要に気付くと、`docs/manual-tasks/<feature-name>.md` に「手順」「完了の確認方法」「ブロッカー」付きで書き出します
-- 仕様書 `docs/specs/<feature-name>.md` からその手動タスクファイルへのリンクが貼られます
-- 関連するソースコードには `// TODO(manual): docs/manual-tasks/<feature-name>.md#xxx — 未完了内容` というコメントが残ります
-- develop モードの完了報告では、未完了の手動タスク件数が必ず明示されます
-
-つまり「Firebase 設定し忘れて動かない」事故を防げる仕組みです。タスク完了後は、ファイル内ステータスを `☑ 完了` に書き換えて、コード側の `TODO(manual)` を消すだけです。
-
-### Q. 間違って消しちゃったら?
-
-A. プラグイン自体は GitHub から再インストールできます。プロジェクト内のファイルは Git でコミットしておけば戻せます。
-
-### Q. 全部の部署を毎回通さないとダメ?
-
-A. いいえ。`/cc-development-team:develop` ルートなら設計部署は最後に「後追い」で動きます。逆に「設計だけしてほしい」場合は、`architect` サブエージェントを直接呼び出すこともできます。
-
----
-
-## ディレクトリ構成（init-dept 実行後）
-
-```
-your-project/
-├── CLAUDE.md                       # プロジェクト全体のルール（全部署が読む）
-├── docs/                           # ドキュメント系
-│   ├── vision/                     # アプリ構想（design モード A の最初の成果物）
-│   │   ├── vision.md               # 構想 / 動機 / ターゲット
-│   │   └── roadmap.md              # 機能ロードマップ (MVP/Phase 2/Future)
-│   ├── basic-design/               # 基本設計書 = 全体設計（1 ファイル）
-│   │   └── basic-design.md         # 機能一覧 / 採用技術 / 画面遷移図 / ER / API / 認証認可
-│   ├── requirements/               # 要件定義書（機能ごと）
-│   │   ├── login-flow.md
-│   │   ├── invoice-export.md
-│   │   └── ...
-│   ├── specs/                      # 詳細仕様書（機能ごと = 個別設計）
-│   │   ├── login-flow.md
-│   │   ├── invoice-export.md
-│   │   └── ...
-│   ├── manual-tasks/               # 人間が UI 操作するタスクの管理
-│   │   ├── login-flow.md           # 例: Firebase / OAuth 設定など
-│   │   └── ...
-│   └── dept/
-│       └── architect/CLAUDE.md     # 設計部署メモ（設計方針・ドメイン用語集）
-├── design/                         # デザイン素材置き場
-│   ├── README.md                   # 何を入れる場所か
-│   ├── mockups/                    # 画面モックアップ (Figma export 等)
-│   ├── wireframes/                 # ワイヤーフレーム
-│   ├── assets/                     # ロゴ・アイコン・画像素材
-│   └── style-guide.md              # デザイントークン (色・タイポ・余白)
-├── dept/                           # 実作業を行う部署のメモ（コード側）
-│   ├── developer/CLAUDE.md         # コーディング規約・ビルドコマンド
-│   ├── reviewer/CLAUDE.md          # レビュー観点・severity 判定基準
-│   ├── tester/CLAUDE.md            # テスト戦略・実行コマンド・モック方針
-│   └── security-reviewer/CLAUDE.md # セキュリティ要件・脅威モデル・PII の取扱
-└── src/                            # あなたのソースコード
-    └── ...
-```
-
-**配置の考え方:** 設計部署はドキュメントを生み出すので `docs/` 配下にメモを置き、実装/レビュー/テストの3部署は実際のコード・テストの傍にいる方が自然なので、プロジェクトルート直下の `dept/` 配下に置きます。
-
-機能名 (`<feature-name>`) は **kebab-case**（英小文字とハイフン）を推奨します（例: `login-flow`, `invoice-export`）。
-
----
-
-## トラブルシューティング
-
-### `/plugin marketplace add` で失敗する
-
-- ネットワーク接続を確認してください
-- GitHub にアクセスできる環境か確認してください（社内ネットワーク等で制限されている場合あり）
-- リポジトリ名のスペルミスを確認 (`miyazakiryuji/cc-DevelopmentTeam`)
-
-### `/cc-development-team:init-dept` を実行しても何も起きない / 古い挙動のまま
-
-- プラグインが正しくインストールされているか `/plugin list` で確認してください
-- 「プラグインの更新方法」のセクションを参照し、`/plugin marketplace update` と `/plugin update` を実行してください
-- Claude Code を再起動してみてください（更新後は再起動推奨）
-
-### サブエージェントが期待通りに動かない
-
-- 設計部署は `docs/dept/architect/CLAUDE.md`、その他3部署は `dept/<部署名>/CLAUDE.md` の中身を見直し、矛盾した指示が無いか確認してください
-- ルートの `CLAUDE.md` と部署別の `CLAUDE.md` で矛盾がないか確認してください
-
----
-
-## このプラグイン自体を改造したい開発者向け
-
-ローカルで開発・テストする場合:
-
-```bash
-# 別プロジェクトでローカルパス指定でロード
-claude --plugin-dir /path/to/cc-DevelopmentTeam
-```
-
-リポジトリ構成:
-
-```
-cc-DevelopmentTeam/
-├── .claude-plugin/
-│   ├── plugin.json          # プラグイン定義
-│   └── marketplace.json     # 配布用マーケットプレース定義
-├── agents/                  # 4 部署 + 専門アドバイザー
-│   ├── architect.md
-│   ├── developer.md
-│   ├── reviewer.md
-│   ├── tester.md
-│   └── security-reviewer.md
-└── commands/                # スラッシュコマンド
-    ├── guide.md
-    ├── brainstorm.md
-    ├── design.md
-    ├── develop.md
-    ├── refactor.md
-    ├── status.md
-    ├── release-check.md
-    ├── security-review.md
-    ├── sync-spec.md
-    ├── init-dept.md
-    └── update.md
-```
-
-各ファイルは Markdown なので、エディタで開いて編集できます。
+> **モバイル開発をするなら** → [guides/mobile-ide.md](./guides/mobile-ide.md)（専用 IDE 推奨）
 
 ---
 
@@ -651,9 +104,9 @@ cc-DevelopmentTeam/
 
 [MIT License with Attribution Requirement](./LICENSE)
 
-- **自由に使えます** （個人 / 商用 / 業務問わず）
+- **自由に使えます**（個人 / 商用 / 業務問わず）
 - **改変・再配布も OK** です
-- **ただし**、フォーク・改変版・派生プラグインを公開する場合は、**元ネタがこのリポジトリであることを必ず明記** してください。
+- **ただし**、フォーク・改変版・派生プラグインを公開する場合は、**元ネタがこのリポジトリであることを必ず明記** してください
 
 ### 明記の仕方（以下のいずれか 1 箇所以上で）
 
