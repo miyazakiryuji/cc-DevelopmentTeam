@@ -299,6 +299,218 @@ pub async fn generate_invoice(order_id: &str, locale: &str) -> Result<String, Er
 Future<String> generateInvoice(String orderId, {String locale = 'ja'}) async { ... }
 ```
 
+#### Java (Javadoc)
+
+```java
+/**
+ * 注文 ID から請求書 PDF を生成して S3 に保存する。
+ *
+ * @param orderId 注文の一意 ID (UUID v4)
+ * @param locale  PDF の言語 ("ja" または "en")
+ * @return 保存された S3 オブジェクトキー
+ * @throws OrderNotFoundException 注文が見つからない場合
+ * @throws StorageException S3 への書き込みに失敗した場合
+ * @see <a href="docs/specs/invoice-export.md">invoice-export 仕様書</a>
+ */
+public String generateInvoice(String orderId, String locale) throws OrderNotFoundException, StorageException { ... }
+```
+
+#### C# (XML doc comments)
+
+```csharp
+/// <summary>
+/// 注文 ID から請求書 PDF を生成して S3 に保存する。
+/// </summary>
+/// <param name="orderId">注文の一意 ID (UUID v4)</param>
+/// <param name="locale">PDF の言語 ("ja" または "en")。デフォルトは "ja"</param>
+/// <returns>保存された S3 オブジェクトキー</returns>
+/// <exception cref="OrderNotFoundException">注文が見つからない場合</exception>
+/// <exception cref="StorageException">S3 への書き込みに失敗した場合</exception>
+/// <seealso href="docs/specs/invoice-export.md"/>
+public async Task<string> GenerateInvoiceAsync(string orderId, string locale = "ja") { ... }
+```
+
+#### Ruby (YARD)
+
+```ruby
+# 注文 ID から請求書 PDF を生成して S3 に保存する。
+#
+# @param order_id [String] 注文の一意 ID (UUID v4)
+# @param locale [String] PDF の言語 ("ja" または "en")
+# @return [String] 保存された S3 オブジェクトキー
+# @raise [OrderNotFoundError] 注文が見つからない場合
+# @raise [StorageError] S3 への書き込みに失敗した場合
+# @see docs/specs/invoice-export.md
+# @example
+#   key = generate_invoice("abc-123", locale: "en")
+def generate_invoice(order_id, locale: "ja")
+  ...
+end
+```
+
+#### PHP (PHPDoc)
+
+```php
+/**
+ * 注文 ID から請求書 PDF を生成して S3 に保存する。
+ *
+ * @param string $orderId 注文の一意 ID (UUID v4)
+ * @param string $locale  PDF の言語 ("ja" または "en")
+ * @return string 保存された S3 オブジェクトキー
+ * @throws OrderNotFoundException 注文が見つからない場合
+ * @throws StorageException S3 への書き込みに失敗した場合
+ * @see docs/specs/invoice-export.md
+ */
+public function generateInvoice(string $orderId, string $locale = "ja"): string { ... }
+```
+
+#### C / C++ (Doxygen)
+
+```cpp
+/**
+ * @brief 注文 ID から請求書 PDF を生成して S3 に保存する。
+ *
+ * @param[in]  orderId  注文の一意 ID (UUID v4)
+ * @param[in]  locale   PDF の言語 ("ja" または "en")
+ * @return 保存された S3 オブジェクトキー
+ *
+ * @throws OrderNotFoundException 注文が見つからない場合
+ * @throws StorageException S3 への書き込みに失敗した場合
+ *
+ * @see docs/specs/invoice-export.md
+ */
+std::string GenerateInvoice(const std::string& orderId, const std::string& locale = "ja");
+```
+
+#### Elixir (`@doc`)
+
+```elixir
+@doc """
+注文 ID から請求書 PDF を生成して S3 に保存する。
+
+## Parameters
+  - `order_id` — 注文の一意 ID (UUID v4)
+  - `locale` — PDF の言語 (`:ja` | `:en`、デフォルト `:ja`)
+
+## Returns
+  - `{:ok, key}` — 保存された S3 オブジェクトキー
+  - `{:error, reason}` — `:order_not_found` | `:storage_write_failed`
+
+## See
+  - `docs/specs/invoice-export.md`
+
+## Examples
+    iex> generate_invoice("abc-123", locale: :en)
+    {:ok, "invoices/abc-123.pdf"}
+"""
+@spec generate_invoice(String.t(), keyword()) :: {:ok, String.t()} | {:error, atom()}
+def generate_invoice(order_id, opts \\ []), do: ...
+```
+
+#### Scala (Scaladoc)
+
+```scala
+/**
+ * 注文 ID から請求書 PDF を生成して S3 に保存する。
+ *
+ * @param orderId 注文の一意 ID (UUID v4)
+ * @param locale  PDF の言語 ("ja" または "en")
+ * @return 保存された S3 オブジェクトキー
+ * @throws OrderNotFoundException 注文が見つからない場合
+ * @throws StorageException S3 への書き込みに失敗した場合
+ * @see docs/specs/invoice-export.md
+ */
+def generateInvoice(orderId: String, locale: String = "ja"): Future[String] = ???
+```
+
+#### Bash / Shell (ヘッダコメント慣習)
+
+```bash
+# generate_invoice — 注文 ID から請求書 PDF を生成して S3 に保存する。
+#
+# Arguments:
+#   $1 — order_id  : 注文の一意 ID (UUID v4)
+#   $2 — locale    : PDF の言語 ("ja" or "en")。省略時は "ja"
+#
+# Outputs:
+#   stdout  : 保存された S3 オブジェクトキー
+#
+# Returns:
+#   0  : 成功
+#   1  : 注文が見つからない (ORDER_NOT_FOUND)
+#   2  : S3 書き込み失敗 (STORAGE_WRITE_FAILED)
+#
+# See: docs/specs/invoice-export.md
+generate_invoice() {
+  local order_id="$1"
+  local locale="${2:-ja}"
+  ...
+}
+```
+
+#### SQL (関数 / ストアドプロシージャのヘッダコメント)
+
+```sql
+-- generate_invoice — 注文 ID から請求書レコードを生成する。
+--
+-- Parameters:
+--   p_order_id  TEXT     注文の一意 ID (UUID v4)
+--   p_locale    TEXT     PDF の言語 ("ja" or "en"), default "ja"
+--
+-- Returns:
+--   TEXT — 保存された S3 オブジェクトキー
+--
+-- Exceptions:
+--   ORDER_NOT_FOUND      注文が見つからない場合
+--   STORAGE_WRITE_FAILED 書き込みに失敗した場合
+--
+-- See: docs/specs/invoice-export.md
+CREATE OR REPLACE FUNCTION generate_invoice(p_order_id TEXT, p_locale TEXT DEFAULT 'ja')
+RETURNS TEXT AS $$ ... $$ LANGUAGE plpgsql;
+```
+
+#### Haskell (Haddock)
+
+```haskell
+-- | 注文 ID から請求書 PDF を生成して S3 に保存する。
+--
+-- /Throws:/ 'OrderNotFoundException', 'StorageException'
+--
+-- @See "docs/specs/invoice-export.md"@
+generateInvoice
+  :: Text        -- ^ 注文の一意 ID (UUID v4)
+  -> Text        -- ^ PDF の言語 ("ja" or "en")
+  -> IO Text     -- ^ 保存された S3 オブジェクトキー
+generateInvoice orderId locale = ...
+```
+
+#### R (roxygen2)
+
+```r
+#' 注文 ID から請求書 PDF を生成して S3 に保存する。
+#'
+#' @param order_id 注文の一意 ID (UUID v4) を表す文字列。
+#' @param locale PDF の言語 ("ja" または "en")。デフォルトは "ja"。
+#' @return 保存された S3 オブジェクトキー (character)。
+#' @seealso docs/specs/invoice-export.md
+#' @examples
+#' generate_invoice("abc-123", locale = "en")
+#' @export
+generate_invoice <- function(order_id, locale = "ja") { ... }
+```
+
+#### Lua (LDoc)
+
+```lua
+--- 注文 ID から請求書 PDF を生成して S3 に保存する。
+-- @param order_id (string) 注文の一意 ID (UUID v4)
+-- @param locale   (string) PDF の言語 ("ja" or "en"), default "ja"
+-- @return (string) 保存された S3 オブジェクトキー
+-- @raise "ORDER_NOT_FOUND" / "STORAGE_WRITE_FAILED"
+-- @see docs/specs/invoice-export.md
+local function generate_invoice(order_id, locale) ... end
+```
+
 ### プロジェクト固有ルールが優先
 
 `dept/developer/CLAUDE.md` に独自のコメントポリシー（業界規約・社内規約）があれば、そちらを優先する。ここに書いた言語別フォーマットはあくまでデフォルト。
