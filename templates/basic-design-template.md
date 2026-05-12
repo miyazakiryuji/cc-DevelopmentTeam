@@ -18,6 +18,15 @@ docs/basic-design/basic-design.md として書き出されます。
 - 機能ごと詳細仕様: [docs/specs/](../specs/)
 - デザイン素材（モックアップ・スタイルガイド等）: [design/](../../design/)
 
+## 0. プロジェクト前提
+
+<!-- init-dept のヒアリングで決まった内容を転記。途中で変える場合はここを更新する -->
+
+- **プロジェクト種別:** <Web / Mobile>
+- **設計思想 (アーキテクチャパターン):** <Feature-based / MVC / Clean Architecture / MVVM / MVI / TCA / その他>
+- **アプリコード配置 (ルート):** <src/ / lib/ / app/ / apps/ / その他>
+- **採用フレームワーク:** <Next.js / Flutter / SwiftUI / Compose / etc>
+
 ## 1. システム構成
 
 ### 1.1 全体構成図
