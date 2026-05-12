@@ -58,7 +58,7 @@ b) 既存の特定機能だけチェック
 - `$TARGET == "--all"` → `docs/specs/*.md` 全件 (`_template.md` 除く)
 - それ以外 → `docs/specs/$TARGET.md` のみ
 
-1件も無ければ「仕様書が見つかりません。`/cc-development-team:design` または `/cc-development-team:develop` を先に実行してください」と案内して終了する。
+1件も無ければ「仕様書が見つかりません。`/cc-development-team:architect` または `/cc-development-team:develop` を先に実行してください」と案内して終了する。
 
 ## Step 2: 各仕様書について以下を実施
 

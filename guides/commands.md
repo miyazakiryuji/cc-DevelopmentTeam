@@ -6,7 +6,7 @@
 | --- | --- | --- |
 | 何から始めればいいか分からない       | `/cc-development-team:guide`          | **迷ったらこれ**。今の状況をヒアリングして次のコマンドを案内 |
 | そもそも何を作るか決まってない       | `/cc-development-team:brainstorm`     | 雑談ベースでアプリ案を 3〜5 個出してくれる相談モード |
-| 仕様書を作りたい / 更新したい        | `/cc-development-team:design [名前]` | 引数なしで起動可能。**「アプリ構想 / 新規機能 / 既存更新」をヒアリング** してくれる |
+| 仕様書を作りたい / 更新したい        | `/cc-development-team:architect [名前]` | 引数なしで起動可能。**「アプリ構想 / 新規機能 / 既存更新」をヒアリング** してくれる |
 | とりあえず動くものを先に作りたい     | `/cc-development-team:develop [名前]` | **develop モード**に入り、終了するまで連続して依頼を受け付ける。開始時に **フル / 実装重視 をヒアリング**。仕様書は各サイクルで自動生成 |
 | テストを書いて実行したい             | `/cc-development-team:test [名前]` | 引数なしで起動可能。**対象選択をヒアリング**。発見した失敗・改善は **修正前にユーザーに確認** してから適用 |
 | 既存コードをリファクタしたい         | `/cc-development-team:refactor [対象]` | 引数なしで起動可能。**対象選択をヒアリング** してくれる。振る舞い不変・テスト Before/After 厳守 |
@@ -24,7 +24,7 @@
 ```
 [1] 「何作ろうかな…」  →  /cc-development-team:brainstorm   (アイデアを出す)
        ↓ 案が決まったら
-[2] 「整理したい」      →  /cc-development-team:design      (仕様書を作る)
+[2] 「整理したい」      →  /cc-development-team:architect      (仕様書を作る)
        ↓ 仕様書ができたら
 [3] 「実装したい」      →  /cc-development-team:develop     (コードを書く)
        ↓ 実装が落ち着いたら
@@ -33,7 +33,7 @@
 
 各ステップは独立しているので、途中から入ってもOK（既にアイデアがあるなら brainstorm はスキップ）。
 
-> **`/cc-development-team:design` は設計フェーズのみで停止します。** 実装には自動では進まないので、続けて作る場合は `/cc-development-team:develop` を別途実行してください。
+> **`/cc-development-team:architect` は設計フェーズのみで停止します。** 実装には自動では進まないので、続けて作る場合は `/cc-development-team:develop` を別途実行してください。
 
 ## 命名ルール
 

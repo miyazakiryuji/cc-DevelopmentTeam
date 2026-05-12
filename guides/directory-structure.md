@@ -8,7 +8,7 @@
 your-project/
 ├── CLAUDE.md                       # プロジェクト全体のルール（全部署が読む）
 ├── docs/                           # ドキュメント系（テキスト中心）
-│   ├── vision/                     # アプリ構想（design モード A の最初の成果物）
+│   ├── vision/                     # アプリ構想（architect モード A の最初の成果物）
 │   │   ├── vision.md               # 構想 / 動機 / ターゲット
 │   │   └── roadmap.md              # 機能ロードマップ (MVP/Phase 2/Future)
 │   ├── basic-design/               # 基本設計書 = 全体設計（1 ファイル）
@@ -276,9 +276,9 @@ your-project/
 | フォルダ | 空でも OK? | 補足 |
 | --- | --- | --- |
 | `docs/vision/` | OK | brainstorm 経由なら自動で埋まる |
-| `docs/basic-design/` | OK | design モード A で埋まる |
-| `docs/requirements/` | OK | design モード B で機能ごとに追加 |
-| `docs/specs/` | OK | design モード B で機能ごとに追加 |
+| `docs/basic-design/` | OK | architect モード A で埋まる |
+| `docs/requirements/` | OK | architect モード B で機能ごとに追加 |
+| `docs/specs/` | OK | architect モード B で機能ごとに追加 |
 | `docs/manual-tasks/` | OK | 必要が出てから自動作成される |
 | `design/mockups/` | OK | モックアップが無くても実装は進む |
 | `design/wireframes/` | OK | |

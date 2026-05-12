@@ -63,10 +63,10 @@ my-first-app/
 例:
 
 - **何を作るかまだ思いついていない** → `/cc-development-team:brainstorm`（雑談ベースでアプリ案を 3〜5 個出してくれる）
-- **アプリ案はある、仕様書を作りたい** → `/cc-development-team:design`（引数なしで OK、ヒアリングで進めてくれる）
+- **アプリ案はある、仕様書を作りたい** → `/cc-development-team:architect`（引数なしで OK、ヒアリングで進めてくれる）
 - **仕様書はある、コードを書きたい** → `/cc-development-team:develop`（develop モードに入る）
 
-`/cc-development-team:design` を引数なしで実行すると、こんな感じで聞いてきます:
+`/cc-development-team:architect` を引数なしで実行すると、こんな感じで聞いてきます:
 
 ```
 【設計コマンド — 何をしますか?】

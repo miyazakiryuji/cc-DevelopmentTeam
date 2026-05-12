@@ -52,7 +52,7 @@ Claude Code 内で:
 | --- | --- |
 | 何から始めればいいか分からない | `/cc-development-team:guide` |
 | アプリ案を相談したい | `/cc-development-team:brainstorm` |
-| 仕様書を作る / 更新する | `/cc-development-team:design [名前]` |
+| 仕様書を作る / 更新する | `/cc-development-team:architect [名前]` |
 | 開発する（develop モード） | `/cc-development-team:develop [名前]` |
 | テストを書く / 実行する | `/cc-development-team:test [名前]` |
 | 既存コードをリファクタ | `/cc-development-team:refactor [対象]` |

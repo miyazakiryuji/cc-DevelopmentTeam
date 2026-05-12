@@ -71,7 +71,7 @@ description: cc-DevelopmentTeam プラグインを使い始めるためにプロ
 
 - 何から始めればいいか分からない: `/cc-development-team:guide`（迷ったらこれ）
 - アプリ案を相談: `/cc-development-team:brainstorm`
-- 仕様書を作成 / 更新: `/cc-development-team:design [name]`
+- 仕様書を作成 / 更新: `/cc-development-team:architect [name]`
 - 開発（develop モード）: `/cc-development-team:develop [name]`
 - リファクタ専用: `/cc-development-team:refactor [対象]`
 - 現状確認ダッシュボード: `/cc-development-team:status`
@@ -600,7 +600,7 @@ Step 4 までが完了したら、まず以下を簡潔に表示する:
 | --- | --- | --- |
 | **何から始めればいいか分からない** | **/cc-development-team:guide** | **迷ったらまずこれ**。状況を聞いて次のコマンドを案内 |
 | そもそも何を作るか決まってない | /cc-development-team:brainstorm | 雑談ベースでアイデアを 3〜5 個出してくれる |
-| アプリ案は決まった、仕様書を作りたい | /cc-development-team:design | architect が呼ばれて仕様書を作って終了(設計だけ) |
+| アプリ案は決まった、仕様書を作りたい | /cc-development-team:architect | architect が呼ばれて仕様書を作って終了(設計だけ) |
 | 設計まで終わった、コードを書きたい | /cc-development-team:develop | develop モードに入る。終了するまで連続で開発を回せる |
 
 「何を作ろうかな」状態なら brainstorm → design → develop の順に進むと安心です。
@@ -624,7 +624,7 @@ Step 4 までが完了したら、まず以下を簡潔に表示する:
 ```
 [1] 「何作ろうかな…」  →  /cc-development-team:brainstorm    (アイデアを出す)
        ↓ 案が決まった
-[2] 「何を作るか整理」  →  /cc-development-team:design        (仕様書を作る)
+[2] 「何を作るか整理」  →  /cc-development-team:architect        (仕様書を作る)
        ↓ 仕様書ができた
 [3] 「コード書きたい」  →  /cc-development-team:develop       (実装する)
 ```

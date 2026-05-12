@@ -213,7 +213,7 @@ MVP として以下を提案しました:
 ユーザーが OK を出したら、roadmap.md の **MVP リストの先頭** の `feature-name` を引き継いで **モード B の Step B-1 から開始**します。
 モード A はここで終わり、以降はモード B のフローを実行してください。
 
-> 注: 現在の運用方針では、`/cc-development-team:design` は **設計フェーズのみ** で停止します。MVP の次の機能を設計する際は、ユーザーが都度 `/cc-development-team:design <次の feature-name>` を実行してください。実装フェーズへの自動連結は行いません。
+> 注: 現在の運用方針では、`/cc-development-team:architect` は **設計フェーズのみ** で停止します。MVP の次の機能を設計する際は、ユーザーが都度 `/cc-development-team:architect <次の feature-name>` を実行してください。実装フェーズへの自動連結は行いません。
 
 ---
 

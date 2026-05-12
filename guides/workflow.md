@@ -13,17 +13,17 @@
    ↓ (気に入らなければ「別の方向で」と返す → 再提案ループ)
 [あなた] 「これにしようかな」 → 案 1 つに決定
    ↓
-[Claude] 「次は設計に進みましょう」 → /cc-development-team:design の起動を促す
+[Claude] 「次は設計に進みましょう」 → /cc-development-team:architect の起動を促す
    ↓
 （以降は「アプリ構想から始める」フローへ続く）
 ```
 
-「作りたいものがある人」は brainstorm をスキップして直接 `/cc-development-team:design` から始めて OK です。
+「作りたいものがある人」は brainstorm をスキップして直接 `/cc-development-team:architect` から始めて OK です。
 
-## アプリ構想から始める場合 — `/cc-development-team:design`（引数なし）
+## アプリ構想から始める場合 — `/cc-development-team:architect`（引数なし）
 
 ```
-[あなた] /cc-development-team:design を実行
+[あなた] /cc-development-team:architect を実行
    ↓
 [architect] モード選択を確認（A: 構想 / B: 機能）
    ↓ (A を選択)
@@ -39,11 +39,11 @@
    ↓
 完了報告。ここで停止します。
    ↓
-（次の MVP 機能を設計するには `/cc-development-team:design <feature-2>` を実行）
+（次の MVP 機能を設計するには `/cc-development-team:architect <feature-2>` を実行）
 （実装に進むには、ユーザーから developer サブエージェントに依頼）
 ```
 
-1 回の `/cc-development-team:design` 実行で、`vision.md` → `roadmap.md` → `basic-design.md`（全体設計） → **MVP の最初の 1 機能の `requirements/<feature>.md` + `specs/<feature>.md`** まで作って停止します。実装には進みません。残りの MVP 機能を設計したい場合は、その都度 `/cc-development-team:design <feature-name>` を実行してください。
+1 回の `/cc-development-team:architect` 実行で、`vision.md` → `roadmap.md` → `basic-design.md`（全体設計） → **MVP の最初の 1 機能の `requirements/<feature>.md` + `specs/<feature>.md`** まで作って停止します。実装には進みません。残りの MVP 機能を設計したい場合は、その都度 `/cc-development-team:architect <feature-name>` を実行してください。
 
 > **「全体設計」と「個別設計」を分けるドキュメント構成:**
 >
@@ -58,10 +58,10 @@
 >
 > 各機能の要件定義書と詳細仕様書は、基本設計書の機能 ID (F-XXX) と紐づきます。「この機能は何の要件から来てるんだっけ?」「全体として整合してる?」を辿れる構造です。
 
-## 設計先行ルート — `/cc-development-team:design <名前>`
+## 設計先行ルート — `/cc-development-team:architect <名前>`
 
 ```
-[あなた] 「ログイン機能の仕様書作って」 (例: /cc-development-team:design login-flow)
+[あなた] 「ログイン機能の仕様書作って」 (例: /cc-development-team:architect login-flow)
    ↓
 [architect] 仕様書を書く → docs/specs/login-flow.md
    ↓
@@ -122,7 +122,7 @@
 **特徴:**
 
 - 終了するには「終了」「exit」「終わり」「もう大丈夫」などと伝える
-- 他のスラッシュコマンド（例: `/cc-development-team:design`）を実行すると自動的にモードが切れる
+- 他のスラッシュコマンド（例: `/cc-development-team:architect`）を実行すると自動的にモードが切れる
 - 仕様書がすでにある場合は `developer` がそれに沿って実装します
 - 実装が仕様書を超えた場合（仕様書外の追加機能・要件があった場合）のみ `architect` が仕様書を更新します
 - **サイクル範囲はモード開始時にヒアリングして選択します**:
