@@ -20,6 +20,10 @@
   - `/cc-development-team:develop` の Step 5 (動作確認) でも Mobile は IDE 起動手順を案内。CLI 起動はユーザーが「CLI で起動して」と明示した場合の最終手段に
   - Web は従来通りローカル dev server で起動
   - `guides/mobile-ide.md` も IDE 主導の運用方針を明文化
+- `/cc-development-team:develop` のサイクル範囲ヒアリングを **`lean` (実装重視) 推奨デフォルト** に変更
+  - フルサイクルは 1 サイクルが重くなり時間がかかるため、実装が一通り終わってから `/cc-development-team:test` でまとめて回す方が効率的
+  - 候補の順序を a) 実装重視 / b) フルサイクル に変更
+  - 関連ガイド (workflow.md / faq.md / commands.md / guide.md) も合わせて更新
 
 ---
 

@@ -96,12 +96,14 @@ f) このプラグインの全体像をまず知りたい
 ```
 【オススメ: /cc-development-team:develop】
 
-develop モードに入ります! モード開始時に「サイクル範囲」をヒアリングします:
+develop モードに入ります! モード開始時に「サイクル範囲」をヒアリングします (推奨は実装重視):
 
-- フルサイクル → developer → reviewer → tester → architect → 動作確認
-- 実装重視   → developer → reviewer → architect → 動作確認 (tester なし)
+- 実装重視 (推奨) → developer → reviewer → architect → 動作確認 (tester なし)
+- フルサイクル   → developer → reviewer → tester → architect → 動作確認
 
-「実装重視」を選ぶと、テストは後で /cc-development-team:test で別途回せます!
+実装重視 (lean) は 1 サイクルが軽くテンポよく回せます。テストは実装が
+一通り終わってから /cc-development-team:test でまとめて回す想定。
+フルは 1 サイクルが重くなるので、慎重に進めたい時だけ選んでください。
 途中で「フルに切り替えて」「軽量で」と言えば変更可能です。
 
 仕様書が既にある場合は、それに沿って実装してくれます。

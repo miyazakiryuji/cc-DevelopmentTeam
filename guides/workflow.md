@@ -125,9 +125,9 @@
 - 他のスラッシュコマンド（例: `/cc-development-team:architect`）を実行すると自動的にモードが切れる
 - 仕様書がすでにある場合は `developer` がそれに沿って実装します
 - 実装が仕様書を超えた場合（仕様書外の追加機能・要件があった場合）のみ `architect` が仕様書を更新します
-- **サイクル範囲はモード開始時にヒアリングして選択します**:
-  - **`full` (フルサイクル)**: tester も毎サイクル呼んで、テストまで一気に回す
-  - **`lean` (実装重視)**: tester はスキップ。テストは別途 `/cc-development-team:test` で実行
+- **サイクル範囲はモード開始時にヒアリングして選択します** (推奨は `lean`):
+  - **`lean` (実装重視・推奨)**: tester はスキップ。1 サイクルが軽くテンポよく回せる。テストは実装が一通り終わってから `/cc-development-team:test` でまとめて実行
+  - **`full` (フルサイクル)**: tester も毎サイクル呼んで、テストまで一気に回す。1 サイクルが重くなり時間がかかる
   - 途中で「フルに切り替えて」「軽量で」と言えば変更できます
 - 実装が終わったら **「起動して動作確認しますか?」と聞いてくれます**。yes なら Web は dev server をローカルで、Mobile はシミュレータで起動します（必ずユーザー承認のもと）
 - **UI / フロントエンドを実装するときは Frontend Skills を呼び出します**（Web → `frontend-patterns`、iOS → `swiftui-patterns` + `liquid-glass-design`、Android/KMP → `compose-multiplatform-patterns`）。`everything-claude-code` プラグインが入っていれば自動で動きます
