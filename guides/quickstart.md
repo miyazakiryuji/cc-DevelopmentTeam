@@ -93,4 +93,5 @@ c) 既存の仕様書を更新する
 - [commands.md](./commands.md) — 各コマンドの詳細
 - [workflow.md](./workflow.md) — 業務フローの図解
 - [directory-structure.md](./directory-structure.md) — init-dept で作られるフォルダ構成
+- [../examples/todo-app-web/](../examples/todo-app-web/) — ドキュメント書き方の見本 (Web Todo アプリのサンプル)
 - [faq.md](./faq.md) — よくある質問

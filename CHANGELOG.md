@@ -9,8 +9,15 @@
 
 ## [Unreleased]
 
+### Added
+- `examples/todo-app-web/` を追加: ドキュメント書き方の見本となるサンプルプロジェクト (Web + Feature-based + `src/`)。vision / roadmap / basic-design / requirements / specs / manual-tasks をフルセット
+- `CHANGELOG.md` を追加: Keep a Changelog 形式のリリース履歴
+
+### Changed
+- `/cc-development-team:update` のバージョン比較を **タグベース (Semantic Versioning)** に切替。`plugin.json` の `version` フィールドと GitHub Releases のタグを比較。タグが無ければ HEAD SHA でフォールバック
+- `CLAUDE.md` (プラグイン本体) にリリースプロセスのセクションを追加: `git tag` + `gh release create` の手順
+
 ### Planned (検討中)
-- `examples/` のメンテナンス方針確立
 - 国際展開する場合の README 英語化
 
 ---

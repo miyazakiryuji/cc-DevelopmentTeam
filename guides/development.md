@@ -60,6 +60,10 @@ cc-DevelopmentTeam/
 │       └── sql.md / haskell.md / r.md / lua.md
 ├── guides/                  # 日本語の手順書（このフォルダ）
 │   └── ...
+├── examples/                # 「init-dept 後はこんなドキュメントになる」の見本
+│   └── todo-app-web/        # Web + Feature-based + src/ のサンプル (ドキュメントのみ)
+├── CHANGELOG.md             # リリースごとの変更履歴 (Keep a Changelog 形式)
+├── CLAUDE.md                # プラグイン本体を改造するときの作業ルール
 ├── README.md                # ナビゲーター役の最小限の説明
 └── LICENSE                  # MIT License with Attribution Requirement
 ```

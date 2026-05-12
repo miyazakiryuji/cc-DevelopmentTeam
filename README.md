@@ -83,6 +83,7 @@ Claude Code 内で:
 | プロジェクトの構成を確認したい | [guides/directory-structure.md](./guides/directory-structure.md) |
 | よくある質問を見たい | [guides/faq.md](./guides/faq.md) |
 | 動かない / 思った通りに動かない | [guides/troubleshooting.md](./guides/troubleshooting.md) |
+| ドキュメントの書き方の見本がほしい | [examples/todo-app-web/](./examples/todo-app-web/) |
 | プラグイン自体を改造したい | [guides/development.md](./guides/development.md) |
 
 ---
