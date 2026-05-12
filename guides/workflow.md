@@ -43,7 +43,7 @@
 （実装に進むには、ユーザーから developer サブエージェントに依頼）
 ```
 
-**現在の挙動:** 1 回の `/cc-development-team:design` 実行で、`vision.md` → `roadmap.md` → `basic-design.md`（全体設計） → **MVP の最初の 1 機能の `requirements/<feature>.md` + `specs/<feature>.md`** まで作って停止します。実装には進みません。残りの MVP 機能を設計したい場合は、その都度 `/cc-development-team:design <feature-name>` を実行してください。
+1 回の `/cc-development-team:design` 実行で、`vision.md` → `roadmap.md` → `basic-design.md`（全体設計） → **MVP の最初の 1 機能の `requirements/<feature>.md` + `specs/<feature>.md`** まで作って停止します。実装には進みません。残りの MVP 機能を設計したい場合は、その都度 `/cc-development-team:design <feature-name>` を実行してください。
 
 > **「全体設計」と「個別設計」を分けるドキュメント構成:**
 >
@@ -70,7 +70,7 @@
 （実装に進むかはユーザーの判断。発注したい場合は developer サブエージェントに直接依頼）
 ```
 
-**現在の挙動:** 設計フェーズのみで停止します。developer/reviewer/tester は呼びません。実装に進めたい場合は、ユーザーから明示的に developer サブエージェントを呼んでください。
+設計フェーズのみで停止します。developer / reviewer / tester は呼びません。実装に進める場合は `/cc-development-team:develop` を別途実行してください。
 
 ## 開発先行モード — `/cc-development-team:develop`
 

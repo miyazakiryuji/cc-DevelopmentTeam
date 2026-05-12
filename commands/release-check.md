@@ -4,6 +4,8 @@ description: リリース前の総合チェック。MVP 完了 / テスト / 手
 
 このコマンドは **公開・デプロイ前の最終確認** を実施します。何も自動で公開・push・タグ付けしません（チェックと案内のみ）。
 
+> このコマンドは **薄いオーケストレーター** です。テスト実行は `/cc-development-team:test`、仕様書ドリフト点検は `/cc-development-team:sync-spec` の処理を呼び出すことで再利用します（重複実装を持ちません）。
+
 ---
 
 ## Step 1: MVP 完了確認
@@ -18,13 +20,14 @@ description: リリース前の総合チェック。MVP 完了 / テスト / 手
 
 ## Step 2: テスト全件実行
 
-テストコマンドの取得:
-1. `dept/developer/CLAUDE.md` または `dept/tester/CLAUDE.md` の「テスト実行コマンド」を `Read` で取得
-2. 取得できなければプロジェクトから推定（`package.json` の `test` スクリプト、`pytest`、`go test ./...`、`./gradlew test`、`xcodebuild test` 等）
+**`/cc-development-team:test` の「全体実行」モードに処理を委譲する。** 具体的には `commands/test.md` の Step 0-2b → Step 2 → Step 3 と同じ処理を実施する（テストランナーを実行し、合格 / 失敗 / スキップ件数を集計）。
 
-`Bash` で実行:
+このフェーズでは **新規テスト作成は行わない**（既存テストの再実行のみ）。改善候補の修正適用ヒアリング（test.md の Step 4）もスキップし、結果だけを取得して以下にマッピング:
+
 - 全件グリーン → ☑ 合格
 - 失敗あり → ☐ 不合格（失敗一覧を保持）
+
+失敗テストの修正が必要なら、ユーザーには「`/cc-development-team:test` を単独で実行して対応してから release-check を再実行してください」と案内する（このコマンドは修正は行わない）。
 
 ## Step 3: 手動タスク確認
 
@@ -36,11 +39,13 @@ description: リリース前の総合チェック。MVP 完了 / テスト / 手
 
 ## Step 4: 仕様書とコードの整合性
 
-内部的に `/cc-development-team:sync-spec` 相当の点検を実施（または `sync-spec` コマンドの内容を読み込んで実行）:
+**`/cc-development-team:sync-spec` の全件モードに処理を委譲する。** 具体的には `commands/sync-spec.md` の Step 0-2a → Step 1 → Step 2 → Step 3 と同じ処理を実施し、仕様書ごとの乖離件数を集計する。
 
-各仕様書について実コードとの乖離を集計:
-- 乖離 0 件 → ☑ 合格
+集計結果を以下にマッピング:
+- 全仕様書で乖離 0 件 → ☑ 合格
 - 乖離あり → ⚠ 要注意（必ずしも不合格ではないが、リストアップ）
+
+なお、推奨アクション (sync-spec の Step 4) はここでは出力せず、Step 7 の総合判定にまとめて反映する。
 
 ## Step 5: セキュリティ点検履歴
 

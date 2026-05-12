@@ -33,7 +33,7 @@
 
 各ステップは独立しているので、途中から入ってもOK（既にアイデアがあるなら brainstorm はスキップ）。
 
-> **`/cc-development-team:design` の現在の挙動について:** 以前は `architect → developer → reviewer → tester` の完全パイプラインを 1 コマンドで実行していましたが、現在は **設計フェーズのみ** で停止する運用方針に変更されています（一旦の暫定）。実装に進めたい場合は、仕様書を確認した後でユーザーが明示的に `developer` サブエージェントの起動を依頼してください。
+> **`/cc-development-team:design` は設計フェーズのみで停止します。** 実装には自動では進まないので、続けて作る場合は `/cc-development-team:develop` を別途実行してください。
 
 ## 命名ルール
 
