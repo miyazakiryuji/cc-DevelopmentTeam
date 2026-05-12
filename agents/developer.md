@@ -142,6 +142,174 @@ const firebaseConfig = {
 
 特に **認証・決済・個人情報・ファイルアップロード・外部 API 連携** を扱う機能を実装したら、完了報告時に「`/cc-development-team:security-review <feature-name>` で点検することを推奨」とユーザーに案内すること。
 
+## 関数のドキュメントコメント
+
+「読み手が型・関数名だけでは推測できない情報」を関数ヘッダに残す。**冗長な解説（WHAT）は不要、補足が要る WHY と契約（前提条件・副作用・例外）を書く**。
+
+### いつ書くか / いつ書かないか
+
+| 対象 | 書く? |
+| --- | --- |
+| 公開 API / 外部から呼ばれる関数 (exported, public) | **必ず書く** |
+| ライブラリ / SDK として配布する関数 | **必ず書く** |
+| 副作用がある / 例外を投げる / 非自明な前提を持つ private 関数 | **書く** |
+| ロジックがシンプルで名前・型から自明な private 関数 | 書かない |
+| ゲッター / セッター / 単純な委譲関数 | 書かない |
+| テスト関数 (`it`, `test`, `describe`) | 書かない（テスト名で説明）|
+
+### 書く項目（優先度順）
+
+1. **要約** (1 行 / 命令形): 「何をするか」を 1 行で。WHAT が型から自明な場合は WHY を書く
+2. **引数** (`@param`): 型から推測できない意味・制約・単位
+3. **戻り値** (`@returns`): 失敗時の値、複数の返り値経路の意味
+4. **例外 / エラー** (`@throws`): どんな条件で投げるか
+5. **副作用** (`@sideEffect` または本文に明記): I/O・状態変化・グローバル変更
+6. **使用例** (`@example`): 使い方が非自明な場合のみ
+7. **関連** (`@see`): 仕様書や関連関数へのリンク
+
+> 仕様書 (`docs/specs/<feature-name>.md`) のリンクを `@see` で添えると、将来「この関数はどの要件から来てるか」を辿れます。
+
+### 言語別フォーマット
+
+#### TypeScript / JavaScript (TSDoc / JSDoc)
+
+```typescript
+/**
+ * 注文 ID から請求書 PDF を生成して S3 に保存する。
+ *
+ * @param orderId - 注文の一意 ID (UUID v4)
+ * @param options.locale - PDF の言語 (default: "ja")
+ * @returns 保存された S3 オブジェクトキー
+ * @throws {OrderNotFoundError} 注文が見つからない場合
+ * @throws {StorageError} S3 への書き込みに失敗した場合
+ *
+ * @see docs/specs/invoice-export.md
+ *
+ * @example
+ * const key = await generateInvoice("abc-123", { locale: "en" });
+ */
+export async function generateInvoice(
+  orderId: string,
+  options?: { locale?: "ja" | "en" },
+): Promise<string> { ... }
+```
+
+#### Python (Google スタイル docstring)
+
+```python
+def generate_invoice(order_id: str, locale: str = "ja") -> str:
+    """注文 ID から請求書 PDF を生成して S3 に保存する。
+
+    Args:
+        order_id: 注文の一意 ID (UUID v4)。
+        locale: PDF の言語。"ja" または "en" を指定。
+
+    Returns:
+        保存された S3 オブジェクトキー。
+
+    Raises:
+        OrderNotFoundError: 注文が見つからない場合。
+        StorageError: S3 への書き込みに失敗した場合。
+
+    See Also:
+        docs/specs/invoice-export.md
+    """
+```
+
+#### Swift (Swift Markup)
+
+```swift
+/// 注文 ID から請求書 PDF を生成して S3 に保存する。
+///
+/// - Parameters:
+///   - orderId: 注文の一意 ID (UUID v4)
+///   - locale: PDF の言語。デフォルトは `.ja`
+/// - Returns: 保存された S3 オブジェクトキー
+/// - Throws: `OrderError.notFound` / `StorageError.writeFailed`
+///
+/// - SeeAlso: `docs/specs/invoice-export.md`
+func generateInvoice(orderId: String, locale: Locale = .ja) async throws -> String {
+    ...
+}
+```
+
+#### Kotlin (KDoc)
+
+```kotlin
+/**
+ * 注文 ID から請求書 PDF を生成して S3 に保存する。
+ *
+ * @param orderId 注文の一意 ID (UUID v4)
+ * @param locale PDF の言語 (デフォルト: [Locale.JA])
+ * @return 保存された S3 オブジェクトキー
+ * @throws OrderNotFoundException 注文が見つからない場合
+ * @throws StorageException S3 への書き込みに失敗した場合
+ * @see docs/specs/invoice-export.md
+ */
+suspend fun generateInvoice(orderId: String, locale: Locale = Locale.JA): String { ... }
+```
+
+#### Go (godoc 形式)
+
+```go
+// GenerateInvoice は注文 ID から請求書 PDF を生成して S3 に保存する。
+//
+// orderId は UUID v4 形式の文字列を期待する。locale には "ja" または "en" を指定。
+// 戻り値は保存された S3 オブジェクトキー。
+//
+// エラー:
+//   - ErrOrderNotFound: 注文が見つからない場合
+//   - ErrStorageWrite:  S3 への書き込みに失敗した場合
+//
+// 関連: docs/specs/invoice-export.md
+func GenerateInvoice(orderId string, locale string) (string, error) { ... }
+```
+
+#### Rust (rustdoc)
+
+```rust
+/// 注文 ID から請求書 PDF を生成して S3 に保存する。
+///
+/// # Arguments
+/// * `order_id` - 注文の一意 ID (UUID v4)
+/// * `locale` - PDF の言語 ("ja" | "en")
+///
+/// # Errors
+/// * [`OrderError::NotFound`] - 注文が見つからない場合
+/// * [`StorageError::WriteFailed`] - S3 書き込み失敗
+///
+/// # Example
+/// ```
+/// let key = generate_invoice("abc-123", "en").await?;
+/// ```
+pub async fn generate_invoice(order_id: &str, locale: &str) -> Result<String, Error> { ... }
+```
+
+#### Dart (dartdoc) — Flutter
+
+```dart
+/// 注文 ID から請求書 PDF を生成して S3 に保存する。
+///
+/// [orderId] は UUID v4 形式の文字列を期待する。
+/// [locale] は `'ja'` または `'en'`。デフォルトは `'ja'`。
+///
+/// 戻り値は保存された S3 オブジェクトキー。
+///
+/// Throws [OrderNotFoundException] / [StorageException]。
+Future<String> generateInvoice(String orderId, {String locale = 'ja'}) async { ... }
+```
+
+### プロジェクト固有ルールが優先
+
+`dept/developer/CLAUDE.md` に独自のコメントポリシー（業界規約・社内規約）があれば、そちらを優先する。ここに書いた言語別フォーマットはあくまでデフォルト。
+
+### よくある間違い
+
+- **WHAT を冗長に書く**: `// この関数はユーザーを取得する` のような名前と同じ説明は不要
+- **古い情報を残す**: シグネチャを変えたのにコメントだけ前の引数名が残っている → 削除 or 更新
+- **個人情報・秘密情報を例に入れる**: `@example` の実例には架空のデータを使う
+- **コメントだけで実装をサボる**: 「TODO: 後で実装」を残して終わるのは禁止（`TODO(manual)` は別。手動タスク追跡用なので OK）
+
 ## やってはいけないこと
 
 - 仕様にない機能を追加する
