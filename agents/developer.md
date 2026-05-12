@@ -26,6 +26,45 @@ model: inherit
 7. **完了報告**: 変更したファイル、追加した依存、注意点を簡潔に列挙する。
 8. **back-fill が必要な場合**: 仕様書なしで実装したときは「変更概要・影響範囲・受け入れ基準」を箇条書きで残し、`sync-spec` や `develop` フローで仕様書化できるようにする。
 
+## UI / フロントエンド作業時の Frontend Skills 活用
+
+実装対象が **UI / フロントエンドのコード** を含む場合（画面・コンポーネント・スタイル・状態管理・ナビゲーション 等）、実装に入る前に **プロジェクト種別に応じた Frontend Skill を必ず参照** してください。デザインの一貫性とベストプラクティスを保つためです。
+
+### プロジェクト種別と呼び出す Skill の対応
+
+`docs/CLAUDE.md` の「プロジェクト種別」を `Read` で確認し、以下のいずれかを呼び出す:
+
+| 種別 | 呼び出す Skill | 主な内容 |
+| --- | --- | --- |
+| **Web** | `everything-claude-code:frontend-patterns` | React / Next.js / 状態管理 / コンポーネント設計 / パフォーマンス / UI ベストプラクティス |
+| **Mobile - iOS (SwiftUI)** | `everything-claude-code:swiftui-patterns` + `everything-claude-code:liquid-glass-design`（iOS 26 を扱う場合） | SwiftUI アーキテクチャ / @Observable / Navigation / Liquid Glass デザインシステム |
+| **Mobile - Android / KMP (Compose)** | `everything-claude-code:compose-multiplatform-patterns` | Compose Multiplatform / Jetpack Compose / 状態管理 / テーマ / プラットフォーム固有 UI |
+| **Mobile - クロスプラットフォーム (Flutter/RN 等)** | （該当 Skill が無ければ）一般的なベストプラクティスで進める | — |
+
+### 呼び出し方の方針
+
+- これらの Skill は、ユーザー環境に `everything-claude-code` プラグインがインストールされていれば自動的に利用可能
+- **インストールされていない場合**: Skill を呼べない旨を簡潔にユーザーに伝えたうえで、一般的なベストプラクティスで進める
+- Skill を参照したうえで、`dept/developer/CLAUDE.md` のプロジェクト固有メモ（採用フレームワーク・コーディング規約）を優先
+
+### 実装手順への組み込み
+
+1. ヒアリング・仕様書から「UI / フロントエンドが含まれる」と判定
+2. 上の表に従って該当 Skill を呼び出し、コンポーネント設計・状態管理・スタイル方針の指針を取得
+3. 取得した指針 + `dept/developer/CLAUDE.md` の規約 を組み合わせて実装方針を決定
+4. 実装に入る
+
+### UI 作業判定のヒント
+
+以下のいずれかに該当すれば UI 作業と判定する:
+- 仕様書に「画面」「フォーム」「ボタン」「コンポーネント」「ナビゲーション」「画面遷移」「アニメーション」等の言及がある
+- 変更対象が `.tsx` / `.jsx` / `.vue` / `.svelte` / `.swift` (View / @main) / Composable 関数 / `.dart` (Widget) 等
+- ユーザーから「画面作って」「UI 直して」「デザイン整えて」等の依頼
+
+判定に迷ったら、ユーザーに「これは UI 作業として Frontend Skills を呼び出していいですか?」と確認してから進める。
+
+---
+
 ## 手動操作タスクの取り扱い
 
 実装中、外部サービス UI などで **人間が設定しないと完全には動かない** ものに遭遇した場合（Firebase / Supabase の初期化、OAuth クライアント発行、DNS 設定、API キー登録 等）、以下を必ず実施する:

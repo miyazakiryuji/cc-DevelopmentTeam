@@ -82,9 +82,13 @@ argument-hint: [feature-name]
 > 機能 `$CURRENT_FEATURE` を、`docs/specs/$CURRENT_FEATURE.md` の仕様書に **沿って実装** してください。CLAUDE.md と既存慣習を守り、最小差分で進めてください。
 >
 > もし実装中に仕様書に記載のない機能要件・エッジケース・暗黙の前提が出てきた場合は、それを **「仕様書外で追加した内容」として明示的に変更ログに記録** してください（後のフェーズで仕様書を更新するため）。
+>
+> **UI / フロントエンドのコード** を含む場合は、実装に入る前に必ずプロジェクト種別に応じた **Frontend Skill** を呼び出してください（Web → `everything-claude-code:frontend-patterns`、iOS → `everything-claude-code:swiftui-patterns` + 必要に応じて `liquid-glass-design`、Android/KMP → `everything-claude-code:compose-multiplatform-patterns` 等。詳細は agents/developer.md の「UI / フロントエンド作業時の Frontend Skills 活用」セクション参照）。
 
 #### `$SPEC_EXISTS = false` の場合
 > 機能 `$CURRENT_FEATURE` をユーザーの依頼内容（直近のユーザーメッセージ参照）に基づいて実装してください。仕様書 `docs/specs/$CURRENT_FEATURE.md` は **まだありません**。完了時に back-fill するため、変更概要・影響範囲・暗黙の受け入れ基準を箇条書きで変更ログとして残してください。CLAUDE.md と既存慣習に沿い、最小差分で進めてください。
+>
+> **UI / フロントエンドのコード** を含む場合は、実装に入る前に必ずプロジェクト種別に応じた **Frontend Skill** を呼び出してください（同上）。
 
 完了後、developer が出力した「変更ログ」と「仕様書外で追加した内容（あれば）」を保持してください（Step 4 で使用）。
 
