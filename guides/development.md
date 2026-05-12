@@ -39,8 +39,7 @@ cc-DevelopmentTeam/
 │   ├── basic-design-template.md
 │   ├── requirements-template.md
 │   ├── spec-template.md
-│   ├── manual-tasks-template.md
-│   └── design-readme-template.md
+│   └── manual-tasks-template.md
 ├── guides/                  # 日本語の手順書（このフォルダ）
 │   └── ...
 ├── README.md                # ナビゲーター役の最小限の説明

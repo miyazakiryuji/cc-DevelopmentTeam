@@ -82,8 +82,6 @@ Claude Code 内で:
 | 動かない / 思った通りに動かない | [guides/troubleshooting.md](./guides/troubleshooting.md) |
 | プラグイン自体を改造したい | [guides/development.md](./guides/development.md) |
 
-全ガイドの目次は [guides/README.md](./guides/README.md)。
-
 ---
 
 ## はじめる前に必要なもの

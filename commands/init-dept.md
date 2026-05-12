@@ -50,7 +50,8 @@ description: cc-DevelopmentTeam プラグインを使い始めるためにプロ
 - プラグインの `templates/basic-design-template.md` → プロジェクトの `docs/basic-design/_template.md`
 - プラグインの `templates/spec-template.md` → プロジェクトの `docs/specs/_template.md`
 - プラグインの `templates/manual-tasks-template.md` → プロジェクトの `docs/manual-tasks/_template.md`
-- プラグインの `templates/design-readme-template.md` → プロジェクトの `design/README.md`
+
+各フォルダの使い方は本プラグインの `guides/directory-structure.md`（プラグインリポジトリ内）に記載があります。プロジェクト側に README は作成しません（ルートの `CLAUDE.md` 以外、各フォルダに案内ファイルは置かない方針）。
 
 プラグインのテンプレートは、`${CLAUDE_PLUGIN_ROOT}/templates/` 配下を参照するか、もし `CLAUDE_PLUGIN_ROOT` が解決できない場合はプラグインがインストールされているディレクトリの `templates/` を直接読んで内容を `Write` ツールでプロジェクト側に書き出してください（プラグイン側のファイルを移動・改変しないこと）。
 

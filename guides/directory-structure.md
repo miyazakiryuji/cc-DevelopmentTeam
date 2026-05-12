@@ -27,7 +27,6 @@ your-project/
 │   └── dept/
 │       └── architect/CLAUDE.md     # 設計部署メモ（設計方針・ドメイン用語集）
 ├── design/                         # デザイン素材置き場（画像・バイナリ中心）
-│   ├── README.md                   # design/ フォルダの説明
 │   ├── mockups/                    # 画面モックアップ (Figma export 等)
 │   ├── wireframes/                 # ワイヤーフレーム
 │   ├── assets/                     # ロゴ・アイコン・画像素材
@@ -156,7 +155,7 @@ your-project/
 
 **役割:** デザイン関連のバイナリ素材を集約。`docs/`（テキスト）とは別に分離。
 
-**`design/README.md`:** このフォルダの使い方を説明（init-dept で自動配置）。
+> プロジェクトルートの README 以外、各フォルダ内には説明用 README を置きません。フォルダごとの用途はこの guides を参照してください。
 
 #### `design/mockups/`
 
