@@ -31,7 +31,13 @@ Claude Code が起動したら、以下を **1 行ずつ** 順番に入力しま
 /cc-development-team:init-dept
 ```
 
-実行すると、Claude Code が **「このプロジェクトは Web 開発・Mobile 開発のどちらですか?」** とヒアリングしてきます。回答に応じて、各部署の `CLAUDE.md` テンプレートが **その分野に最適化された内容** で生成されます（Web ならブラウザ対応・WCAG・OWASP、Mobile なら端末対応・Keychain/Keystore・ストア審査 など）。
+実行すると、Claude Code が **3 つのヒアリング** を順番にしてきます (どれも候補から選ぶだけ、「お任せ」も可):
+
+1. **プロジェクト種別**: Web 開発 / Mobile 開発
+2. **設計思想**: お任せ (Feature-based / MVVM 等の推奨) / MVC / Clean Architecture / MVI・TCA / その他
+3. **アプリコード配置**: `src/` / `lib/` / `app/` / `apps/+packages/` / その他
+
+回答に応じて、各部署の `CLAUDE.md` テンプレートが **その分野に最適化された内容** で生成され、選んだ設計思想に応じた **アプリコードのフォルダ構成** も作られます。
 
 ヒアリングに答えると、プロジェクトに以下のフォルダ・ファイルが自動で作られます（詳しくは [directory-structure.md](./directory-structure.md)）。
 
@@ -40,10 +46,13 @@ my-first-app/
 ├── CLAUDE.md
 ├── docs/                # ドキュメント
 ├── design/              # デザイン素材
-└── dept/                # 部署別 CLAUDE.md
+├── dept/                # 部署別 CLAUDE.md
+└── <選んだ$APP_ROOT>/   # アプリコード本体 (設計思想に応じたサブフォルダ付き)
 ```
 
 各 `CLAUDE.md` は **Web か Mobile かに応じた雛形** が入った状態で生成されます。具体的な技術スタック名（フレームワーク・ビルドコマンド・カバレッジ目標など）は `<埋める>` プレースホルダになっているので、自分のプロジェクトに合わせて埋めてください。**埋めなくても動きます** が、埋めるほど各部署の精度が上がります。
+
+既にコードが入っているプロジェクトに後付けする場合は、init-dept が **既存ファイルの再配置を提案** します (破壊的な移動は自動実行しません、必ずユーザー承認後に実施)。
 
 > **種別を後から変えたい場合:** 該当する `CLAUDE.md` を手で書き換えるか、ファイルを削除して `/cc-development-team:init-dept` を再実行すると、別の種別で再生成できます。
 
@@ -83,4 +92,5 @@ c) 既存の仕様書を更新する
 
 - [commands.md](./commands.md) — 各コマンドの詳細
 - [workflow.md](./workflow.md) — 業務フローの図解
+- [directory-structure.md](./directory-structure.md) — init-dept で作られるフォルダ構成
 - [faq.md](./faq.md) — よくある質問

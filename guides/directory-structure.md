@@ -36,15 +36,25 @@ your-project/
 │   ├── reviewer/CLAUDE.md          # レビュー観点・severity 判定基準
 │   ├── tester/CLAUDE.md            # テスト戦略・実行コマンド・モック方針
 │   └── security-reviewer/CLAUDE.md # セキュリティ要件・脅威モデル・PII の取扱
-└── src/                            # あなたのソースコード（または apps/, packages/ など）
+└── <$APP_ROOT>/                    # アプリのソースコード (init-dept で選択した配置)
+    ├── <設計思想に応じたサブフォルダ>
     └── ...
 ```
+
+> **`<$APP_ROOT>` と内部のサブフォルダ構成は init-dept のヒアリングで決まります** (Web/Mobile × Feature-based / MVC / Clean Architecture / MVVM / MVI など)。例:
+>
+> - Web + Feature-based + `src/` → `src/features/`, `src/shared/`, `src/components/`, `src/lib/`
+> - Mobile + Clean Architecture + `lib/` → `lib/domain/`, `lib/data/`, `lib/presentation/`, `lib/core/`
+> - Web + MVC + `app/` → `app/models/`, `app/views/`, `app/controllers/`, `app/services/`
+>
+> 既存コードがある場合は init-dept の Step 5.5 が「移動できるもの」を提案します (破壊的な移動は自動実行しません)。
 
 ## 配置の考え方
 
 - **`docs/` 配下**: 設計部署（architect）が生み出す成果物。テキスト中心のドキュメントを集約
 - **`design/` 配下**: 画像・モックアップ等のバイナリ素材。テキスト中心の `docs/` とは別に分離
 - **`dept/` 配下**: 実作業を行う 4 部署（developer / reviewer / tester / security-reviewer）のプロジェクト固有メモ。実コードの傍にいる方が自然なので、プロジェクトルート直下に置く
+- **`<$APP_ROOT>/` 配下**: 実装するソースコード本体。設計思想 (アーキテクチャ) に応じたサブフォルダ構成で配置
 
 ---
 

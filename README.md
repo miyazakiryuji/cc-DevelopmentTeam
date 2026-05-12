@@ -16,6 +16,8 @@
 
 このプラグインの最大の特徴は **「設計を通さずに開発した場合でも、完了時に必ず仕様書が back-fill される」** ことです。「動くものが先、仕様書は後」という現実的な進め方をしても、ナレッジが必ずリポジトリに残ります。
 
+> **共通ルール:** 全てのコマンド・エージェントは **破壊的な変更を自動実行しません**。ビルドが壊れる可能性のあるファイル移動・削除・リネームは、必ずユーザー承認を経てから実施します。
+
 ## こんな人におすすめ
 
 - 個人開発を始めたいけど、何から手を付ければいいか分からない人
@@ -61,7 +63,7 @@ Claude Code 内で:
 | セキュリティ点検 | `/cc-development-team:security-review [名前]` |
 | 仕様書とコードの整合性 | `/cc-development-team:sync-spec [名前]` |
 | プロジェクト初期セットアップ | `/cc-development-team:init-dept` |
-| プラグイン更新手順 | `/cc-development-team:update` |
+| プラグイン更新チェック | `/cc-development-team:update` |
 
 詳しい使い分けは [guides/commands.md](./guides/commands.md)。
 
