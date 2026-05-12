@@ -14,12 +14,18 @@
 
 ## おすすめの使い分け
 
-1. **プロジェクトを開く・実行する** → 専用 IDE で行う（ビルド・シミュレータ・実機デバッグ）
+1. **プロジェクトの新規作成** → **必ず専用 IDE で行う**。`flutter create`, Xcode の「New Project」, Android Studio の「New Project」など。Claude Code はプロジェクトを生成しません
 2. **コードを書く・仕様書を作る・テストを追加する** → Claude Code（このプラグイン）で進める
-3. **develop モードの「動作確認」ステップ** → IDE で既に開いているシミュレータを使う or Claude が `xcrun` / `gradlew` でコマンド起動を案内
+3. **動作確認 (シミュレータ・実機での起動)** → **専用 IDE から起動** が推奨。`/cc-development-team:develop` の Step 5 でも、Mobile プロジェクトでは「IDE を開いて Run してください」と案内されます
+
+> **Web との違い:** Web は Claude が `npm run dev` 等でローカル dev server を立ち上げて URL を案内します。Mobile は **ビルド・シミュレータ管理・証明書・実機デバッグ・UI プレビュー** が IDE に集約されており、CLI 起動は最終手段です。
 
 ## プラグインの動作
 
-プラグインの `/cc-development-team:init-dept` でプロジェクト種別「Mobile」を選ぶと、上記のような IDE 併用を前提とした設定（ビルドコマンド・テストコマンド等）が `dept/developer/CLAUDE.md` のテンプレートに反映されます。
+プラグインの `/cc-development-team:init-dept` でプロジェクト種別「Mobile」を選ぶと、まず **「プロジェクトを専用 IDE で作成済みか?」を確認** します:
 
-`Mobile` を選択して初期化を終えると、画面上で各 IDE の公式ダウンロード URL もすぐに確認できます。
+- **作成済み** → そのまま設計思想 / コード配置のヒアリングに進む
+- **これから作る** → init-dept を一旦止めて、IDE での作成を案内してから終了。プロジェクトが立ち上がったら再実行を促す
+- **IDE は使わない (上級者向け)** → そのまま進めるが、動作確認は CLI のみ
+
+`/cc-development-team:develop` の動作確認ステップでも、Mobile プロジェクトでは Xcode / Android Studio / Flutter IDE / RN IDE での起動手順を案内します。ユーザーが明示的に「CLI で起動して」と言った場合のみ `xcrun` / `gradlew` 等を実行します。

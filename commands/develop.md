@@ -170,50 +170,70 @@ b) このまま次のステップへ進む（修正は後で /cc-development-tea
 
 仕様書と実装が一致しているので、architect は呼ばない。
 
-### Step 5: モック起動の確認（Web / Mobile プロジェクトのみ）
+### Step 5: 動作確認の案内（Web / Mobile プロジェクトのみ）
 
-実装したものを **動かして確認するか** をユーザーに尋ねる。
+実装したものを **動かして確認するか** をユーザーに尋ねる。**Web と Mobile で挙動が異なるので注意**:
 
-#### 5-1. プロジェクト種別と起動コマンドの判定
+- **Web**: ローカルで dev server を立ち上げて、Claude がアクセス URL を案内する
+- **Mobile**: **専用 IDE (Xcode / Android Studio / IDE 同梱の Flutter / RN サポート) からの起動を強く推奨**。Claude は IDE で開く案内に留め、CLI 起動は最終手段
 
-`docs/CLAUDE.md` の「プロジェクト種別」と `dept/developer/CLAUDE.md` の「ビルド・実行コマンド」を `Read` で取得する。
+#### 5-1. プロジェクト種別の判定
+
+`docs/CLAUDE.md` または `CLAUDE.md` の「プロジェクト種別」を `Read` で取得して `$PROJECT_TYPE` (`Web` or `Mobile`) を確認する。
+
 それでも不明なら、以下のヒントから推定:
 
 - **Web**: `package.json` (`scripts.dev` or `start`) / `manage.py` (Django) / `Gemfile` (Rails) / `go.mod` (Go) など
-- **iOS**: `*.xcodeproj` または `Package.swift`
-- **Android**: `build.gradle.kts` または `settings.gradle.kts`
-- **Flutter**: `pubspec.yaml`
-- **React Native**: `react-native.config.js` または `app.json`
-- **その他（CLI、ライブラリ等）**: そもそも起動する対象が無いので Step 5 全体をスキップ
+- **Mobile**: `*.xcodeproj` / `Package.swift` / `build.gradle.kts` / `pubspec.yaml` / `app.json` (RN) など
+- **その他（CLI、ライブラリ等）**: 起動対象が無いので Step 5 全体をスキップ
 
-#### 5-2. ユーザーに確認
+#### 5-2. Web の場合のユーザー確認
 
-以下のフォーマットで尋ねる（`$CYCLE_MODE` に応じて文言を切り替え）:
-
-`$CYCLE_MODE = "full"` のとき:
 ```
 【動作確認】
-実装とテストが完了しました!実際に起動して動作確認しますか?
-```
+実装が完了しました!ローカルで dev server を立ち上げて動作確認しますか?
 
-`$CYCLE_MODE = "lean"` のとき:
-```
-【動作確認】
-実装が完了しました!実際に起動して動作確認しますか?
-(テストは別途 /cc-development-team:test で実行できます)
-
-- プロジェクト種別: <Web / iOS / Android / Flutter / 等>
-- 推定起動コマンド: <コマンド>
-- 起動先: <localhost:3000 / iOS シミュレータ (iPhone 15) / Android Emulator / 等>
+- 推定起動コマンド: <コマンド (例: npm run dev)>
+- 起動先: localhost:<推定ポート>
 
 起動しますか? (yes / no / 別のコマンドで)
 ```
 
-#### 5-3. ユーザー回答による分岐 (必要時のみ Read)
+ユーザーが `yes` / `no` / `別のコマンドで` を答えたら、`${CLAUDE_PLUGIN_ROOT}/templates/develop/mock-launch-commands.md` を `Read` して、Web セクションに従って実行。
 
-ユーザーから `yes` / `no` / `別のコマンドで` のいずれかが返ってきたら、`${CLAUDE_PLUGIN_ROOT}/templates/develop/mock-launch-commands.md` を `Read` して、そこに書かれたプラットフォーム別の起動コマンドと最終確認フローに従う。
+#### 5-3. Mobile の場合のユーザー案内 (IDE 起動を促す)
 
-`CLAUDE_PLUGIN_ROOT` が解決できない場合はプラグインインストールディレクトリ配下の `templates/develop/mock-launch-commands.md` を直接参照。
+Mobile の場合は **Claude から CLI コマンドで起動しない** のが原則。代わりに以下のフォーマットでユーザーに案内する:
+
+```
+【動作確認 (Mobile)】
+実装が完了しました!以下の手順で **専用 IDE から動作確認** してください:
+
+- iOS (SwiftUI/UIKit):
+  1. Xcode で <ProjectName>.xcodeproj を開く
+  2. ターゲットデバイスを選択 (例: iPhone 15 シミュレータ)
+  3. ⌘R でビルド & 実行
+- Android (Compose/Kotlin):
+  1. Android Studio でプロジェクトを開く
+  2. Run > Run 'app' (またはツールバーの ▶)
+  3. エミュレータ or 実機を選択して実行
+- Flutter:
+  1. Android Studio or VS Code で開く
+  2. `flutter run` または IDE の Run ボタン
+- React Native:
+  1. Xcode (iOS) / Android Studio (Android) で開く
+  2. または `npx react-native run-ios` / `run-android` をターミナルで実行
+
+専用 IDE が **ビルド / シミュレータ / 実機デバッグ / 証明書管理** に長けているので、これらは IDE 主導が一番ラクで早いです!
+
+[コードの修正後]
+HMR (Hot Reload) があれば修正は IDE で即反映されます。
+大きな変更後は IDE の Run ボタンから再ビルドしてください。
+
+(どうしても CLI から起動したい場合は「CLI で起動して」と伝えてください)
+```
+
+ユーザーが「CLI で起動して」と明示した場合のみ、`${CLAUDE_PLUGIN_ROOT}/templates/develop/mock-launch-commands.md` を `Read` して該当プラットフォームの CLI 起動を実行する。それ以外の場合は **Claude 側から CLI 起動を提案しない**。
 
 ### Step 6: このサイクルの完了報告
 

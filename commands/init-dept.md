@@ -27,6 +27,39 @@ description: cc-DevelopmentTeam プラグインを使い始めるためにプロ
 ユーザーの回答を待ち、その回答を `$PROJECT_TYPE` として保持してください（"Web" または "Mobile"）。
 回答が CLI / ライブラリ / その他で迷う場合は「**どちらに近いですか?**」と確認し、近い方を選んでもらってください。
 
+### 1.1 Mobile を選んだ場合: 専用 IDE での事前準備を確認
+
+`$PROJECT_TYPE = Mobile` のときは、続けて以下のヒアリングを実施する:
+
+```
+【モバイル開発の準備について】
+モバイルアプリは、**Xcode / Android Studio などの専用 IDE でプロジェクトを作成** することを強く推奨します。
+Claude Code はビルド・シミュレータ起動・実機デバッグ・証明書管理が得意ではないので、
+プロジェクト本体は IDE で管理し、Claude Code はコード編集や仕様書作成に集中する形が一番ラクです。
+
+質問: プロジェクトは既に専用 IDE で作成済みですか?
+
+a) 既に作成済み (Xcode / Android Studio / Flutter / 等で初期プロジェクトが立ち上がっている)
+b) これから作る予定 (init-dept は止めて、先に IDE で作ってきます)
+c) IDE は使わずに進める (上級者向け、CLI のみ)
+```
+
+- **a)** を選ばれた → 通常通り Step 2 へ
+- **b)** を選ばれた → **init-dept を一旦停止** し、以下を案内してから終了:
+  ```
+  了解です!以下を参考に、専用 IDE でプロジェクトを作成してから戻ってきてください:
+
+    - iOS (SwiftUI) → Xcode (https://developer.apple.com/xcode/)
+    - Android (Kotlin / Compose) → Android Studio (https://developer.android.com/studio)
+    - Flutter → flutter create (https://flutter.dev/)
+    - React Native → npx react-native init (https://reactnative.dev/)
+    - Kotlin Multiplatform → Android Studio + KMP プラグイン
+
+  プロジェクトが立ち上がったら、そのフォルダで `/cc-development-team:init-dept` を再実行してください!
+  詳しい併用イメージは guides/mobile-ide.md を参照。
+  ```
+- **c)** を選ばれた → 通常通り Step 2 へ。ただし「ビルド / シミュレータ起動は自分で行う前提なので、Step 5.5 の動作確認も簡略表示になります」と伝える
+
 ## 2. 設計思想のヒアリング（こちらから候補を提示）
 
 `$PROJECT_TYPE` に応じて、設計思想（アーキテクチャパターン）の候補をユーザーに提示する。**ユーザーから自由記述させず、こちらから 3〜4 個提案** すること。特にこだわりが無ければ a) お任せでサクッと進めて OK と伝える。

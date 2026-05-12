@@ -14,6 +14,13 @@
 - `CHANGELOG.md` を追加: Keep a Changelog 形式のリリース履歴
 - `README.en.md` を追加: 英語版のリポジトリ案内 (国際ユーザー向け)
 
+### Changed
+- Mobile プロジェクトでは **専用 IDE 起動を強く推奨** する運用に変更
+  - `init-dept` で Mobile を選ぶと、最初に「IDE でプロジェクト作成済みか?」を確認。未作成なら init-dept を一旦止めて IDE 案内
+  - `/cc-development-team:develop` の Step 5 (動作確認) でも Mobile は IDE 起動手順を案内。CLI 起動はユーザーが「CLI で起動して」と明示した場合の最終手段に
+  - Web は従来通りローカル dev server で起動
+  - `guides/mobile-ide.md` も IDE 主導の運用方針を明文化
+
 ---
 
 ## 既存到達点 (Unreleased 以前)
