@@ -81,6 +81,9 @@
    ↓
 [develop モード開始]
    ↓
+[Claude]  サイクル範囲をヒアリング ($CYCLE_MODE)
+          a) フルサイクル (tester あり)  b) 実装重視 (tester なし)
+   ↓
 [あなた] 「ログイン機能作って」
    ↓
 [Claude]  feature-name を確認 → docs/specs/login-flow.md の有無を判定
@@ -89,11 +92,13 @@
    ↓
 [reviewer]  品質・セキュリティ・(仕様書ありなら)整合性を点検（Approve まで反復）
    ↓
+[tester]   ($CYCLE_MODE=full のときのみ) テスト作成 + 全体実行。失敗あれば修正可否をユーザー確認
+   ↓
 [architect] 必要時のみ仕様書を新規作成/更新（仕様書外の追加機能があった場合）
    ↓
 [Claude]   動作確認の起動を確認（Web/Mobile プロジェクトのみ）
    ↓
-[Claude]   「1 件完了。次の依頼は?」（テストは別途 /cc-development-team:test で実行）
+[Claude]   「1 件完了。次の依頼は?」（lean サイクルだった場合はテスト未実行も明示）
    ↓
 [あなた]   「次は検索機能作って」 → 同じサイクルを繰り返す
    ↓ ...
@@ -109,9 +114,10 @@
 | 0 | (Claude) | feature-name 決定 + 仕様書の有無確認 | なし |
 | 1 | developer | 実装。仕様書ありなら沿って実装、無ければ依頼から実装。**UI を含む場合は Frontend Skills を先に呼び出す** | なし |
 | 2 | reviewer | レビュー (Approve まで反復) | なし |
-| 3 | architect | 仕様書を新規作成 / 更新 | **仕様書あり** かつ **仕様書外の追加なし** の場合はスキップ |
-| 4 | (Claude) | **モック起動の確認**。Web なら dev server、Mobile ならシミュレータ。ユーザー承認のもとで起動 | CLI / ライブラリなど起動対象が無いプロジェクトはスキップ |
-| 5 | (Claude) | 完了報告（仕様書状態 / 変更ファイル / 手動タスク / 起動状態 / テスト未実行の案内） | なし |
+| 3 | tester | テスト作成 + **全体テスト実行**。失敗あれば修正可否をユーザー確認 | **`$CYCLE_MODE = "lean"` の場合はスキップ** |
+| 4 | architect | 仕様書を新規作成 / 更新 | **仕様書あり** かつ **仕様書外の追加なし** の場合はスキップ |
+| 5 | (Claude) | **モック起動の確認**。Web なら dev server、Mobile ならシミュレータ。ユーザー承認のもとで起動 | CLI / ライブラリなど起動対象が無いプロジェクトはスキップ |
+| 6 | (Claude) | 完了報告（サイクル範囲 / 仕様書状態 / 変更ファイル / テスト状況 / 手動タスク / 起動状態） | なし |
 
 **特徴:**
 
@@ -119,7 +125,10 @@
 - 他のスラッシュコマンド（例: `/cc-development-team:design`）を実行すると自動的にモードが切れる
 - 仕様書がすでにある場合は `developer` がそれに沿って実装します
 - 実装が仕様書を超えた場合（仕様書外の追加機能・要件があった場合）のみ `architect` が仕様書を更新します
-- **テストはこのモードでは実行しません**。サイクル完了後に `/cc-development-team:test [feature-name]` で別途実行してください（重い処理を develop に組み込まない方針）
+- **サイクル範囲はモード開始時にヒアリングして選択します**:
+  - **`full` (フルサイクル)**: tester も毎サイクル呼んで、テストまで一気に回す
+  - **`lean` (実装重視)**: tester はスキップ。テストは別途 `/cc-development-team:test` で実行
+  - 途中で「フルに切り替えて」「軽量で」と言えば変更できます
 - 実装が終わったら **「起動して動作確認しますか?」と聞いてくれます**。yes なら Web は dev server をローカルで、Mobile はシミュレータで起動します（必ずユーザー承認のもと）
 - **UI / フロントエンドを実装するときは Frontend Skills を呼び出します**（Web → `frontend-patterns`、iOS → `swiftui-patterns` + `liquid-glass-design`、Android/KMP → `compose-multiplatform-patterns`）。`everything-claude-code` プラグインが入っていれば自動で動きます
 

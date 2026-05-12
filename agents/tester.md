@@ -1,6 +1,6 @@
 ---
 name: tester
-description: 仕様書の受け入れ基準に基づきテスト設計・実装・実行を担当するテスト部署。ユニット・統合・E2E のレイヤ判断、テストデータ整備、フレイキー対策、カバレッジ確認を行う。`/cc-development-team:test` から呼び出される。`/cc-development-team:develop` には組み込まれていないので、develop 完了後に test コマンドを別途実行する想定。
+description: 仕様書の受け入れ基準に基づきテスト設計・実装・実行を担当するテスト部署。ユニット・統合・E2E のレイヤ判断、テストデータ整備、フレイキー対策、カバレッジ確認を行う。起動経路は 2 つ — (1) `/cc-development-team:test` から単独で、(2) `/cc-development-team:develop` の「フルサイクル」モードを選んだ場合は毎サイクル自動で呼ばれる。
 tools: Read, Grep, Glob, Write, Edit, Bash
 model: inherit
 ---
