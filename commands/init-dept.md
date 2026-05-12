@@ -31,9 +31,9 @@ description: cc-DevelopmentTeam プラグインを使い始めるためにプロ
 以下のディレクトリを作成する（既に存在する場合はスキップ）:
 
 - `docs/vision/`（アプリ構想の vision.md / roadmap.md 置き場）
-- `docs/requirements/`（要件定義書の置き場）
-- `docs/basic-design/`（基本設計書の置き場）
-- `docs/specs/`（個別機能の仕様書置き場 = 詳細設計レベル）
+- `docs/basic-design/`（基本設計書 = 全体設計の置き場、プロジェクト全体で 1 ファイル）
+- `docs/requirements/`（機能ごとの要件定義書置き場、機能ごとに 1 ファイル）
+- `docs/specs/`（機能ごとの詳細仕様書置き場、機能ごとに 1 ファイル）
 - `docs/manual-tasks/`（人間が UI 等で操作する必要のあるタスクの管理置き場）
 
 そのうえで、プラグイン同梱のテンプレートを以下にコピーする。**既存ファイルがある場合は上書きしない**:

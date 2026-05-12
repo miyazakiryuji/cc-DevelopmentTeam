@@ -1,18 +1,21 @@
-# <feature-name>
+# <feature-name> 詳細仕様書
 
 <!--
 このファイルは設計部署 (architect) が機能設計モード B で読み込むテンプレートです。
 docs/specs/<feature-name>.md として書き出されます。
-詳細設計レベル (個別機能の仕様書) なので、プロジェクト全体の話は
-要件定義書・基本設計書を参照してください。
+
+ここに書くのは **この機能の詳細仕様 (個別設計)** です。
+- プロジェクト全体の構成・画面遷移・データモデル俯瞰: docs/basic-design/basic-design.md
+- この機能の要件 (何を作る・なぜ作る): docs/requirements/<feature-name>.md
+- この機能の詳細仕様 (どう動くか、受け入れ基準): このファイル
 -->
 
-**関連ドキュメント (プロジェクト全体):**
-- 要件定義書: [docs/requirements/requirements.md](../requirements/requirements.md)
-- 基本設計書: [docs/basic-design/basic-design.md](../basic-design/basic-design.md)
+**関連ドキュメント:**
 - 構想 / ロードマップ: [docs/vision/](../vision/)
+- 全体設計 (基本設計書): [docs/basic-design/basic-design.md](../basic-design/basic-design.md)
+- 機能要件定義書: [docs/requirements/&lt;feature-name&gt;.md](../requirements/<feature-name>.md)
 
-**関連機能 ID** (要件定義書 / 基本設計書での): F-XXX
+**機能 ID** (basic-design.md の機能一覧から): F-XXX
 
 ## 概要
 
