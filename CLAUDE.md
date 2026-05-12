@@ -92,53 +92,12 @@ LICENSE            # MIT + Attribution Requirement
 
 ---
 
-## リリースプロセス (バージョンタグの切り方)
+## CHANGELOG.md の運用
 
-`/cc-development-team:update` はタグベースで比較するので、以下の手順でリリースを切ります。
+リリース管理はタグベースではなく **コミット SHA 比較** (`/cc-development-team:update` の挙動) で運用しています。変更履歴の可視化として CHANGELOG.md だけ維持します。
 
-### 1. 変更を `CHANGELOG.md` の `[Unreleased]` セクションに書き溜める
-
-各コミット直後、CHANGELOG.md の `## [Unreleased]` 配下に Added / Changed / Fixed / Removed のいずれかで追記しておく。
-
-### 2. リリース時の手順
-
-1. `[Unreleased]` の内容を確定バージョンに移動:
-   ```markdown
-   ## [Unreleased]
-
-   ## [1.2.0] - 2026-06-01
-   <!-- 旧 Unreleased 配下の内容を移動 -->
-   ```
-2. `.claude-plugin/plugin.json` の `version` を新バージョンに更新 (例: `"version": "1.2.0"`)
-3. CHANGELOG.md 末尾のリンク参照も更新:
-   ```markdown
-   [Unreleased]: https://github.com/miyazakiryuji/cc-DevelopmentTeam/compare/v1.2.0...HEAD
-   [1.2.0]: https://github.com/miyazakiryuji/cc-DevelopmentTeam/releases/tag/v1.2.0
-   ```
-4. コミット & タグ push:
-   ```bash
-   git commit -am "chore: release v1.2.0"
-   git tag v1.2.0
-   git push origin main --tags
-   ```
-5. GitHub 上で Release を作成 (gh CLI でもブラウザでも):
-   ```bash
-   gh release create v1.2.0 \
-     --title "v1.2.0" \
-     --notes "$(awk '/^## \[1.2.0\]/{flag=1; next} /^## \[/{flag=0} flag' CHANGELOG.md)"
-   ```
-
-### 3. Semantic Versioning に従う
-
-- **MAJOR (x.0.0)**: 破壊的変更 (コマンド削除 / 引数の意味変更 / フォルダ構造変更 等)
-- **MINOR (0.x.0)**: 機能追加 (後方互換あり)
-- **PATCH (0.0.x)**: バグ修正のみ
-
-### 4. v1.0.0 を切るまでは 0.x.y で運用
-
-機能セットが安定し、API (コマンド名・引数・出力フォーマット) を固定できる確信が持てたら v1.0.0 を切る。それまでは 0.x で破壊的変更も自由。
-
----
+- コードに変更を加えたら、必要に応じて `CHANGELOG.md` の `## [Unreleased]` セクションに Added / Changed / Fixed / Removed のいずれかで追記する
+- 将来タグベース運用に切り替えたくなったときは、`[Unreleased]` を `[x.y.z] - YYYY-MM-DD` に確定するだけで移行可能 (タグ切り替えの判断はそのときに)
 
 ## コミットメッセージの方針
 

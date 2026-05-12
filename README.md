@@ -1,5 +1,7 @@
 # cc-DevelopmentTeam
 
+日本語 | [English](./README.en.md)
+
 > A Claude Code plugin that brings a 4-department workflow (design / develop / review / test) plus a security advisor, with automatic spec back-fill.
 
 ## このプラグインで何ができるの?
