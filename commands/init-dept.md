@@ -531,6 +531,23 @@ Step 4 までが完了したら、まず以下を簡潔に表示する:
   ...
 ```
 
+**`$PROJECT_TYPE = Mobile` の場合は追加で以下を表示:**
+
+```
+💡 モバイルアプリ開発の場合、ビルド・シミュレータ起動・実機デバッグは
+   専用 IDE から行うのがオススメです!
+
+  - iOS (SwiftUI)            → Xcode (https://developer.apple.com/xcode/)
+  - Android (Compose)        → Android Studio (https://developer.android.com/studio)
+  - Flutter                  → https://flutter.dev/
+  - React Native             → https://reactnative.dev/
+  - Kotlin Multiplatform     → https://kotlinlang.org/docs/multiplatform.html
+
+  プロジェクト自体は IDE から開いて、コード編集や仕様書作成は Claude Code、
+  という併用が一番ラクです! 詳しくは README の「モバイルアプリ開発の場合は
+  専用 IDE 併用がオススメ」をご覧ください。
+```
+
 すぐ続けて Step 6 のウェルカム説明に進む（情報を分散させない）。
 
 ---
