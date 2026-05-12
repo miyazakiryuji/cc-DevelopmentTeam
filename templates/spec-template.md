@@ -14,6 +14,7 @@ docs/specs/<feature-name>.md として書き出されます。
 - 構想 / ロードマップ: [docs/vision/](../vision/)
 - 全体設計 (基本設計書): [docs/basic-design/basic-design.md](../basic-design/basic-design.md)
 - 機能要件定義書: [docs/requirements/&lt;feature-name&gt;.md](../requirements/<feature-name>.md)
+- デザイン素材（あれば該当画面のモックアップ）: [design/mockups/](../../design/mockups/)
 
 **機能 ID** (basic-design.md の機能一覧から): F-XXX
 

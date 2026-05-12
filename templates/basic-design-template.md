@@ -16,6 +16,7 @@ docs/basic-design/basic-design.md として書き出されます。
 - 機能ロードマップ: [docs/vision/roadmap.md](../vision/roadmap.md)
 - 機能ごと要件: [docs/requirements/](../requirements/)
 - 機能ごと詳細仕様: [docs/specs/](../specs/)
+- デザイン素材（モックアップ・スタイルガイド等）: [design/](../../design/)
 
 ## 1. システム構成
 

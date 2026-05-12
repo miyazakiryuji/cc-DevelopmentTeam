@@ -565,6 +565,12 @@ your-project/
 │   │   └── ...
 │   └── dept/
 │       └── architect/CLAUDE.md     # 設計部署メモ（設計方針・ドメイン用語集）
+├── design/                         # デザイン素材置き場
+│   ├── README.md                   # 何を入れる場所か
+│   ├── mockups/                    # 画面モックアップ (Figma export 等)
+│   ├── wireframes/                 # ワイヤーフレーム
+│   ├── assets/                     # ロゴ・アイコン・画像素材
+│   └── style-guide.md              # デザイントークン (色・タイポ・余白)
 ├── dept/                           # 実作業を行う部署のメモ（コード側）
 │   ├── developer/CLAUDE.md         # コーディング規約・ビルドコマンド
 │   ├── reviewer/CLAUDE.md          # レビュー観点・severity 判定基準
