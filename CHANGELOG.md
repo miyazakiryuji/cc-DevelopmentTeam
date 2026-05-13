@@ -44,6 +44,14 @@
   - 次回 `/develop` 起動時に「途中の機能があります、続きをやりますか?」と再開フロー
   - 状態ファイルは `init-dept` で `.gitignore` への追記を提案 (任意)
 
+### Changed
+- developer の **セルフチェックを軽量化** (毎サイクルのフルビルド・全テスト実行を回避)
+  - 毎サイクル必須: **型チェック + リント のみ** (`tsc --noEmit` / `mypy` / `cargo check` / `golangci-lint` 等)
+  - フルビルド: develop モードの Step 5 (動作確認) で起動時のみ。それ以外では走らない
+  - 既存テスト全件: `/cc-development-team:test` で別途実行 (develop では走らせない)
+  - `dept/developer/CLAUDE.md` テンプレに「軽量セルフチェックコマンド」フィールドを新設 (Web / Mobile)
+  - 「develop でもフルビルドして欲しい」プロジェクトは、このフィールドにフルビルドコマンドを書けば採用される
+
 ### Added (コード品質ルール)
 - `agents/developer.md` に **「命名規則」セクション** を追加
   - 略語 / 1 文字 / 意味不明な省略名を禁止 (`usr` / `cnt` / `tmp` 等)

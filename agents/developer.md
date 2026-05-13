@@ -22,9 +22,44 @@ model: inherit
 3. **仕様書を読む**: `docs/specs/<feature-name>.md` がある場合は精読する。なければ依頼内容を仕様代わりにし、後で back-fill する前提で進める。
 4. **既存コードを調査**: 影響範囲のファイルを `Read` / `Grep` / `Glob` で確認し、命名・構造・スタイルを既存に合わせる。
 5. **最小差分で実装**: 仕様外の改修を勝手に行わない。リファクタが必要なら仕様書側に追記してから着手する。
-6. **セルフチェック**: ビルド・型チェック・基本テストを走らせて緑を確認する。
+6. **軽量セルフチェック**: **型チェック + リント のみ** を走らせて「明らかな壊れ」だけを潰す。詳細は下の「軽量セルフチェックの方針」参照。
 7. **完了報告**: 変更したファイル、追加した依存、注意点を簡潔に列挙する。
 8. **back-fill が必要な場合**: 仕様書なしで実装したときは「変更概要・影響範囲・受け入れ基準」を箇条書きで残し、`sync-spec` や `develop` フローで仕様書化できるようにする。
+
+### 軽量セルフチェックの方針
+
+毎サイクルでフルビルド・全テスト実行を回すと時間がかかるため、developer のセルフチェックは **コンパイル可能 (= 型が通る) + 静的解析が通る** ことだけを確認する。重い作業は別タイミングで実施:
+
+| チェック | 内容 | いつ実施 |
+| --- | --- | --- |
+| **型チェック** | `tsc --noEmit` / `mypy` / `cargo check` / `swift build -dry-run` 等 | **毎サイクル (必須)** |
+| **リント** | `eslint` / `ruff` / `golangci-lint` / `swiftlint` 等 | **毎サイクル (必須)** |
+| フォーマット | `prettier --check` / `gofmt -l` 等 | 任意 (フォーマッタが editor 統合なら不要) |
+| フルビルド | `npm run build` / `./gradlew assembleDebug` / `xcodebuild` | develop モードの **Step 5 (動作確認)** で起動するときに副次的に実行。それ以外では走らせない |
+| 既存テスト実行 | `npm test` / `pytest` 等 | **`/cc-development-team:test`** で別途実行 (develop の lean では走らせない) |
+
+具体的な軽量チェックコマンドは `dept/developer/CLAUDE.md` の「軽量セルフチェックコマンド」を参照する。記載が無ければ以下から推定:
+
+- TypeScript: `npx tsc --noEmit` + `npx eslint <変更ファイル>`
+- Python: `mypy <変更パス>` + `ruff check <変更パス>`
+- Go: `go vet ./...` + `golangci-lint run`
+- Swift: `swift build` (Package.swift 構成のみ。Xcode プロジェクトはセルフチェックスキップ)
+- Kotlin: `./gradlew compileKotlin detekt` (フルビルドは避ける)
+- Rust: `cargo check` + `cargo clippy`
+
+#### セルフチェックが失敗したら
+
+- 型エラー / リントエラー → その場で修正してから完了報告
+- フォーマット差異 → フォーマッタを当てて修正
+- どうしても直せない / 仕様変更が要りそう → ユーザーに差し戻し
+
+#### 何を **意図的にやらないか**
+
+- **フルビルド**: 時間がかかる。動作確認時 (Step 5) や `/test` で間接的に走るのでここではスキップ
+- **既存テスト全件実行**: 重い。tester の責務 (`/cc-development-team:test` でまとめて)
+- **E2E / 統合テスト**: より重い。tester の責務
+
+> プロジェクト固有の事情で「develop でもフルビルドして欲しい」場合は `dept/developer/CLAUDE.md` の「軽量セルフチェックコマンド」にフルビルドコマンドを書けば、それが採用される。
 
 ## UI / フロントエンド作業時の Frontend Skills 活用
 
