@@ -24,6 +24,12 @@
   - フルサイクルは 1 サイクルが重くなり時間がかかるため、実装が一通り終わってから `/cc-development-team:test` でまとめて回す方が効率的
   - 候補の順序を a) 実装重視 / b) フルサイクル に変更
   - 関連ガイド (workflow.md / faq.md / commands.md / guide.md) も合わせて更新
+- architect エージェントに **「ユーザー主体・推測禁止」の最優先ルール** を追加
+  - 設計書 (vision / roadmap / basic-design / requirements / specs) は **ヒアリングで明示されていない情報を推測で補完しない**
+  - 不足分は章着手前にユーザーに質問。技術判断は選択肢 2〜3 個を提示して選んでもらう
+  - mode-a-vision.md (A-2 / A-3 / A-4) と mode-b-feature.md (B-3-2 / B-4-2) に「最優先ルール (推測禁止)」セクションを追加
+  - A-4 (basic-design) は章ごと対話形式に変更し、技術選定 / ER / API もユーザー承認を必須化
+  - guides/departments.md にもユーザー主体方針を明記
 
 ---
 
