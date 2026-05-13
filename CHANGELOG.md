@@ -31,6 +31,12 @@
   - A-4 (basic-design) は章ごと対話形式に変更し、技術選定 / ER / API もユーザー承認を必須化
   - guides/departments.md にもユーザー主体方針を明記
 
+### Fixed
+- develop / brainstorm モードの **終了語句から `exit` / `quit` を削除** (Claude Code 自体を終了させる可能性があるため危険)
+  - 代替として「終了」「終わり」「もう大丈夫」「やめる」「ストップ」「stop」を案内
+  - ユーザーが `exit` / `quit` と入力した場合は「Claude Code 全体が落ちる可能性があるので、代わりに『終了』とお伝えください」と案内するよう指示
+  - 影響: commands/develop.md / commands/brainstorm.md / commands/guide.md / guides/workflow.md / guides/faq.md / guides/troubleshooting.md / templates/init-welcome-guide.md
+
 ---
 
 ## 既存到達点 (Unreleased 以前)
