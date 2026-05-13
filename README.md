@@ -65,6 +65,7 @@ Claude Code 内で:
 | セキュリティ点検 | `/cc-development-team:security-review [名前]` |
 | 仕様書とコードの整合性 | `/cc-development-team:sync-spec [名前]` |
 | プロジェクト初期セットアップ | `/cc-development-team:init-dept` |
+| プラグイン / 初期化状態を診断 | `/cc-development-team:doctor` |
 | プラグイン更新チェック | `/cc-development-team:update` |
 
 詳しい使い分けは [guides/commands.md](./guides/commands.md)。

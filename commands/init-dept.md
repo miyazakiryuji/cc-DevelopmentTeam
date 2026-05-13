@@ -288,6 +288,27 @@ c) どれも移動しない (現状維持)
 
 プラグインのテンプレートは、`${CLAUDE_PLUGIN_ROOT}/templates/` 配下を参照するか、もし `CLAUDE_PLUGIN_ROOT` が解決できない場合はプラグインがインストールされているディレクトリの `templates/` を直接読んで内容を `Write` ツールでプロジェクト側に書き出してください（プラグイン側のファイルを移動・改変しないこと）。
 
+### 5.6 .gitignore への追記提案 (任意)
+
+プロジェクトに `.gitignore` がある場合、以下のエントリの **追記をユーザーに提案** する (既にあればスキップ、無ければ追加するか確認):
+
+```
+# cc-DevelopmentTeam: develop モード状態ファイル (compaction 対策、共有不要)
+docs/.cc-dev-state.json
+```
+
+```
+【.gitignore への追記提案】
+develop モードの状態ファイル (docs/.cc-dev-state.json) は **そのセッション固有** で、
+チーム共有する必要が無いため、.gitignore に追加するのを推奨します。
+
+追加しますか? (yes / no)
+```
+
+`yes` で `Edit` ツールで `.gitignore` 末尾に追記。`no` ならスキップ。
+
+> プロジェクトに `.gitignore` 自体が無い場合は提案しない (空の状態でファイルを作るほどでもない)。
+
 ## 6. プロジェクトルート CLAUDE.md
 
 プロジェクトルートに `CLAUDE.md` が無ければ作成する。

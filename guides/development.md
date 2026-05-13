@@ -34,7 +34,11 @@ cc-DevelopmentTeam/
 │   ├── security-review.md
 │   ├── sync-spec.md
 │   ├── init-dept.md
+│   ├── doctor.md            # セルフ診断 (読み取り専用)
 │   └── update.md            # GitHub と照合して最新かチェック
+├── hooks/                   # Claude Code hooks
+│   ├── hooks.json           # UserPromptSubmit hook の定義
+│   └── exit-guard.sh        # exit/quit 入力を物理ブロックするスクリプト
 ├── templates/               # init-dept で配置するテンプレ + 各 agent/command が必要時に Read する参照ファイル
 │   ├── vision-template.md
 │   ├── basic-design-template.md

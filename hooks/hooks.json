@@ -1,0 +1,16 @@
+{
+  "hooks": {
+    "UserPromptSubmit": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "${CLAUDE_PLUGIN_ROOT}/hooks/exit-guard.sh",
+            "description": "Prevent exit/quit from accidentally killing Claude Code"
+          }
+        ]
+      }
+    ]
+  }
+}

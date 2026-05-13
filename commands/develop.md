@@ -9,6 +9,56 @@ argument-hint: [feature-name]
 
 このコマンドは **「develop モード」に入る** ためのトリガーです。一度入ったら、ユーザーが明示的に終了するまで、ユーザーの後続メッセージを **すべて開発依頼として処理** し続けてください。
 
+## 状態ファイル (`docs/.cc-dev-state.json`)
+
+develop モードは長尺会話で context が圧縮されると失われやすいため、**状態を JSON に逐次保存** して再開できるようにする。
+
+スキーマ:
+
+```json
+{
+  "mode": "develop",
+  "cycle_mode": "lean | full",
+  "current_feature": "<feature-name>",
+  "current_step": "0 | 1 | 2 | 3 | 4 | 5 | 6 | idle",
+  "spec_exists": true | false,
+  "started_at": "ISO 8601",
+  "last_updated": "ISO 8601",
+  "completed_features": ["feature-a", "feature-b"]
+}
+```
+
+ファイルは `Write` で更新。書き換えタイミングは以下:
+
+- モード開始時 (cycle_mode 確定後): `mode=develop`, `cycle_mode`, `started_at`, `last_updated` をセット
+- 各サイクルの Step 0 で feature-name 確定: `current_feature`, `spec_exists`, `current_step="0"` を更新
+- 各 Step 進行時: `current_step`, `last_updated` を更新
+- サイクル完了時: `completed_features` に追加、`current_feature` / `current_step` を `idle` に
+- モード終了時: ファイルを削除 (または `mode=idle` に更新して残す)
+
+## 開始時: 状態ファイルの確認 (再開判定)
+
+モードに入る前に `docs/.cc-dev-state.json` を `Read` で確認 (無ければスキップ):
+
+- ファイルがあり `mode=develop` かつ `current_feature` が設定済 → **再開フロー** に進む:
+  ```
+  【前回の develop モードが途中で終わっているようです】
+
+  - 前回の機能: <current_feature>
+  - サイクル範囲: <cycle_mode>
+  - 最終ステップ: Step <current_step>
+  - 最終更新: <last_updated>
+
+  どうしますか?
+  a) 続きから再開する (前回のサイクル範囲・機能を引き継ぎ)
+  b) 新しく開始する (前回の状態は破棄)
+  c) 一旦終了 (何もしない)
+  ```
+  - a) → 引き継いだ値で「1 件の処理サイクル」の該当ステップから再開
+  - b) → 状態ファイルを上書き更新して通常の「モード開始アナウンス」へ
+  - c) → 何もせず終了
+- ファイルが無い or `mode=idle` → 通常の「モード開始アナウンス」へ
+
 ## モード開始時のアナウンス
 
 最初に必ず以下のメッセージをユーザーに表示してください:
@@ -44,7 +94,22 @@ b) フルサイクル (実装 → レビュー → テスト → 仕様書更新
 - b を選択 → `$CYCLE_MODE = "full"`
 - 無回答 / 「お任せ」 → `$CYCLE_MODE = "lean"` で進めて、その旨を 1 行伝える
 
-途中での切り替えにも対応する。次のいずれかの発言があれば `$CYCLE_MODE` を更新し、その旨をユーザーに 1 行で確認:
+`$CYCLE_MODE` 確定後、**状態ファイル `docs/.cc-dev-state.json` を更新** (Write):
+
+```json
+{
+  "mode": "develop",
+  "cycle_mode": "<$CYCLE_MODE>",
+  "current_feature": null,
+  "current_step": "idle",
+  "spec_exists": null,
+  "started_at": "<今の ISO 時刻>",
+  "last_updated": "<今の ISO 時刻>",
+  "completed_features": []
+}
+```
+
+途中での切り替えにも対応する。次のいずれかの発言があれば `$CYCLE_MODE` を更新し、その旨をユーザーに 1 行で確認 + 状態ファイルも更新:
 
 - 「フルに切り替えて」「テストも入れて」 → `$CYCLE_MODE = "full"`
 - 「実装重視に切り替えて」「テスト外して」「軽量で」 → `$CYCLE_MODE = "lean"`
@@ -81,6 +146,10 @@ b) フルサイクル (実装 → レビュー → テスト → 仕様書更新
 2. `docs/specs/$CURRENT_FEATURE.md` の **存在を確認** する（`Read` で読めるか試す）:
    - 読める → `$SPEC_EXISTS = true`（既存仕様書あり）
    - 読めない/無い → `$SPEC_EXISTS = false`（仕様書なし、後で back-fill 必要）
+
+3. **状態ファイルを更新**: `docs/.cc-dev-state.json` の `current_feature` / `spec_exists` / `current_step="0"` / `last_updated` を最新値に書き換える。
+
+> 以降の各 Step 開始時にも、状態ファイルの `current_step` と `last_updated` を更新すること。
 
 3. ユーザーに状態を伝える:
    - `$SPEC_EXISTS = true` の場合:
@@ -239,6 +308,8 @@ HMR (Hot Reload) があれば修正は IDE で即反映されます。
 
 ### Step 6: このサイクルの完了報告
 
+サイクル完了時に **状態ファイルを更新**: `current_feature` を `completed_features` 配列に追加し、`current_feature=null` / `current_step="idle"` / `last_updated=<今>` に書き換える。
+
 以下を簡潔に報告:
 
 1. 今回の `$CURRENT_FEATURE`
@@ -301,6 +372,18 @@ develop モード中ですが、終了してよろしいですか?
 3. 仕様書の状態サマリ（新規作成 / 更新 / 変更なし の件数）
 4. **テスト状況**: `lean` で進めた機能があれば「○○ はテスト未実行。`/cc-development-team:test` で実行してください」と案内
 5. 「develop モードを終了しました」のアナウンス
+
+最後に **状態ファイルを削除** (または `mode="idle"` に更新):
+
+```bash
+# 削除する場合
+rm -f docs/.cc-dev-state.json
+
+# 残す場合 (履歴として参照したい場合)
+# `mode` を "idle" に変更、`completed_features` は維持
+```
+
+どちらにするかはユーザーの好みだが、デフォルトは **削除** (次回 develop 起動時に "再開しますか?" が出ないように)。
 
 ---
 

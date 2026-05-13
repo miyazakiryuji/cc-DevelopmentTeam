@@ -31,11 +31,25 @@
   - A-4 (basic-design) は章ごと対話形式に変更し、技術選定 / ER / API もユーザー承認を必須化
   - guides/departments.md にもユーザー主体方針を明記
 
+### Added (運用安定化セット)
+- `/cc-development-team:doctor` (新規): プラグインとプロジェクト初期化状態のセルフ診断コマンド
+  - `$CLAUDE_PLUGIN_ROOT` 解決 / 主要 agent/command/template ファイル / プロジェクト側の CLAUDE.md / docs/ / dept/ / 連携プラグイン (everything-claude-code) を点検
+  - ✓ / ✗ サマリと推奨アクションを表示。読み取り専用
+- **exit / quit 物理ブロック hook** (新規): `hooks/exit-guard.sh` + `hooks/hooks.json`
+  - UserPromptSubmit でユーザー入力が `exit` / `quit` だった場合、Claude Code 落ちを防ぐため `decision: block` を返す
+  - 「develop モード抜けたい? Claude Code 自体を抜けたい?」を案内
+  - 指示文での対策に加えて物理的な安全装置として機能
+- **develop モードの状態ファイル** (`docs/.cc-dev-state.json`): compaction 対策
+  - `mode` / `cycle_mode` / `current_feature` / `current_step` / `completed_features` を逐次保存
+  - 次回 `/develop` 起動時に「途中の機能があります、続きをやりますか?」と再開フロー
+  - 状態ファイルは `init-dept` で `.gitignore` への追記を提案 (任意)
+
 ### Fixed
 - develop / brainstorm モードの **終了語句から `exit` / `quit` を削除** (Claude Code 自体を終了させる可能性があるため危険)
   - 代替として「終了」「終わり」「もう大丈夫」「やめる」「ストップ」「stop」を案内
   - ユーザーが `exit` / `quit` と入力した場合は「Claude Code 全体が落ちる可能性があるので、代わりに『終了』とお伝えください」と案内するよう指示
   - 影響: commands/develop.md / commands/brainstorm.md / commands/guide.md / guides/workflow.md / guides/faq.md / guides/troubleshooting.md / templates/init-welcome-guide.md
+  - 上記の Added セクション「exit / quit 物理ブロック hook」と組み合わせて二重防御
 
 ---
 
