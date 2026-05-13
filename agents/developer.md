@@ -142,6 +142,117 @@ const firebaseConfig = {
 
 特に **認証・決済・個人情報・ファイルアップロード・外部 API 連携** を扱う機能を実装したら、完了報告時に「`/cc-development-team:security-review <feature-name>` で点検することを推奨」とユーザーに案内すること。
 
+## 命名規則 (変数 / 関数 / クラス / ファイル)
+
+**読み手が名前を見ただけで責務を理解できる** ことが大原則。略語・1 文字変数・意味不明な省略名で時間を節約しない。**テストコードも本番コードと同じ基準** で命名する (テストだから雑に、は無し)。
+
+### 守るべき原則
+
+1. **完全な英単語を使う**: 略語よりも完全な単語を優先。文字数が増えても意味が伝わる方が遥かに良い
+   - 悪い例: `usr`, `cnt`, `tmp`, `proc`, `mgr`, `ctx`, `req`, `res`
+   - 良い例: `user`, `count`, `temporary`, `processor`, `manager`, `context`, `request`, `response`
+2. **意味を文脈に依存させない**: `data`, `value`, `item`, `info`, `result` のような汎用語単独は避ける。何の data / value / item なのか付加する
+   - 悪い例: `data`, `result`, `items`, `value`, `obj`
+   - 良い例: `userData`, `searchResult`, `cartItems`, `discountValue`, `orderObject` (むしろ `userData` より `user` の方が良い場合も多い)
+3. **真偽値は質問形**: `is`, `has`, `can`, `should`, `did` などで始める
+   - 悪い例: `loggedIn`, `valid`, `permission`, `error`
+   - 良い例: `isLoggedIn`, `isValid`, `hasPermission`, `hasError`, `canEdit`, `shouldRetry`
+4. **関数は動詞句**: 動作・取得・判定のいずれかが明確になる動詞で始める
+   - 悪い例: `user()`, `data()`, `result()`
+   - 良い例: `fetchUser()`, `validateOrder()`, `calculateDiscount()`, `isEligibleForDiscount()`
+5. **マジックナンバー / マジック文字列を避ける**: 数値や特定の文字列リテラルが意味を持つなら必ず名前付き定数にする
+   - 悪い例: `if (status === 3) { ... }`
+   - 良い例: `if (status === OrderStatus.Shipped) { ... }`
+6. **長すぎても OK**: `findActiveSubscriptionByUserId` は長いが意図が完全に伝わる。短くするために `findSub` にして意図を失うほうが害が大きい
+7. **言語の慣習に従う**: TS/JS → `camelCase`、Python → `snake_case`、Swift/Kotlin → `camelCase` (関数) + `UpperCamelCase` (型)、Rust → `snake_case` (関数) + `UpperCamelCase` (型)。各言語の標準ルールに合わせる
+8. **ファイル名も同じ基準**: `user-list-screen.tsx` ✓ / `usr_lst.tsx` ✗
+
+### テストコードの命名 (本番と同じ基準 + テスト固有)
+
+- **テスト関数 / it ブロックの名前** は「何をテストしているか」を文章で書く。日本語 / 英語どちらでも可、ただし略語禁止:
+  - 悪い例: `test1()`, `test_login()`, `it("works")`
+  - 良い例: `test_ログイン成功時にトークンが Cookie に保存される()`, `it("returns 401 when access token is expired")`
+- **テスト内の変数 (fixture / mock / 期待値)** も本番と同じ基準:
+  - 悪い例: `const u = { id: 1 }`, `const r = await fn(u)`
+  - 良い例: `const validUser = { id: 1, email: "test@example.com" }`, `const fetchResult = await fetchUserProfile(validUser.id)`
+- **期待値の変数名で意図を表す**:
+  - 悪い例: `expect(result).toEqual({ ... })`
+  - 良い例: `const expectedProfile = { ... }; expect(actualProfile).toEqual(expectedProfile)`
+
+### 許される省略 (例外、ごく限定)
+
+以下のような **コミュニティで慣習化されている略語** に限り使用可。それでも迷ったら略さない:
+
+- ループカウンタの `i`, `j`, `k` (ただしネストが深い場合は `rowIndex`, `colIndex` 等にする)
+- 数学的文脈の `x`, `y`, `z`, `n`
+- 既存コードベースで一貫使用されている既定の略語 (例: 既存が全て `ctx` を使っているなら追随)
+
+## インラインコメントの方針
+
+**コメントは「コードでは表現できない情報」のためにだけ書く**。手当たり次第にコメントを残すと、コードと乖離して嘘になる(=有害)。
+
+### コメントを書くべきとき
+
+| 書くべき内容 | なぜ |
+| --- | --- |
+| **WHY (理由)**: なぜこの実装にしたか、なぜこの順序か | コードを読んでも判明しない |
+| **暗黙の前提 / 制約**: 「この関数は常にメインスレッドから呼ばれる前提」など | 守らないと壊れる契約 |
+| **意図的に避けたパターン**: 「最適化したくなるが、計測したら逆効果だった」など | 後の人が「最適化しよう」と壊さないため |
+| **外部仕様への参照**: 「RFC 7234 の Cache-Control 仕様に従う」「Stripe API ドキュメントの hold-and-capture フロー」 | 引用元を辿れるように |
+| **TODO / FIXME / TODO(manual)**: 残作業の明示 | 検索可能なマーカー |
+| **既知の bug / workaround**: 「Safari 16 でこの API がバグるので回避策」 | 修正タイミングの判断材料 |
+
+### コメントを書いてはいけないとき
+
+| ダメな例 | なぜダメ |
+| --- | --- |
+| **WHAT (何をしているか)** をコードと同じ言葉で書く | コードが既に説明している。冗長 |
+| **明らかな処理に説明** (`// ユーザーを取得` の上に `getUser()`) | 関数名が説明している |
+| **古くなったコメント** (実装変更後に修正し忘れたコメント) | 嘘の情報 = コード読み手を惑わす |
+| **ブロックの境界を示すだけのコメント** (`// --- ここから処理 ---`) | 関数分割すべきサイン |
+| **「念のため」のコメント** | 意味が無いなら書かない |
+| **コメントアウトされた旧コード** | Git 履歴があるので消す |
+
+### 言語別の書き方
+
+- 関数ヘッダ (docstring) は別ルール → 「関数のドキュメントコメント」セクション参照
+- インラインコメント (関数内 / 変数横) は **1 行で完結** が原則。長くなるなら関数分割か docstring 側に移す
+
+### 良いコメントの例
+
+```typescript
+// Stripe の webhook 署名検証は raw body が必要。
+// Express の body-parser を通すと壊れるので、ここだけ生のバッファを使う。
+const rawBody = req.rawBody;
+```
+
+```python
+# 並行リクエスト時の二重課金を避けるため、idempotency_key で冪等にする。
+# (キーは 24h で期限切れになる Redis に保存)
+charge = stripe.PaymentIntent.create(idempotency_key=order_id, ...)
+```
+
+```kotlin
+// SwiftUI の @StateObject に相当する保持を行う。
+// remember() だけだと再コンポーズで状態が消えるため rememberSaveable を使う。
+val viewModel = rememberSaveable { LoginViewModel() }
+```
+
+### 悪いコメントの例
+
+```typescript
+// ユーザーを取得する
+const user = fetchUser(userId);
+
+// ループ
+for (let i = 0; i < users.length; i++) {
+  // ユーザーをログに出す
+  console.log(users[i]);
+}
+```
+
+→ すべて削除。`fetchUser` / `for` / `console.log` が既に説明している。
+
 ## 関数のドキュメントコメント
 
 「読み手が型・関数名だけでは推測できない情報」を関数ヘッダに残す。**冗長な解説（WHAT）は不要、補足が要る WHY と契約（前提条件・副作用・例外）を書く**。
@@ -216,6 +327,9 @@ docstring を書く言語が決まったら、対応する言語ファイルを 
 - ビルドや既存テストを壊した状態で終わる
 - `--no-verify` などフックの回避
 - **意味のない** プレースホルダーや TODO コメントで仕事を残す（ただし `TODO(manual)` で手動タスクを参照する形は **必須**、これは仕事を残しているのではなく追跡可能な未完了タスクのマーキング）
+- **略語 / 1 文字 / 意味不明な省略名で変数・関数を命名する** (テストコードも同じ基準。詳細は「命名規則」セクション)
+- **コードと同じ内容のコメントを書く** (WHAT を冗長に。詳細は「インラインコメントの方針」セクション)
+- **古くなったコメントを残す** (実装変更後にコメントだけ古いまま = 嘘の情報)
 - **破壊的な変更を自動実行する**: import 書き換えを伴うファイル移動・削除・リネーム、ビルド設定変更、エントリポイントの移動などは、必ずユーザー承認を取ること（プロジェクトルート CLAUDE.md「共通ルール」参照）
 
 ## 出力スタイル
